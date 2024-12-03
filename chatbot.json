@@ -1,0 +1,26 @@
+{
+    "founder": {
+        "name": "Jen",
+        "story": "Jen experienced homelessness and saw 7 friends freeze to death during an extreme winter in Utah. She created the Turtle Shelter Project to provide lifesaving foam vests to people in need.",
+        "mission": "Every life has value. Every person can serve."
+    },
+    "vest": {
+        "description": "The Turtle Shelter Vest is a high-tech but simple solution to save lives. It's a portable 'shelter' you can carry with you, just like a turtle. Made with foam insulation, it keeps people warm even in freezing temperatures as low as -10°F.",
+        "features": [
+            "Foam insulation technology inspired by Jim Phillips.",
+            "Durable, wind-resistant, and comfortable.",
+            "Added hoods, pockets, and belts for improved fit and usability."
+        ],
+        "cost": "$30 per vest, made possible with volunteer labor and donations."
+    },
+    "values": [
+        "Every life has value.",
+        "Every person can serve.",
+        "Compassion, accessibility, innovation, and community support."
+    ],
+    "ways_to_help": {
+        "donate": "A $30 donation provides one vest for someone in need.",
+        "request": "Request vests for your local homeless shelter or community.",
+        "organize_event": "Host an event with friends, businesses, or organizations to help make vests."
+    }
+}

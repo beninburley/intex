@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Volunteer</title>
+</head>
+<body>
+    <form action="/volunteermaintain" method="GET">
+        <fieldset>
+            <legend>Edit Volunteer:</legend>
+            
+            <input type="hidden" name="id" id="id" value="<%= volunteer.id %>">
+            <br><br>
+
+            <!-- First Name -->
+            <label for="first_name">First Name:</label>
+            <input type="text" name="first_name" id="first_name" value="<%= volunteer.first_name %>" required>
+            <br><br>
+
+            <!-- Last Name -->
+            <label for="last_name">Last Name:</label>
+            <input type="text" name="last_name" id="last_name" value="<%= volunteer.last_name %>" required>
+            <br><br>
+
+            <!-- Email -->
+            <label for="email">Email:</label>
+            <input type="email" name="email" id="email" value="<%= volunteer.email %>" required>
+            <br><br>
+
+            <!-- How they heard about the opportunity -->
+            <label for="referral">How did you hear about the opportunity?</label>
+            <select name="referral" id="referral" required>
+                <option value="friend" <%= volunteer.referral === 'friend' ? 'selected' : '' %>>A Friend</option>
+                <option value="social_media" <%= volunteer.referral === 'social_media' ? 'selected' : '' %>>Social Media</option>
+                <option value="website" <%= volunteer.referral === 'website' ? 'selected' : '' %>>Website</option>
+                <option value="email" <%= volunteer.referral === 'email' ? 'selected' : '' %>>Email</option>
+                <option value="other" <%= volunteer.referral === 'other' ? 'selected' : '' %>>Other</option>
+            </select>
+            <br><br>
+
+            <!-- Sewing Level -->
+            <label>Sewing Level:</label>
+            <br>
+            <input type="radio" name="sewing_level" id="beginner" value="beginner" <%= volunteer.sewing_level === 'beginner' ? 'checked' : '' %> required>
+            <label for="beginner">Beginner</label>
+            <br>
+            <input type="radio" name="sewing_level" id="intermediate" value="intermediate" <%= volunteer.sewing_level === 'intermediate' ? 'checked' : '' %>>
+            <label for="intermediate">Intermediate</label>
+            <br>
+            <input type="radio" name="sewing_level" id="experienced" value="experienced" <%= volunteer.sewing_level === 'experienced' ? 'checked' : '' %>>
+            <label for="experienced">Experienced</label>
+            <br><br>
+
+            <!-- Number of Hours -->
+            <label for="hours">Number of hours willing to volunteer per month:</label>
+            <input type="number" name="hours" id="hours" value="<%= volunteer.hours %>" required>
+            <br><br>
+
+            <button type="submit">Save</button>
+        </fieldset>
+    </form>
+</body>
+</html>

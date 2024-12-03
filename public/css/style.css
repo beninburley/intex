@@ -916,13 +916,6 @@ a:focus, a:hover {
   outline: none;
 }
 
-.contact-details .contact-short-info {
-  margin-top: 15px;
-}
-.contact-details .contact-short-info li {
-  margin-bottom: 6px;
-}
-
 .social-icon {
   margin-top: 20px;
   text-align: center;
@@ -2298,6 +2291,8 @@ a:focus, a:hover {
   border: 1px solid #ddd;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
+  text-align: center;
+  width: fit-content; /* Center text inside the box */
 }
 
 .contact-box h3 {
@@ -2309,6 +2304,10 @@ a:focus, a:hover {
 .contact-short-info {
   list-style: none;
   padding: 0;
+  margin: 0; /* Remove extra space around the list */
+  display: flex; /* Enable flexbox */
+  flex-direction: column; /* Stack items vertically */
+  align-items: center; /* Center items horizontally */
 }
 
 .contact-short-info li {
@@ -2339,4 +2338,42 @@ a:focus, a:hover {
   margin-top: 20px;
 }
 
+.content-links-section {
+  margin-top: 50px;
+}
+
+.content-links-section h2,
+.content-links-section p {
+  margin-bottom: 20px;
+}
+
+.smaller-links h3 {
+  font-size: 1.2rem;
+  margin-bottom: 15px;
+}
+
+.smaller-links ul {
+  list-style: none;
+  padding: 0;
+}
+
+.smaller-links li {
+  margin-bottom: 10px;
+}
+
+.smaller-links a {
+  text-decoration: none;
+  color: grey;
+  font-size: 0.9rem;
+}
+
+.smaller-links a.link-large {
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+.smaller-links a:hover {
+  text-decoration: underline;
+  color: #0056b3;
+}
 

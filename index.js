@@ -1,65 +1,93 @@
 // Benjamin Hansen, Jake Hoopes, Brooklyn Burnham, Summer Sampson
 // This is the server-side js file
 
-//Import libraries
-let express = require("express");
-let app = express();
-let path = require("path");
-const port = process.env.PORT || 3000; //This allows us to either use the application port or localhost 3000
-
-let security = false; //For security stuffs :)
-
-app.set("view engine", "ejs"); //Set views to be ejs by default
-
-app.set("views", path.join(__dirname, "views")); //Making it easier to access views folder
-app.use(express.static(path.join(__dirname, 'public'))); //Connect to styles through the public folder
-
-app.use(express.urlencoded({extended: true})); //Allows us to work with requests and get data from the form
-
-// adding chat bot features here:
-
-require("dotenv").config(); // Ensure this is at the top
+// Import libraries
+const express = require("express");
+const path = require("path");
 const bodyParser = require("body-parser");
 const { default: OpenAI } = require("openai");
+const fs = require("fs");
+require("dotenv").config();
 
+const app = express();
+const port = process.env.PORT || 3000; // Use environment port or default to 3000
+
+// Set up application
+app.set("view engine", "ejs"); // Set views to be EJS by default
+app.set("views", path.join(__dirname, "views")); // Define views folder
+app.use(express.static(path.join(__dirname, "public"))); // Serve static files
+app.use(bodyParser.json()); // Parse JSON
+app.use(express.urlencoded({ extended: true })); // Parse form data
+
+// OpenAI configuration
 const openai = new OpenAI({
     apiKey: process.env.OPENAI_API_KEY, // Set your OpenAI API key in the .env file
 });
 
+// Organization data
 const organizationData = {
     email: "turtleshelterproject@gmail.com",
     phone: "+1 (801)-872-3190",
     address: "Turtle Shelter Project, PO Box 382, Kaysville, Utah, 84307",
 };
 
-app.use(bodyParser.json()); // Add bodyParser for parsing JSON
+// Load structured data for responses
+const data = JSON.parse(fs.readFileSync("./data.json", "utf8"));
 
 // Chatbot endpoint
 app.post("/chat", async (req, res) => {
     const userMessage = req.body.message.toLowerCase();
 
-    // Custom responses for specific queries
+    // Custom structured responses from JSON
     if (userMessage.includes("email")) {
         return res.json({ response: `You can contact us at ${organizationData.email}.` });
     }
 
-    if (userMessage.includes("phone")) {
+    if (userMessage.includes("phone") || userMessage.includes("number") || userMessage.includes("call")) {
         return res.json({ response: `Our phone number is ${organizationData.phone}.` });
     }
 
-    if (userMessage.includes("address")) {
+    if (userMessage.includes("address") || userMessage.includes("located") || userMessage.includes("location") || userMessage.includes("mail")) {
         return res.json({ response: `Our address is ${organizationData.address}.` });
     }
 
-    if (userMessage.includes("vest")) {
-        return res.json({ response: `Our vests use foam clothing technology, invented by survival expert Jim Phillips.This insulation keeps you warm even when wet, as long as synthetic fabrics are worn instead of cotton.Designed for emergency preparedness and extreme sports, our Turtle Shelter vest helps maintain core body temperature in freezing conditions.Unlike expensive alternatives, our vest is affordable because staying warm and functional should be accessible to everyone.` });
+    if (userMessage.includes("vest") || userMessage.includes("materials") || userMessage.includes("tech") || userMessage.includes("technology")) {
+        return res.json({
+            response: data.vest.description,
+        });
+    }
+
+    if (userMessage.includes("founder") || userMessage.includes("jen")) {
+        return res.json({
+            response: `Our founder, Jen, was inspired to create the Turtle Shelter Project after her own experiences with homelessness. ${data.founder.story}`,
+        });
+    }
+
+    if (userMessage.includes("mission")) {
+        return res.json({ response: `Our mission is: ${data.founder.mission}.` });
+    }
+
+    if (userMessage.includes("values")) {
+        return res.json({ response: `Our values are: ${data.values.join(", ")}.` });
+    }
+
+    if (userMessage.includes("help") || userMessage.includes("donate") || userMessage.includes("organize")) {
+        return res.json({
+            response: `Here are ways you can help: ${data.ways_to_help.donate} ${data.ways_to_help.request} ${data.ways_to_help.organize_event}`,
+        });
     }
 
     // Use OpenAI for general questions
     try {
         const response = await openai.chat.completions.create({
             model: "gpt-3.5-turbo",
-            messages: [{ role: "user", content: req.body.message }],
+            messages: [
+                {
+                    role: "system",
+                    content: `You are a helpful assistant for the Turtle Shelter Project, a nonprofit organization dedicated to creating foam vests to help save lives in freezing temperatures. The founder, Jen, was inspired by her experiences with homelessness. The mission is: Every life has value. Every person can serve. Values include compassion, accessibility, innovation, and community support.`,
+                },
+                { role: "user", content: req.body.message },
+            ],
         });
 
         const botResponse = response.choices[0].message.content;
@@ -70,98 +98,225 @@ app.post("/chat", async (req, res) => {
     }
 });
 
-app.get('/adminadd', (req, res) => {
-    res.render('adminadd');
-});
-
-app.get('/adminedit', (req, res) => {
-    res.render('adminedit');
-});
-
-app.get('/adminmaintain', (req, res) => {
-    res.render('adminmaintain');
-});
-
+// Contact Routes
 app.get('/contact', (req, res) => {
     res.render('contact');
 });
 
-app.get('/eventadd', (req, res) => {
-    res.render('eventadd');
+app.post('/contact', (req, res) => {
+    // Handle form submission for contact (if applicable)
+    console.log(req.body);
+    res.redirect('/'); // Redirect to home or another relevant page
 });
 
-app.get('/eventedit', (req, res) => {
-    res.render('eventedit');
-});
-
-app.get('/eventmaintain', (req, res) => {
-    res.render('eventmaintain');
-});
-
+// FAQs Routes
 app.get('/faqs', (req, res) => {
     res.render('FAQs');
 });
 
+app.post('/faqs', (req, res) => {
+    // Handle FAQ-related actions (if any)
+    console.log(req.body);
+    res.redirect('/faqs'); // Redirect back to FAQs
+});
+
+// Home Route
 app.get('/', (req, res) => {
     res.render('index');
 });
 
+app.post('/', (req, res) => {
+    // Handle actions on the home page (if any)
+    console.log(req.body);
+    res.redirect('/'); // Stay on the home page
+});
+
+// Internal Landing Routes
 app.get('/internallanding', (req, res) => {
     res.render('internallanding');
 });
 
+app.post('/internallanding', (req, res) => {
+    // Handle actions for internal landing page
+    console.log(req.body);
+    res.redirect('/internallanding');
+});
+
+// Jen's Story Routes
 app.get('/jenstory', (req, res) => {
     res.render('jenstory');
 });
 
+app.post('/jenstory', (req, res) => {
+    // Handle actions related to Jen's story
+    console.log(req.body);
+    res.redirect('/jenstory');
+});
+
+// Login Routes
 app.get('/login', (req, res) => {
     res.render('login');
 });
 
+app.post('/login', (req, res) => {
+    // Handle login form submission
+    const { username, password } = req.body;
+    console.log(`Username: ${username}, Password: ${password}`);
+    res.redirect('/internallanding'); // Redirect to internal landing after login
+});
+
+// Request Routes
 app.get('/request', (req, res) => {
     res.render('request');
 });
 
-app.get('/requestadd', (req, res) => {
-    res.render('requestadd');
+app.post('/request', (req, res) => {
+    // Handle request-related form submission
+    console.log(req.body);
+    res.redirect('/requestmaintain'); // Redirect to request maintain page
 });
 
-app.get('/requestedit', (req, res) => {
-    res.render('requestedit');
-});
-
-app.get('/requestmaintain', (req, res) => {
-    res.render('requestmaintain');
-});
-
+// Vest Routes
 app.get('/vest', (req, res) => {
     res.render('vest');
 });
 
-app.get('/volunteeradd', (req, res) => {
-    res.render('volunteeradd');
+app.post('/vest', (req, res) => {
+    // Handle actions related to vest
+    console.log(req.body);
+    res.redirect('/vest'); // Redirect back to vest page
 });
 
-app.get('/volunteeredit', (req, res) => {
-    res.render('volunteeredit');
-});
-
-app.get('/volunteermaintain', (req, res) => {
-    res.render('volunteermaintain');
-});
-
+// Volunteer Signup Routes
 app.get('/volunteersignup', (req, res) => {
     res.render('volunteersignup');
 });
 
-app.post("//:id", (req, res) => {
-    knex("character").where("id", req.params.id).del().then(mycharacters => {
-        res.redirect("/");
-    }).catch(err => {
-        console.log(err);
-        res.status(500).json({err});
-    });
+app.post('/volunteersignup', (req, res) => {
+    // Handle volunteer signup form submission
+    console.log(req.body);
+    res.redirect('/volunteermaintain'); // Redirect to volunteer maintain page
 });
 
-//Always listening! :)
-app.listen(port, () => console.log("Express App has started and server is listening!"));
+// Example Deletion Route
+app.post('/:id', (req, res) => {
+    knex('character')
+        .where('id', req.params.id)
+        .del()
+        .then(() => {
+            res.redirect('/'); // Redirect to home after deletion
+        })
+        .catch(err => {
+            console.error(err);
+            res.status(500).json({ err });
+        });
+});
+
+
+// Admin Routes
+app.get("/adminadd", (req, res) => {
+    res.render("adminadd");
+});
+
+app.post("/adminadd", (req, res) => {
+    console.log(req.body);
+    res.redirect("/adminmaintain");
+});
+
+app.get("/adminedit/:id", (req, res) => {
+    const adminId = req.params.id;
+    const admin = { id: adminId, first_name: "John", last_name: "Doe", email: "john@example.com" };
+    res.render("adminedit", { admin });
+});
+
+app.post("/adminedit/:id", (req, res) => {
+    console.log(req.body);
+    res.redirect("/adminmaintain");
+});
+
+app.get("/adminmaintain", (req, res) => {
+    const admins = [];
+    res.render("adminmaintain", { admins });
+});
+
+app.post("/admindelete/:id", (req, res) => {
+    console.log(`Admin with ID ${req.params.id} deleted`);
+    res.redirect("/adminmaintain");
+});
+
+// Event Routes
+app.get("/eventadd", (req, res) => {
+    res.render("eventadd");
+});
+
+app.post("/eventadd", (req, res) => {
+    console.log(req.body);
+    res.redirect("/eventmaintain");
+});
+
+app.get("/eventedit/:id", (req, res) => {
+    const eventId = req.params.id;
+    const event = { id: eventId, people_count: 10, event_type: "sewing" };
+    res.render("eventedit", { event });
+});
+
+app.post("/eventedit/:id", (req, res) => {
+    console.log(req.body);
+    res.redirect("/eventmaintain");
+});
+
+app.get("/eventmaintain", (req, res) => {
+    const events = [];
+    res.render("eventmaintain", { events });
+});
+
+app.post("/eventdelete/:id", (req, res) => {
+    console.log(`Event with ID ${req.params.id} deleted`);
+    res.redirect("/eventmaintain");
+});
+
+// Volunteer Routes
+app.get("/volunteeradd", (req, res) => {
+    res.render("volunteeradd");
+});
+
+app.post("/volunteeradd", (req, res) => {
+    console.log(req.body);
+    res.redirect("/volunteermaintain");
+});
+
+app.get("/volunteeredit/:id", (req, res) => {
+    const volunteerId = req.params.id;
+    const volunteer = { id: volunteerId, first_name: "Jane", last_name: "Doe" };
+    res.render("volunteeredit", { volunteer });
+});
+
+app.post("/volunteeredit/:id", (req, res) => {
+    console.log(req.body);
+    res.redirect("/volunteermaintain");
+});
+
+app.get("/volunteermaintain", (req, res) => {
+    const volunteers = [];
+    res.render("volunteermaintain", { volunteers });
+});
+
+app.post("/volunteerdelete/:id", (req, res) => {
+    console.log(`Volunteer with ID ${req.params.id} deleted`);
+    res.redirect("/volunteermaintain");
+});
+
+// Request Routes
+app.get("/requestmaintain", (req, res) => {
+    const requests = [];
+    res.render("requestmaintain", { requests });
+});
+
+app.post("/requestdelete/:id", (req, res) => {
+    const requestId = req.params.id;
+    console.log(`Request with ID ${requestId} deleted`);
+    res.redirect("/requestmaintain");
+});
+
+// Start server
+app.listen(port, () => console.log(`Express App has started and server is listening on port ${port}!`));

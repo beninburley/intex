@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maintain Volunteers</title>
+</head>
+<body>
+    <label><b>Volunteer Info:</b></label>
+    <br>
+    <table style="width: 100%; background-color: antiquewhite; border: 1px solid black;">
+        <thead style="background-color: cornflowerblue; color: white;">
+            <tr>
+                <th style="text-align: left;">First Name</th>
+                <th style="text-align: left;">Last Name</th>
+                <th style="text-align: left;">Email</th>
+                <th style="text-align: left;">Referral Source</th>
+                <th style="text-align: left;">Sewing Level</th>
+                <th style="text-align: left;">Hours per Month</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody style="font-family: Arial; font-size: 9pt;">
+            <% for (let iCount = 0; iCount < volunteers.length; iCount++) { %>
+                <tr>
+                    <td><%= volunteers[iCount].first_name %></td>
+                    <td><%= volunteers[iCount].last_name %></td>
+                    <td><%= volunteers[iCount].email %></td>
+                    <td><%= volunteers[iCount].referral %></td>
+                    <td><%= volunteers[iCount].sewing_level %></td>
+                    <td><%= volunteers[iCount].hours %> hours</td>
+                    <td>
+                        <!-- Edit volunteer -->
+                        <form action="/volunteeredit/<%= volunteers[iCount].id %>" method="GET">
+                            <button type="submit">Edit</button>
+                        </form>
+                    </td>
+                    <td>
+                        <!-- Delete volunteer -->
+                        <form action="/volunteerdelete/<%= volunteers[iCount].id %>" method="POST">
+                            <button type="submit">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            <% } %>
+        </tbody>
+    </table>
+    <br><br>
+    <!-- Add volunteer -->
+    <form action="/volunteeradd" method="GET">
+        <button type="submit">Add Volunteer</button>
+    </form>
+</body>
+</html>
