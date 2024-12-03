@@ -1204,6 +1204,7 @@ a:focus, a:hover {
   transition: all 0.3s ease 0s;
 }
 
+
 /*=================================================================
   Our skills
 ==================================================================*/
@@ -1643,14 +1644,6 @@ a:focus, a:hover {
 /*=================================================================
   Single Blog Page
 ==================================================================*/
-#blog-banner {
-  padding-bottom: 100px;
-  padding-top: 150px;
-}
-
-#blog-page {
-  margin: 0 0 40px;
-}
 
 .post-meta {
   font-size: 13px;
@@ -2377,3 +2370,13 @@ a:focus, a:hover {
   color: #0056b3;
 }
 
+.article-container {
+  text-align: center;
+  margin: 0 auto;
+  max-width: 800px; /* Optionally adjust this for your desired width */
+}
+
+.article-container p {
+  margin-bottom: 20px; /* Adds space between paragraphs */
+  line-height: 1.6; /* Improves readability by adding space between lines */
+}
