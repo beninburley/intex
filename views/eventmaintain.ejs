@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maintain Events</title>
+</head>
+<body>
+    <label><b>Event Info:</b></label>
+    <br>
+    <table style="width: 100%; background-color: antiquewhite; border: 1px solid black;">
+        <thead style="background-color: cornflowerblue; color: white;">
+            <tr>
+                <th style="text-align: left;">Number of People</th>
+                <th style="text-align: left;">Event Type</th>
+                <th style="text-align: left;">Dates</th>
+                <th style="text-align: left;">Address</th>
+                <th style="text-align: left;">Start Time</th>
+                <th style="text-align: left;">Duration</th>
+                <th style="text-align: left;">Contact Name</th>
+                <th style="text-align: left;">Contact Phone</th>
+                <th style="text-align: left;">Jen's Story</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody style="font-family: Arial; font-size: 9pt;">
+            <% for (let iCount = 0; iCount < events.length; iCount++) { %>
+                <tr>
+                    <td><%= events[iCount].people_count %></td>
+                    <td><%= events[iCount].event_type %></td>
+                    <td><%= events[iCount].dates %></td>
+                    <td><%= events[iCount].address %></td>
+                    <td><%= events[iCount].start_time %></td>
+                    <td><%= events[iCount].duration %></td>
+                    <td><%= events[iCount].contact_name %></td>
+                    <td><%= events[iCount].contact_phone %></td>
+                    <td><%= events[iCount].jen_story === 'Y' ? 'Yes' : 'No' %></td>
+                    <td>
+                        <!-- Edit event -->
+                        <form action="/eventedit/<%= events[iCount].id %>" method="GET">
+                            <button type="submit">Edit</button>
+                        </form>
+                    </td>
+                    <td>
+                        <!-- Delete event -->
+                        <form action="/eventdelete/<%= events[iCount].id %>" method="POST">
+                            <button type="submit">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            <% } %>
+        </tbody>
+    </table>
+    <br><br>
+    <!-- Add event -->
+    <form action="/eventadd" method="GET">
+        <button type="submit">Add Event</button>
+    </form>
+</body>
+</html>

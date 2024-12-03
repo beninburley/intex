@@ -52,7 +52,7 @@ app.post("/chat", async (req, res) => {
     }
 
     if (userMessage.includes("vest")) {
-        return res.json({ response: `` });
+        return res.json({ response: `Our vests use foam clothing technology, invented by survival expert Jim Phillips.This insulation keeps you warm even when wet, as long as synthetic fabrics are worn instead of cotton.Designed for emergency preparedness and extreme sports, our Turtle Shelter vest helps maintain core body temperature in freezing conditions.Unlike expensive alternatives, our vest is affordable because staying warm and functional should be accessible to everyone.` });
     }
 
     // Use OpenAI for general questions

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Event</title>
+    <script>
+        function highlightCurrentDay() {
+            const calendar = document.getElementById('dates');
+            const today = new Date().toISOString().split('T')[0];
+            if (!calendar.value) {
+                calendar.value = today;
+            }
+        }
+    </script>
+</head>
+<body onload="highlightCurrentDay()">
+    <form action="/eventmaintain" method="GET">
+        <fieldset>
+            <legend>Edit Event:</legend>
+            
+            <input type="hidden" name="id" id="id" value="<%= event.id %>">
+            <br><br>
+
+            <!-- Number of People -->
+            <label for="people_count">How many people will be there? (Can be a rough estimate):</label>
+            <input type="number" name="people_count" id="people_count" value="<%= event.people_count %>" required>
+            <br><br>
+
+            <!-- Type of Event -->
+            <label>Would you like to do sewing, non-sewing, or both at the event?</label>
+            <br>
+            <input type="radio" name="event_type" id="sewing" value="sewing" <%= event.event_type === 'sewing' ? 'checked' : '' %> required>
+            <label for="sewing">Sewing</label>
+            <br>
+            <input type="radio" name="event_type" id="non_sewing" value="non-sewing" <%= event.event_type === 'non-sewing' ? 'checked' : '' %>>
+            <label for="non_sewing">Non-Sewing</label>
+            <br>
+            <input type="radio" name="event_type" id="both" value="both" <%= event.event_type === 'both' ? 'checked' : '' %>>
+            <label for="both">Both</label>
+            <br><br>
+
+            <!-- Event Date(s) -->
+            <label for="dates">What date (or possible dates) would you like to schedule the event?</label>
+            <input type="date" name="dates" id="dates" value="<%= event.dates %>" multiple required>
+            <br><br>
+
+            <!-- Event Address -->
+            <label for="address">What’s the address of the event?</label>
+            <input type="text" name="address" id="address" value="<%= event.address %>" required>
+            <br><br>
+
+            <!-- Event Time -->
+            <label for="start_time">What time do you want the event to start?</label>
+            <input type="time" name="start_time" id="start_time" value="<%= event.start_time %>" required>
+            <br>
+            <label for="duration">How long would you like it to go?</label>
+            <input type="text" name="duration" id="duration" value="<%= event.duration %>" placeholder="e.g., 2 hours, 1.5 hours" required>
+            <br><br>
+
+            <!-- Contact Information -->
+            <label for="contact_name">What is a good contact name for the event?</label>
+            <input type="text" name="contact_name" id="contact_name" value="<%= event.contact_name %>" required>
+            <br><br>
+
+            <label for="contact_phone">What is a good contact phone number for the event?</label>
+            <input type="tel" name="contact_phone" id="contact_phone" pattern="[0-9]{10}" placeholder="1234567890" value="<%= event.contact_phone %>" required>
+            <br><br>
+
+            <!-- Jen's Story -->
+            <label for="jen_story">Would you like Jen to share her story? (Y/N):</label>
+            <select name="jen_story" id="jen_story" required>
+                <option value="Y" <%= event.jen_story === 'Y' ? 'selected' : '' %>>Y</option>
+                <option value="N" <%= event.jen_story === 'N' ? 'selected' : '' %>>N</option>
+            </select>
+            <br><br>
+
+            <button type="submit">Save</button>
+        </fieldset>
+    </form>
+</body>
+</html>

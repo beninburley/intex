@@ -925,6 +925,7 @@ a:focus, a:hover {
 
 .social-icon {
   margin-top: 20px;
+  text-align: center;
 }
 .social-icon ul li {
   display: inline-block;
