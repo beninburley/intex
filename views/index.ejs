@@ -69,7 +69,7 @@ Fixed Navigation
     <!-- main nav -->
     <nav class="navbar navbar-expand-lg navbar-light px-0">
       <!-- logo -->
-      <a class="navbar-brand logo" href="index.html">
+      <a class="navbar-brand logo" href="/index">
         <img loading="lazy" class="logo-default" src="images/logo.png" alt="logo" />
         <img loading="lazy" class="logo-white" src="images/logo.png" alt="logo" />
       </a>
@@ -82,7 +82,7 @@ Fixed Navigation
       <div class="collapse navbar-collapse" id="navigation">
         <ul class="navbar-nav ml-auto text-center">
           <li class="nav-item dropdown active">
-            <a class="nav-link dropdown-toggle" href="#!" id="navbarDropdown" role="button" aria-haspopup="true" aria-expanded="false">
+            <a class="nav-link dropdown-toggle" href="/index" id="navbarDropdown" role="button" aria-haspopup="true" aria-expanded="false">
               Home</i>
             </a>
 			<li class="nav-item ">
@@ -196,9 +196,8 @@ Start About Section
 			<article class="col-lg-4 col-md-6">
 				<div class="post-item">
 					<div class="media-wrapper">
-						<img loading="lazy" src="images/blog/post-1.jpg" alt="amazing caves coverimage" class="img-fluid">
+						<img loading="lazy" src="/images/donate.jpg" alt="amazing caves coverimage" class="img-fluid">
 					</div>
-
 					<div class="content">
 						<h3><a href="single-post.html">Donate</a></h3>
 						<p>Your donation of $30 provides one vest
@@ -277,6 +276,62 @@ Start About Section
 
 <!-- Custom js -->
 <script src="js/script.js"></script>
+
+<!-- turtle chat -->
+
+<div id="turtleSection">
+  <canvas id="turtleCanvas" title="Ask me anything!"></canvas>
+  <div id="questionInput">
+    <input id="userInput" type="text" placeholder="Type your question here..." />
+    <button id="askButton">Ask</button>
+  </div>
+</div>
+
+<div id="responseModal" class="modal">
+  <div class="modal-content">
+    <span class="close-button">&times;</span>
+    <p id="responseText"></p>
+  </div>
+</div>
+
+<script src="/turtleAnimation.js"></script>
+<script>
+  const askButton = document.getElementById("askButton");
+  const userInput = document.getElementById("userInput");
+  const responseModal = document.getElementById("responseModal");
+  const responseText = document.getElementById("responseText");
+  const closeButton = document.querySelector(".close-button");
+
+  askButton.addEventListener("click", async () => {
+    const userMessage = userInput.value.trim();
+    if (!userMessage) return;
+
+    try {
+      const response = await fetch("/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: userMessage }),
+      });
+
+      const data = await response.json();
+      responseText.innerText = data.response;
+      responseModal.style.display = "block";
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  });
+
+  closeButton.addEventListener("click", () => {
+    responseModal.style.display = "none";
+  });
+
+  window.addEventListener("click", (event) => {
+    if (event.target === responseModal) {
+      responseModal.style.display = "none";
+    }
+  });
+</script>
+
 
 </body>
 

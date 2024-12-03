@@ -60,6 +60,10 @@ a:focus, a:hover {
   color: #28ABE3;
 }
 
+.post-item .content {
+  text-align: center; /* Centers all text and inline elements within .content */
+}
+
 .btn-main {
   background: #28ABE3;
   border: 1px solid #28ABE3;
@@ -70,6 +74,8 @@ a:focus, a:hover {
   padding: 12px 40px;
   text-transform: uppercase;
   border-radius: 40px;
+  display: inline-block; /* Ensures the button is treated as an inline element for centering */
+  margin: 20px auto;
 }
 .btn-main:hover {
   color: #fff;
@@ -2293,6 +2299,30 @@ a:focus, a:hover {
   color: #000;
   margin-bottom: 15px;
 }
+
+.row.text-center {
+  display: flex;
+  justify-content: center; /* Center horizontally */
+}
+
+.row {
+  display: flex;
+  justify-content: center; /* Horizontally center the content */   /* Vertically align the content */      /* Full viewport height */
+}
+
+.post-item {
+  max-width: 600px;       /* Limit the width of the donation box */
+  margin: 0 auto;         /* Center the box horizontally */
+  background-color: #f9f9f9; /* Add a background color */        /* Add some padding */
+  border-radius: 10px;    /* Round the corners */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+}
+
+.post-item .media-wrapper img {
+  width: 100%;            /* Ensure the image scales correctly */
+  border-radius: 10px;    /* Match the rounded corners */
+}
+
 
 .contact-short-info {
   list-style: none;
