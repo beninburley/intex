@@ -24,7 +24,7 @@ const knex = require("knex") ({ //Connect to postgres db
     connection : {
         host : process.env.RDS_HOSTNAME || "localhost",
         user : process.env.RDS_USERNAME || "postgres",
-        password : process.env.RDS_PASSWORD || "secretPassword",
+        password : process.env.RDS_PASSWORD || "Turtl310%",
         database : process.env.RDS_DB_NAME || "turtleshelter",
         port : process.env.RDS_PORT || 5432,
         ssl: process.env.DB_SSL ? {rejectUnauthorized: false} : false
@@ -206,9 +206,43 @@ app.get('/volunteersignup', (req, res) => {
 });
 
 app.post('/volunteersignup', (req, res) => {
+    const id = req.params.id;
     // Handle volunteer signup form submission
     console.log(req.body);
-    res.redirect('/volunteermaintain'); // Redirect to volunteer maintain page
+    const contactFirstName = req.body.contactFirstName;
+    const contactLastName = req.body.contactLastName;
+    const contactEmail = req.body.contactEmail;
+    const contactPhone = req.body.contactPhone;
+    const city = req.body.city;
+    const state = req.body.state;
+    const howHeard = req.body.howHeard;
+    const sewingLevel = req.body.sewingLevel;
+    const leadevent = req.body.leadevent === 'true';
+    const teachsewing = req.body.teachsewing === 'true';
+    const volunteerHours = req.body.volunteerHours;
+
+    // update this into the database
+    knex('volunteers')
+        .insert({
+        first_name : contactFirstName.toUpperCase(),
+        last_name: contactLastName.toUpperCase(),
+        email : contactEmail,
+        phone : contactPhone,
+        city : city.toUpperCase(),
+        state : state.toUpperCase(),
+        how_heard_about_project : howHeard,
+        sewing_level : sewingLevel.toUpperCase() ,
+        willing_to_lead : leadevent,
+        teach_sewing : teachsewing,
+        hrs_available : volunteerHours,
+        })
+        .then(() => {
+            res.status(200).send("Volunteer added successfully.");
+        })
+        .catch((error) => {
+            console.error(error);
+            res.status(500).send("Error adding volunteer.");
+        });
 });
 
 // Example Deletion Route

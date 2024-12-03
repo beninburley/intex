@@ -2351,18 +2351,17 @@ a:focus, a:hover {
   margin-bottom: 20px;
 }
 
-
 .smaller-links {
-  padding: 15px; /* Adds padding to create breathing room */
-  margin-left: 15px; /* Bring closer to the left side */
-  width: 100%; /* Full width to adjust based on screen size */
-  max-width: 300px; /* Set a maximum width to avoid being too wide */
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 20px;
 }
 
 .smaller-links h3 {
   font-size: 1.2rem;
   margin-bottom: 15px;
-  color: #333; /* Darker text for contrast */
+  color: black; /* Darker text for contrast */
 }
 
 .smaller-links li {
@@ -2371,8 +2370,7 @@ a:focus, a:hover {
 
 .smaller-links a {
   font-family: 'Catamaran', sans-serif; /* Or you can use 'Source Sans Pro', depending on your preference */
-  font-weight: 600; /* Adjust weight for headers */
-  color: #333; 
+  font-weight: 600; /* Adjust weight for headers */ 
   color: black; /* Blue color for links */
   font-size: 1rem;
 }
@@ -2383,7 +2381,7 @@ a:focus, a:hover {
 }
 
 .smaller-links a:hover {
-  color:#28ABE3; /* Darker blue for hover state */
+  color:#16688b; /* Darker blue for hover state */
   transition: all 0.2s ease;
 }
 
@@ -2398,37 +2396,43 @@ a:focus, a:hover {
   line-height: 1.6; /* Improves readability by adding space between lines */
 }
 
-/* Adjust the logo size */
-.navbar-brand .logo-default {
-  max-height: 50px; /* Smaller logo */
-  margin-right: 10px; /* Space between logo and text */
-}
 
-/* Style the text next to the logo */
-.navbar-brand .logo-text {
+/* Default logo text style */
+.navigation .logo-text {
   font-family: "proxima-nova", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: 600;
-  font-style: normal;
   font-size: 20px;
   letter-spacing: 2px;
   text-transform: uppercase;
-  color: #fff; /* White color */
-  margin: 0;
-  padding-top: 0;
-  padding-bottom: 0;
-  line-height: 1em;
-  white-space: nowrap; /* Prevent text wrapping */
+  color: #fff; /* White by default */
+  transition: color 0.3s ease-in-out;
+  margin-left: 10px; /* Space between logo and text */
 }
 
-/* Align logo and text horizontally */
-.navbar-brand {
+/* When the header is sticky */
+.sticky-header .logo-text {
+  color: #000; /* Change to black when scrolling */
+}
+
+/* Ensure proper alignment */
+.navigation .logo {
   display: flex;
   align-items: center;
 }
 
-/* Adjust text size for smaller screens */
-@media (max-width: 768px) {
-  .navbar-brand .logo-text {
-    font-size: 18px; /* Slightly smaller text for smaller screens */
-  }
+.sticky-header {
+  box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.06);
+  background: #fff;
+}
+
+.sticky-header .navbar-light .navbar-nav .nav-item .nav-link {
+  color: #000;
+}
+
+.sticky-header .logo-white {
+  display: none;
+}
+
+.sticky-header .logo-default {
+  display: block;
 }
