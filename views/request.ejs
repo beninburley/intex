@@ -139,7 +139,7 @@ End Fixed Navigation
 
 <!-- Contact Form -->
 <div class="contact-form col-md-6 mx-auto">
-    <form id="contact-form" onsubmit="showThankYouMessage(event)" method="post" role="form">
+    <form id="contact-form" action="/request" method="post" role="form">
 
         <!-- How many people will be there? -->
         <div class="form-group mb-4">
@@ -179,8 +179,8 @@ End Fixed Navigation
 
         <!-- Event Duration -->
         <div class="form-group mb-4">
-            <label for="eventDuration">How long would you like the event to go?</label>
-            <input type="text" class="form-control" name="eventDuration" id="eventDuration" placeholder="Event duration (e.g., 2 hours)" required>
+          <label for="eventDuration">How long would you like the event to go? (Estimated in hours)</label>
+          <input type="number" class="form-control" name="eventDuration" id="peopleCount" placeholder="Estimated duration" min="0" required>
         </div>
 
         <!-- Address Form -->
@@ -199,13 +199,7 @@ End Fixed Navigation
           <label for="state">State</label>
           <input type="text" class="form-control" name="state" id="state" placeholder="State" required>
         </div>
-        <div class="form-group mb-4">
-          <label for="zip">Zip Code</label>
-          <input type="text" class="form-control" name="zip" id="zip" placeholder="Zip Code" required pattern="\d{5}">
-        </div>
-
-        
-
+    
         <div class="form-group mb-4">
           <label for="venueType">Venue Type</label>
           <select class="form-control" name="venueType" id="venueType" required>
@@ -217,7 +211,7 @@ End Fixed Navigation
           </select>
         </div>
 
-        <!-- Contact Name (First & Last) and Phone -->
+        <!-- Contact Name (First & Last) and Phone Email -->
         <div class="form-group mb-4">
             <label for="contactFirstName">First Name</label>
             <input type="text" class="form-control" name="contactFirstName" id="contactFirstName" placeholder="First Name" required>
@@ -227,9 +221,14 @@ End Fixed Navigation
             <input type="text" class="form-control" name="contactLastName" id="contactLastName" placeholder="Last Name" required>
         </div>
         <div class="form-group mb-4">
+          <label for="contactEmail">Email</label>
+          <input type="email" class="form-control" name="contactEmail" id="contactEmail" placeholder="Email" required>
+        </div>
+        <div class="form-group mb-4">
             <label for="contactPhone">Phone Number</label>
             <input type="tel" class="form-control" name="contactPhone" id="contactPhone" placeholder="Phone Number" required>
         </div>
+
 
         <!-- Share Jen's story -->
         <div class="form-group mb-4">
@@ -245,8 +244,8 @@ End Fixed Navigation
         </div>
 
         <div class="form-group mb-4">
-          <label for="notes">Other dates (Optional)</label>
-          <textarea rows="4" class="form-control" name="notes" id="notes"
+          <label for="dateNotes">Other dates (Optional)</label>
+          <textarea rows="4" class="form-control" name="dateNotes" id="dateNotes"
             placeholder="Any other potential dates (e.g., 12/01/2024)"></textarea>
         </div>
 
@@ -293,33 +292,9 @@ End Fixed Navigation
 
 </footer>
 
-<script>
-  function showThankYouMessage(event) {
-    event.preventDefault(); // Prevent the default form submission
 
-    // Display the thank-you modal
-    const modal = document.getElementById("thankYouModal");
-    modal.style.display = "block";
 
-    // Reset the form after showing the modal
-    document.getElementById("contact-form").reset();
-  }
-
-  // Close the modal when the user clicks the close button or anywhere outside the modal
-  window.onclick = function (event) {
-    const modal = document.getElementById("thankYouModal");
-    if (event.target === modal) {
-      modal.style.display = "none";
-    }
-  };
-
-  function closeModal() {
-    const modal = document.getElementById("thankYouModal");
-    modal.style.display = "none";
-  }
-</script>
-
-<div id="thankYouModal" class="modal">
+<!-- <div id="thankYouModal" class="modal">
   <div class="modal-content">
     <span class="close-button" onclick="closeModal()">&times;</span>
     <p>
@@ -333,7 +308,7 @@ End Fixed Navigation
       Make a donation
     </a>
   </div>
-</div>
+</div> -->
 
 
 
@@ -416,6 +391,36 @@ End Fixed Navigation
   window.addEventListener("click", (event) => {
     if (event.target === responseModal) {
       responseModal.style.display = "none";
+    }
+  });
+</script>
+
+<!-- Pop up message for the requests -->
+<script>
+  document.getElementById('contact-form').addEventListener('submit', async function (event) {
+    event.preventDefault(); // Prevent default form submission
+
+    const formData = new FormData(this);
+    const formObject = Object.fromEntries(formData.entries()); // Convert FormData to JSON object
+
+    try {
+      const response = await fetch('/request', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formObject),
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        alert(result.message); // Show success message
+        this.reset(); // Clear the form
+      } else {
+        alert(`Error: ${result.message}`); // Show error message
+      }
+    } catch (error) {
+      alert("Unexpected error occurred."); // Show unexpected error message
+      console.error(error);
     }
   });
 </script>

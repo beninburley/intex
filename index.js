@@ -186,7 +186,55 @@ app.get('/request', (req, res) => {
 app.post('/request', (req, res) => {
     // Handle request-related form submission
     console.log(req.body);
-    res.redirect('/requestmaintain'); // Redirect to request maintain page
+    const id = req.params.id;
+    // Handle request event signup form submission
+    const peopleCount = req.body.peopleCount;
+    const sewingOption = req.body.sewingOption.toUpperCase();
+    const eventDate = req.body.eventDate;
+    const eventStartTime = req.body.eventStartTime;
+    const eventDuration = req.body.eventDuration;
+    const addressLine1 = req.body.addressLine1.toUpperCase();
+    const addressLine2 = req.body.addressLine2.toUpperCase();
+    const city = req.body.city.toUpperCase();
+    const state = req.body.state.toUpperCase();
+    const venueType = req.body.venueType.toUpperCase();
+    const contactFirstName = req.body.contactFirstName.toUpperCase();
+    const contactLastName = req.body.contactLastName.toUpperCase();
+    const contactEmail = req.body.contactEmail;
+    const contactPhone = req.body.contactPhone;
+    const jenStory = req.body.jenStory === 'on';
+    const notes = req.body.notes.toUpperCase();
+    const dateNotes = req.body.dateNotes;
+
+    // update this into the database
+    knex('requests_and_events')
+        .insert({
+           expected_participants : peopleCount,
+           activity_type : sewingOption,
+           event_date : eventDate,
+           start_time : eventStartTime,
+           duration : eventDuration,
+           street_address_1 : addressLine1,
+           street_address_2 : addressLine2,
+           city : city,
+           state : state,
+           venue_type : venueType,
+           contact_first_name : contactFirstName,
+           contact_last_name : contactLastName,
+           contact_email : contactEmail,
+           contact_phone : contactPhone,
+           jen_story : jenStory,
+           notes : notes,
+           alternative_date : dateNotes,
+           status : 'PENDING'
+        })
+        .then(() => {
+            res.status(200).json({ message: "Event requested successfully!" });
+        })
+        .catch((error) => {
+            console.error(error);
+            res.status(500).json({ message: "Error adding Event Request." });
+        });
 });
 
 // Routes
