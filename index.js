@@ -32,7 +32,7 @@ const organizationData = {
 };
 
 // Load structured data for responses
-const data = JSON.parse(fs.readFileSync("./data.json", "utf8"));
+const data = JSON.parse(fs.readFileSync("./chatbot.json", "utf8"));
 
 // Chatbot endpoint
 app.post("/chat", async (req, res) => {
