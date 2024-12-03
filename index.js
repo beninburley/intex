@@ -217,8 +217,8 @@ app.post('/volunteersignup', (req, res) => {
     const state = req.body.state;
     const howHeard = req.body.howHeard;
     const sewingLevel = req.body.sewingLevel;
-    const leadevent = req.body.leadevent === 'true';
-    const teachsewing = req.body.teachsewing === 'true';
+    const leadevent = req.body.leadevent === 'on';
+    const teachsewing = req.body.teachsewing === 'on';
     const volunteerHours = req.body.volunteerHours;
 
     // update this into the database
@@ -230,18 +230,18 @@ app.post('/volunteersignup', (req, res) => {
         phone : contactPhone,
         city : city.toUpperCase(),
         state : state.toUpperCase(),
-        how_heard_about_project : howHeard,
+        how_heard_about_project : howHeard.toUpperCase(),
         sewing_level : sewingLevel.toUpperCase() ,
         willing_to_lead : leadevent,
         teach_sewing : teachsewing,
         hrs_available : volunteerHours,
         })
         .then(() => {
-            res.status(200).send("Volunteer added successfully.");
+            res.status(200).json({ message: "Volunteer added successfully!" });
         })
         .catch((error) => {
             console.error(error);
-            res.status(500).send("Error adding volunteer.");
+            res.status(500).json({ message: "Error adding volunteer." });
         });
 });
 
