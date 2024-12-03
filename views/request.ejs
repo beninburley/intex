@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+
+<!--
+ // WEBSITE: https://themefisher.com
+ // TWITTER: https://twitter.com/themefisher
+ // FACEBOOK: https://www.facebook.com/themefisher
+ // GITHUB: https://github.com/themefisher/
+-->
+
+<html lang="en">
+<head>
+
+<!-- Basic Page Needs
+================================================== -->
+  <meta charset="utf-8">
+  <title>Turtle shelter project | Turtle shelter project</title>
+
+  <!-- Mobile Specific Metas
+  ================================================== -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description" content="One page parallax responsive HTML Template">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <meta name="author" content="Themefisher">
+  <meta name="generator" content="Themefisher Bingo HTML Template v1.0">
+
+  <!-- Favicon -->
+  <link rel="shortcut icon" type="image/x-icon" href="images/logo.png" />
+
+  <!-- CSS
+  ================================================== -->
+  <!-- Themefisher Icon font -->
+  <link rel="stylesheet" href="plugins/themefisher-font/style.css">
+  <!-- bootstrap.min css -->
+  <link rel="stylesheet" href="plugins/bootstrap/bootstrap.min.css">
+  <!-- Lightbox.min css -->
+  <link rel="stylesheet" href="plugins/lightbox2/css/lightbox.min.css">
+  <!-- animation css -->
+  <link rel="stylesheet" href="plugins/animate/animate.css">
+  <!-- Slick Carousel -->
+  <link rel="stylesheet" href="plugins/slick/slick.css">
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+
+</head>
+<body id="body">
+
+  <!--
+  Start Preloader
+  ==================================== -->
+  <div id="preloader">
+    <div class='preloader'>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </div>
+  <!--
+  End Preloader
+  ==================================== -->
+
+<!--
+Fixed Navigation
+==================================== -->
+<header class="navigation fixed-top">
+  <div class="container">
+    <!-- main nav -->
+    <nav class="navbar navbar-expand-lg navbar-light px-0">
+      <!-- logo -->
+      <a class="navbar-brand logo" href="index.ejs">
+        <img loading="lazy" class="logo-default" src="images/logo.png" alt="logo" />
+        <img loading="lazy" class="logo-white" src="images/logo.png" alt="logo" />
+      </a>
+      <!-- /logo -->
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation"
+        aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navigation">
+        <ul class="navbar-nav ml-auto text-center">
+          <li class="nav-item dropdown active">
+            <a class="nav-link dropdown-toggle" href="index.ejs" id="navbarDropdown" role="button" aria-haspopup="true" aria-expanded="false">
+              Home</i>
+            </a>
+			<li class="nav-item ">
+				<a class="nav-link" href="jenstory.ejs">jen's story</a> <!-- services.-->
+			</li>
+			<li class="nav-item ">
+				<a class="nav-link" href="request.ejs">Event Request</a> <!-- services.-->
+			</li>
+			<li class="nav-item ">
+				<a class="nav-link" href="volunteer.ejs">Volunteer sign up</a> <!-- services.-->
+			</li>
+          </li>
+		  <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="faqs.ejs" id="navbarDropdown02" role="button" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false">
+              about <i class="tf-ion-chevron-down"></i>
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown02">
+				<li><a class="dropdown-item" href="faqs.ejs">FAQS</a></li>
+				<li><a class="dropdown-item" href="vest.ejs">Our tech</a></li>
+				<li><a class="dropdown-item" href="contact.ejs">Contact us</a></li>
+			  </ul>
+          </li>
+    
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <!-- /main nav -->
+  </div>
+</header>
+<!--
+End Fixed Navigation
+==================================== -->
+
+<section class="single-page-header">
+	<div class="container">
+		<div class="row">
+		</div>
+	</div>
+</section>
+
+ <!--Start Contact Us
+	=========================================== -->
+ <section class="contact-us" id="contact">
+ 	<div class="container">
+ 		<div class="row justify-content-center">
+			 <!-- section title -->
+ 			<div class="col-xl-6 col-lg-8">
+				<div class="title text-center">
+					<h2>Event Request</h2>
+					<p>
+                        Please fill out the form below and tell us about your event idea so that we can provide options for you and your group.  We will need to know:</p>
+					<div class="border"></div>
+				</div>
+			</div>
+			<!-- /section title -->
+		</div>
+ 		<div class="row">
+
+<!-- Contact Form -->
+<div class="contact-form col-md-6 mx-auto">
+    <form id="contact-form" method="post" role="form">
+
+        <!-- How many people will be there? -->
+        <div class="form-group mb-4">
+            <label for="peopleCount">How many people will be there? (can be a rough estimate)</label>
+            <input type="number" class="form-control" name="peopleCount" id="peopleCount" placeholder="Estimated number of people" required>
+        </div>
+
+        <!-- Sewing preference -->
+        <div class="form-group mb-4">
+            <label>Would you like to do sewing, non-sewing, or both at the event?</label><br>
+            <input type="radio" id="sewing" name="sewingOption" value="sewing">
+            <label for="sewing">Sewing</label><br>
+            <input type="radio" id="nonSewing" name="sewingOption" value="non-sewing">
+            <label for="nonSewing">Non-Sewing</label><br>
+            <input type="radio" id="both" name="sewingOption" value="both">
+            <label for="both">Both</label>
+        </div>
+
+        <!-- Event Date -->
+        <div class="form-group mb-4">
+            <label for="eventDate">What date would you like to schedule the event? (Select a single date)</label>
+            <input type="date" class="form-control" name="eventDate" id="eventDate" required>
+        </div>
+
+        <!-- Event Time -->
+        <div class="form-group mb-4">
+            <label for="eventStartTime">What time do you want the event to start?</label>
+            <input type="time" class="form-control" name="eventStartTime" id="eventStartTime" required>
+        </div>
+
+        <!-- Event Duration -->
+        <div class="form-group mb-4">
+            <label for="eventDuration">How long would you like the event to go?</label>
+            <input type="text" class="form-control" name="eventDuration" id="eventDuration" placeholder="Event duration (e.g., 2 hours)" required>
+        </div>
+
+        <!-- Event Address -->
+        <div class="form-group mb-4">
+            <label for="eventAddress">What’s the address of the event?</label>
+            <input type="text" class="form-control" name="eventAddress" id="eventAddress" placeholder="Event address" required>
+        </div>
+        <div class="form-group mb-4">
+            <input type="text" class="form-control" name="eventAddress" id="eventAddress" placeholder="Address Line Two" required>
+        </div>
+
+        <!-- Contact Name (First & Last) and Phone -->
+        <div class="form-group mb-4">
+            <label for="contactFirstName">First Name</label>
+            <input type="text" class="form-control" name="contactFirstName" id="contactFirstName" placeholder="First Name" required>
+        </div>
+        <div class="form-group mb-4">
+            <label for="contactLastName">Last Name</label>
+            <input type="text" class="form-control" name="contactLastName" id="contactLastName" placeholder="Last Name" required>
+        </div>
+        <div class="form-group mb-4">
+            <label for="contactPhone">Phone Number</label>
+            <input type="tel" class="form-control" name="contactPhone" id="contactPhone" placeholder="Phone Number" required>
+        </div>
+
+        <!-- Share Jen's story -->
+        <div class="form-group mb-4">
+            <label>Would you like Jen to share her story?</label><br>
+            <input type="checkbox" id="jenStory" name="jenStory">
+            <label for="jenStory">Yes, please share Jen's story</label>
+        </div>
+
+        <!-- Notes and/or Other Dates -->
+        <div class="form-group mb-4">
+            <label for="notes">Notes and/or Other dates</label>
+            <textarea rows="4" class="form-control" name="notes" id="notes" placeholder="Any additional information or other potential dates"></textarea>
+        </div>
+
+        <!-- Submit Button -->
+        <div id="cf-submit">
+            <input type="submit" id="contact-submit" class="btn btn-transparent" value="Submit">
+        </div>
+    </form>
+</div>
+<!-- ./End Contact Form -->
+
+ 		</div> <!-- end row -->
+ 	</div> <!-- end container -->
+ </section> <!-- end section -->
+
+
+<footer id="footer" class="bg-one">
+  <div class="top-footer">
+    <div class="container">
+      <div class="row justify-content-around">
+        <div class="col-lg-4 col-md-6 mb-5 mb-lg-0">
+          <h3>about</h3>
+          <p>Integer posuere erat a ante venenati dapibus posuere velit aliquet. Fusce dapibus, tellus cursus commodo, tortor mauris sed posuere.</p>
+        </div>
+        <!-- End of .col-sm-3 -->
+
+        <div class="col-lg-3 col-md-6 mb-5 mb-lg-0">
+          <ul>
+            <li>
+              <h3>Our Services</h3>
+            </li>
+            <li><a href="service.html">Ui/Ux Design</a></li>
+            <li><a href="service.html">Graphic Design</a></li>
+            <li><a href="service.html">Web Design</a></li>
+            <li><a href="service.html">Web Development</a></li>
+          </ul>
+        </div>
+        <!-- End of .col-sm-3 -->
+
+        <div class="col-lg-2 col-md-6 mb-5 mb-md-0">
+          <ul>
+            <li>
+              <h3>Quick Links</h3>
+            </li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="service.html">Services</a></li>
+            <li><a href="blog.html">Blogs</a></li>
+            <li><a href="404.html">404</a></li>
+          </ul>
+        </div>
+        <!-- End of .col-sm-3 -->
+
+        <div class="col-lg-3 col-md-6">
+          <ul>
+            <li>
+              <h3>Connect with us Socially</h3>
+            </li>
+            <li><a href="https://www.facebook.com/themefisher/">Facebook</a></li>
+            <li><a href="https://www.twitter.com/themefisher/">Twitter</a></li>
+            <li><a href="https://www.youtube.com/channel/UCx9qVW8VF0LmTi4OF2F8YdA">Youtube</a></li>
+            <li><a href="https://www.github.com/themefisher/">Github</a></li>
+          </ul>
+        </div>
+        <!-- End of .col-sm-3 -->
+
+      </div>
+    </div> <!-- end container -->
+  </div>
+  <div class="footer-bottom">
+    <h5>&copy; Copyright 2020. All rights reserved.</h5>
+    <h6>Design and Developed by <a href="https://themefisher.com/">Themefisher</a></h6>
+  </div>
+</footer> <!-- end footer -->
+
+
+<!-- end Footer Area
+========================================== -->
+
+<!-- 
+    Essential Scripts
+    =====================================-->
+<!-- Main jQuery -->
+<script src="plugins/jquery/jquery.min.js"></script>
+
+<!-- Bootstrap4 -->
+<script src="plugins/bootstrap/bootstrap.min.js"></script>
+<!-- Parallax -->
+<script src="plugins/parallax/jquery.parallax-1.1.3.js"></script>
+<!-- lightbox -->
+<script src="plugins/lightbox2/js/lightbox.min.js"></script>
+<!-- Owl Carousel -->
+<script src="plugins/slick/slick.min.js"></script>
+<!-- filter -->
+<script src="plugins/filterizr/jquery.filterizr.min.js"></script>
+<!-- Smooth Scroll js -->
+<script src="plugins/smooth-scroll/smooth-scroll.min.js"></script>
+<!-- Google Map -->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCcABaamniA6OL5YvYSpB3pFMNrXwXnLwU"></script>
+<script src="plugins/google-map/gmap.js"></script>
+
+<!-- Custom js -->
+<script src="js/script.js"></script>
+
+<!-- turtle chat -->
+
+<div id="turtleSection">
+  <canvas id="turtleCanvas" title="Ask me anything!"></canvas>
+  <div id="questionInput">
+    <input id="userInput" type="text" placeholder="Type your question here..." />
+    <button id="askButton">Ask</button>
+  </div>
+</div>
+
+<div id="responseModal" class="modal">
+  <div class="modal-content">
+    <span class="close-button">&times;</span>
+    <p id="responseText"></p>
+  </div>
+</div>
+
+<script src="/turtleAnimation.js"></script>
+<script>
+  const askButton = document.getElementById("askButton");
+  const userInput = document.getElementById("userInput");
+  const responseModal = document.getElementById("responseModal");
+  const responseText = document.getElementById("responseText");
+  const closeButton = document.querySelector(".close-button");
+
+  askButton.addEventListener("click", async () => {
+    const userMessage = userInput.value.trim();
+    if (!userMessage) return;
+
+    try {
+      const response = await fetch("/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: userMessage }),
+      });
+
+      const data = await response.json();
+      responseText.innerText = data.response;
+      responseModal.style.display = "block";
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  });
+
+  closeButton.addEventListener("click", () => {
+    responseModal.style.display = "none";
+  });
+
+  window.addEventListener("click", (event) => {
+    if (event.target === responseModal) {
+      responseModal.style.display = "none";
+    }
+  });
+</script>
+
+</body>
+
+</html>

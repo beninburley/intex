@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  <!-- Import the CSS styles -->
+  <link rel="stylesheet" href="plugins/bootstrap/bootstrap.min.css">
+  <link rel="stylesheet" href="plugins/themefisher-font/style.css">
+  <link rel="stylesheet" href="plugins/animate/animate.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body id="body">
+
+<!-- Header -->
+<header class="navigation fixed-top">
+  <div class="container">
+    <nav class="navbar navbar-expand-lg navbar-light px-0">
+      <a class="navbar-brand logo" href="index.html">
+        <img class="logo-default" src="images/logo.png" alt="logo">
+        <img class="logo-white" src="images/logo.png" alt="logo">
+      </a>
+    </nav>
+  </div>
+</header>
+<!-- End Header -->
+
+<!-- Main Content -->
+<section class="service-2 section">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-6">
+        <div class="title text-center">
+          <h2>Login</h2>
+          <div class="border"></div>
+        </div>
+      </div>
+    </div>
+    <div class="row justify-content-center">
+      <div class="col-lg-4">
+        <form action="submit-login.html" method="POST">
+          <div class="form-group">
+            <label for="username">Username:</label>
+            <input type="text" class="form-control" id="username" name="username" required>
+          </div>
+          <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" class="form-control" id="password" name="password" required>
+          </div>
+          <div class="form-group text-center">
+            <button type="submit" class="btn btn-main btn-block">Login</button>
+          </div>
+        </form>
+        <div class="form-group text-center">
+          <a href="index.ejs" class="btn btn-secondary btn-block">Website Home Page</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End Main Content -->
+
+<!-- Footer -->
+<footer id="footer" class="bg-one">
+  <div class="top-footer">
+    <div class="container text-center">
+      <p>&copy; 2024. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+<!-- End Footer -->
+
+<script src="plugins/jquery/jquery.min.js"></script>
+<script src="plugins/bootstrap/bootstrap.min.js"></script>
+</body>
+</html>

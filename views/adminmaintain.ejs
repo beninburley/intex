@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maintain Admin</title>
+</head>
+<body>
+    <label><b>Admin Info:</b></label>
+<br>
+<table style="width: 100%; background-color: antiquewhite; border: 1px solid black;">
+    <thead style="background-color: cornflowerblue; color: white;">
+        <tr>
+            <th style="text-align: left;">First Name</th>
+            <th style="text-align: left;">Last Name</th>
+            <th style="text-align: left;">Phone</th>
+            <th style="text-align: left;">Email</th>
+            <th style="text-align: left;">Username</th>
+            <th style="text-align: left;">Password</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody style="font-family: Arial; font-size: 9pt;">
+        <% for (let iCount = 0; iCount < admins.length; iCount++) { %>
+            <tr>
+                <td><%= admins[iCount].first_name %></td>
+                <td><%= admins[iCount].last_name %></td>
+                <td><%= admins[iCount].phone %></td>
+                <td><%= admins[iCount].email %></td>
+                <td><%= admins[iCount].username %></td>
+                <td><%= admins[iCount].password %></td>
+                <td>
+                    <!-- Edit admin -->
+                    <form action="/adminedit/<%= admins[iCount].id %>" method="GET">
+                        <button type="submit">Edit</button>
+                    </form>
+                </td>
+                <td>
+                    <!-- Delete admin -->
+                    <form action="/admindelete/<%= admins[iCount].id %>" method="POST">
+                        <button type="submit">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        <% } %>
+    </tbody>
+</table>
+<br><br>
+<!-- Add admin -->
+<form action="/adminadd" method="GET">
+    <button type="submit">Add Admin</button>
+</form>
+
+</body>
+</html>
