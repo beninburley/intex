@@ -23,6 +23,7 @@ p {
 h1, h2, h3, h4, h5, h6 {
   font-family: "Catamaran", sans-serif;
   font-weight: 600;
+  color: black;
 }
 
 .no-padding {
@@ -2395,4 +2396,42 @@ a:focus, a:hover {
 .article-container p {
   margin-bottom: 20px; /* Adds space between paragraphs */
   line-height: 1.6; /* Improves readability by adding space between lines */
+}
+
+
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1000; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+}
+
+.modal-content {
+  background-color: #fff;
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%; /* Could be more or less, depending on screen size */
+  max-width: 400px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.close-button {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.close-button:hover,
+.close-button:focus {
+  color: black;
+  text-decoration: none;
 }

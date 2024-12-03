@@ -13,7 +13,7 @@
 <!-- Basic Page Needs
 ================================================== -->
   <meta charset="utf-8">
-  <title>Turtle shelter project | Turtle shelter project</title>
+  <title>Turtle shelter project | Event Request</title>
 
   <!-- Mobile Specific Metas
   ================================================== -->
@@ -69,7 +69,7 @@ Fixed Navigation
     <!-- main nav -->
     <nav class="navbar navbar-expand-lg navbar-light px-0">
       <!-- logo -->
-      <a class="navbar-brand logo" href="/index">
+      <a class="navbar-brand logo" href="/">
         <img loading="lazy" class="logo-default" src="/images/logo.png" alt="logo" />
         <img loading="lazy" class="logo-white" src="/images/logo.png" alt="logo" />
       </a>
@@ -82,7 +82,7 @@ Fixed Navigation
       <div class="collapse navbar-collapse" id="navigation">
         <ul class="navbar-nav ml-auto text-center">
           <li class="nav-item dropdown active">
-            <a class="nav-link dropdown-toggle" href="/index" id="navbarDropdown" role="button" aria-haspopup="true" aria-expanded="false">
+            <a class="nav-link dropdown-toggle" href="/" id="navbarDropdown" role="button" aria-haspopup="true" aria-expanded="false">
               Home</i>
             </a>
 			<li class="nav-item ">
@@ -101,9 +101,9 @@ Fixed Navigation
               about <i class="tf-ion-chevron-down"></i>
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown02">
-				<li><a class="dropdown-item" href="/faqs">FAQS</a></li>
+				<li><a class="dropdown-item" href="/faqs">FAQs</a></li>
 				<li><a class="dropdown-item" href="/vest">Our Vest</a></li>
-				<li><a class="dropdown-item" href="/contact">Contact us</a></li>
+				<li><a class="dropdown-item" href="/contact">Contact Us</a></li>
 			  </ul>
           </li>
     
@@ -135,8 +135,7 @@ End Fixed Navigation
  			<div class="col-xl-6 col-lg-8">
 				<div class="title text-center">
 					<h2>Event Request</h2>
-					<p>
-                        Please fill out the form below and tell us about your event idea so that we can provide options for you and your group.  We will need to know:</p>
+					<p>Please fill out the form below and tell us about your event idea so that we can provide options for you and your group.</p>
 					<div class="border"></div>
 				</div>
 			</div>
@@ -146,7 +145,7 @@ End Fixed Navigation
 
 <!-- Contact Form -->
 <div class="contact-form col-md-6 mx-auto">
-    <form id="contact-form" method="post" role="form">
+    <form id="contact-form" onsubmit="showThankYouMessage(event)" method="post" role="form">
 
         <!-- How many people will be there? -->
         <div class="form-group mb-4">
@@ -171,6 +170,13 @@ End Fixed Navigation
             <input type="date" class="form-control" name="eventDate" id="eventDate" required>
         </div>
 
+        <script>
+          // Set the minimum date to today
+          const eventDateInput = document.getElementById('eventDate');
+          const today = new Date().toISOString().split('T')[0]; // Get today's date in YYYY-MM-DD format
+          eventDateInput.min = today; // Set the min attribute to today's date
+        </script>
+
         <!-- Event Time -->
         <div class="form-group mb-4">
             <label for="eventStartTime">What time do you want the event to start?</label>
@@ -183,13 +189,38 @@ End Fixed Navigation
             <input type="text" class="form-control" name="eventDuration" id="eventDuration" placeholder="Event duration (e.g., 2 hours)" required>
         </div>
 
-        <!-- Event Address -->
+        <!-- Address Form -->
         <div class="form-group mb-4">
-            <label for="eventAddress">What’s the address of the event?</label>
-            <input type="text" class="form-control" name="eventAddress" id="eventAddress" placeholder="Event address" required>
+          <label for="addressLine1">Address Line 1</label>
+          <input type="text" class="form-control" name="addressLine1" id="addressLine1" placeholder="Address Line 1" required>
         </div>
         <div class="form-group mb-4">
-            <input type="text" class="form-control" name="eventAddress" id="eventAddress" placeholder="Address Line Two" required>
+          <input type="text" class="form-control" name="addressLine2" id="addressLine2" placeholder="Address Line 2 (Optional)">
+        </div>
+        <div class="form-group mb-4">
+          <label for="city">City</label>
+          <input type="text" class="form-control" name="city" id="city" placeholder="City" required>
+        </div>
+        <div class="form-group mb-4">
+          <label for="state">State</label>
+          <input type="text" class="form-control" name="state" id="state" placeholder="State" required>
+        </div>
+        <div class="form-group mb-4">
+          <label for="zip">Zip Code</label>
+          <input type="text" class="form-control" name="zip" id="zip" placeholder="Zip Code" required pattern="\d{5}">
+        </div>
+
+        
+
+        <div class="form-group mb-4">
+          <label for="venueType">Venue Type</label>
+          <select class="form-control" name="venueType" id="venueType" required>
+            <option value="livingRoom">Living Room</option>
+            <option value="officeSpace">Office Space</option>
+            <option value="gym">Gym</option>
+            <option value="churchSchool">Church/School Building</option>
+            <option value="other">Other</option>
+          </select>
         </div>
 
         <!-- Contact Name (First & Last) and Phone -->
@@ -210,19 +241,26 @@ End Fixed Navigation
         <div class="form-group mb-4">
             <label>Would you like Jen to share her story?</label><br>
             <input type="checkbox" id="jenStory" name="jenStory">
-            <label for="jenStory">Yes, please share Jen's story</label>
+            <label for="jenStory">Yes</label>
         </div>
 
         <!-- Notes and/or Other Dates -->
         <div class="form-group mb-4">
-            <label for="notes">Notes and/or Other dates</label>
+            <label for="notes">Notes</label>
             <textarea rows="4" class="form-control" name="notes" id="notes" placeholder="Any additional information or other potential dates"></textarea>
         </div>
 
-        <!-- Submit Button -->
-        <div id="cf-submit">
-            <input type="submit" id="contact-submit" class="btn btn-transparent" value="Submit">
+        <div class="form-group mb-4">
+          <label for="notes">Other dates (Optional)</label>
+          <textarea rows="4" class="form-control" name="notes" id="notes"
+            placeholder="Any other potential dates (e.g., 12/01/2024)"></textarea>
         </div>
+
+
+            <!-- Form fields -->
+          <button type="submit" class="btn btn-main">Submit</button>
+        
+
     </form>
 </div>
 <!-- ./End Contact Form -->
@@ -231,40 +269,15 @@ End Fixed Navigation
  	</div> <!-- end container -->
  </section> <!-- end section -->
 
-
-<footer id="footer" class="bg-one">
+ <footer id="footer" class="bg-one">
   <div class="top-footer">
     <div class="container">
       <div class="row justify-content-around">
         <div class="col-lg-4 col-md-6 mb-5 mb-lg-0">
-          <h3>about</h3>
-          <p>Integer posuere erat a ante venenati dapibus posuere velit aliquet. Fusce dapibus, tellus cursus commodo, tortor mauris sed posuere.</p>
-        </div>
-        <!-- End of .col-sm-3 -->
-
-        <div class="col-lg-3 col-md-6 mb-5 mb-lg-0">
-          <ul>
-            <li>
-              <h3>Our Services</h3>
-            </li>
-            <li><a href="service.html">Ui/Ux Design</a></li>
-            <li><a href="service.html">Graphic Design</a></li>
-            <li><a href="service.html">Web Design</a></li>
-            <li><a href="service.html">Web Development</a></li>
-          </ul>
-        </div>
-        <!-- End of .col-sm-3 -->
-
-        <div class="col-lg-2 col-md-6 mb-5 mb-md-0">
-          <ul>
-            <li>
-              <h3>Quick Links</h3>
-            </li>
-            <li><a href="about.html">About</a></li>
-            <li><a href="service.html">Services</a></li>
-            <li><a href="blog.html">Blogs</a></li>
-            <li><a href="404.html">404</a></li>
-          </ul>
+          <h3>Goals</h3>
+          <p>Our mission is to expand nationwide and eventually worldwide, providing insulated vests to homeless individuals to
+          ensure no one freezes to death. Through innovation and compassion, we strive to offer warmth and safety to those in
+          need.</p>
         </div>
         <!-- End of .col-sm-3 -->
 
@@ -273,22 +286,61 @@ End Fixed Navigation
             <li>
               <h3>Connect with us Socially</h3>
             </li>
-            <li><a href="https://www.facebook.com/themefisher/">Facebook</a></li>
-            <li><a href="https://www.twitter.com/themefisher/">Twitter</a></li>
-            <li><a href="https://www.youtube.com/channel/UCx9qVW8VF0LmTi4OF2F8YdA">Youtube</a></li>
-            <li><a href="https://www.github.com/themefisher/">Github</a></li>
+            <li><a href="https://www.facebook.com/turtleshelterproject/">Facebook</a></li>
+            <li><a href="https://www.instagram.com/turtleshelterproject/">Instagram</a></li>
           </ul>
         </div>
+
         <!-- End of .col-sm-3 -->
 
       </div>
     </div> <!-- end container -->
   </div>
-  <div class="footer-bottom">
-    <h5>&copy; Copyright 2020. All rights reserved.</h5>
-    <h6>Design and Developed by <a href="https://themefisher.com/">Themefisher</a></h6>
+
+</footer>
+
+<script>
+  function showThankYouMessage(event) {
+    event.preventDefault(); // Prevent the default form submission
+
+    // Display the thank-you modal
+    const modal = document.getElementById("thankYouModal");
+    modal.style.display = "block";
+
+    // Reset the form after showing the modal
+    document.getElementById("contact-form").reset();
+  }
+
+  // Close the modal when the user clicks the close button or anywhere outside the modal
+  window.onclick = function (event) {
+    const modal = document.getElementById("thankYouModal");
+    if (event.target === modal) {
+      modal.style.display = "none";
+    }
+  };
+
+  function closeModal() {
+    const modal = document.getElementById("thankYouModal");
+    modal.style.display = "none";
+  }
+</script>
+
+<div id="thankYouModal" class="modal">
+  <div class="modal-content">
+    <span class="close-button" onclick="closeModal()">&times;</span>
+    <p>
+      Thank you for your request! We will reach out shortly!
+      <br />
+      As a volunteer-based organization, we kindly appreciate donations to help
+      cover the cost of materials for your event!
+    </p>
+    <a class="btn btn-main"
+      href="https://turtleshelterproject.org/checkout/donate?donatePageId=5b6a44c588251b72932df5a0" target="_blank">
+      Make a donation
+    </a>
   </div>
-</footer> <!-- end footer -->
+</div>
+
 
 
 <!-- end Footer Area

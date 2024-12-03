@@ -69,7 +69,7 @@ Fixed Navigation
     <!-- main nav -->
     <nav class="navbar navbar-expand-lg navbar-light px-0">
       <!-- logo -->
-      <a class="navbar-brand logo" href="index.html">
+      <a class="navbar-brand logo" href="/">
         <img loading="lazy" class="logo-default" src="/images/logo.png" alt="logo" />
         <img loading="lazy" class="logo-white" src="/images/logo.png" alt="logo" />
       </a>
@@ -82,7 +82,7 @@ Fixed Navigation
       <div class="collapse navbar-collapse" id="navigation">
         <ul class="navbar-nav ml-auto text-center">
           <li class="nav-item dropdown active">
-            <a class="nav-link dropdown-toggle" href="/index" id="navbarDropdown" role="button" aria-haspopup="true" aria-expanded="false">
+            <a class="nav-link dropdown-toggle" href="/" id="navbarDropdown" role="button" aria-haspopup="true" aria-expanded="false">
               Home</i>
             </a>
 			<li class="nav-item ">
@@ -101,9 +101,9 @@ Fixed Navigation
               about <i class="tf-ion-chevron-down"></i>
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown02">
-				<li><a class="dropdown-item" href="/faqs">FAQS</a></li>
+				<li><a class="dropdown-item" href="/faqs">FAQs</a></li>
 				<li><a class="dropdown-item" href="/vest">Our Vests</a></li>
-				<li><a class="dropdown-item" href="/contact">Contact us</a></li>
+				<li><a class="dropdown-item" href="/contact">Contact Us</a></li>
 			  </ul>
           </li>
     
@@ -137,7 +137,7 @@ End Fixed Navigation
 				<div class="title text-center">
 					<h2>Volunteer Information</h2>
 					<p>
-                        Indicate in the form below what you would like to do</p>
+                        Please fill out the form below to become a volunteer. Every person can serve!</p>
 					<div class="border"></div>
 				</div>
 			</div>
@@ -167,6 +167,24 @@ End Fixed Navigation
             <input type="email" class="form-control" name="contactEmail" id="contactEmail" placeholder="Email" required>
         </div>
 
+        <!-- phone number -->
+        <div class="form-group mb-4">
+          <label for="contactPhone">Phone Number</label>
+          <input type="tel" class="form-control" name="contactPhone" id="contactPhone" placeholder="Phone Number" required>
+        </div>
+
+        <!-- State  -->
+        <div class="form-group mb-4">
+          <label for="city">City</label>
+          <input type="text" class="form-control" name="city" id="city" placeholder="City" required>
+        </div>
+        <div class="form-group mb-4">
+          <label for="state">State</label>
+          <input type="text" class="form-control" name="state" id="state" placeholder="State" required>
+        </div>
+
+        
+
         <!-- How they heard about the opportunity -->
         <div class="form-group mb-4">
             <label for="howHeard">How did you hear about the opportunity?</label>
@@ -189,6 +207,18 @@ End Fixed Navigation
             <input type="radio" id="experienced" name="sewingLevel" value="Experienced" required>
             <label for="experienced">Experienced</label>
         </div>
+
+        <div class="form-group mb-4">
+          <label>Are you willing to assist lead the event?</label><br>
+          <input type="checkbox" id="leadevent" name="leadevent">
+          <label for="leadevent">Yes</label>
+      </div>
+
+      <div class="form-group mb-4">
+        <label>Are you willing to teach sewing skills?</label><br>
+        <input type="checkbox" id="teachsewing" name="teachsewing">
+        <label for="teachsewing">Yes</label>
+    </div>
 
         <!-- Number of hours willing to volunteer per month -->
         <div class="form-group mb-4">
@@ -215,39 +245,15 @@ End Fixed Navigation
  </section> <!-- end section -->
 
 
-<footer id="footer" class="bg-one">
+ <footer id="footer" class="bg-one">
   <div class="top-footer">
     <div class="container">
       <div class="row justify-content-around">
         <div class="col-lg-4 col-md-6 mb-5 mb-lg-0">
-          <h3>about</h3>
-          <p>Integer posuere erat a ante venenati dapibus posuere velit aliquet. Fusce dapibus, tellus cursus commodo, tortor mauris sed posuere.</p>
-        </div>
-        <!-- End of .col-sm-3 -->
-
-        <div class="col-lg-3 col-md-6 mb-5 mb-lg-0">
-          <ul>
-            <li>
-              <h3>Our Services</h3>
-            </li>
-            <li><a href="service.html">Ui/Ux Design</a></li>
-            <li><a href="service.html">Graphic Design</a></li>
-            <li><a href="service.html">Web Design</a></li>
-            <li><a href="service.html">Web Development</a></li>
-          </ul>
-        </div>
-        <!-- End of .col-sm-3 -->
-
-        <div class="col-lg-2 col-md-6 mb-5 mb-md-0">
-          <ul>
-            <li>
-              <h3>Quick Links</h3>
-            </li>
-            <li><a href="about.html">About</a></li>
-            <li><a href="service.html">Services</a></li>
-            <li><a href="blog.html">Blogs</a></li>
-            <li><a href="404.html">404</a></li>
-          </ul>
+          <h3>Goals</h3>
+          <p>Our mission is to expand nationwide and eventually worldwide, providing insulated vests to homeless individuals to
+          ensure no one freezes to death. Through innovation and compassion, we strive to offer warmth and safety to those in
+          need.</p>
         </div>
         <!-- End of .col-sm-3 -->
 
@@ -256,23 +262,27 @@ End Fixed Navigation
             <li>
               <h3>Connect with us Socially</h3>
             </li>
-            <li><a href="https://www.facebook.com/themefisher/">Facebook</a></li>
-            <li><a href="https://www.twitter.com/themefisher/">Twitter</a></li>
-            <li><a href="https://www.youtube.com/channel/UCx9qVW8VF0LmTi4OF2F8YdA">Youtube</a></li>
-            <li><a href="https://www.github.com/themefisher/">Github</a></li>
+            <li><a href="https://www.facebook.com/turtleshelterproject/">Facebook</a></li>
+            <li><a href="https://www.instagram.com/turtleshelterproject/">Instagram</a></li>
           </ul>
         </div>
+
         <!-- End of .col-sm-3 -->
 
       </div>
     </div> <!-- end container -->
   </div>
-  <div class="footer-bottom">
-    <h5>&copy; Copyright 2020. All rights reserved.</h5>
-    <h6>Design and Developed by <a href="https://themefisher.com/">Themefisher</a></h6>
-  </div>
-</footer> <!-- end footer -->
 
+</footer>
+
+
+<script>
+  function showThankYouMessage(event) {
+    event.preventDefault(); // Prevents actual form submission
+    alert("Thank you for volunteering! We will reach out about upcoming events!");
+    document.getElementById("contact-form").reset(); // Resets the form after submission
+  }
+</script>
 
 <!-- end Footer Area
 ========================================== -->
