@@ -19,6 +19,19 @@ app.use(express.static(path.join(__dirname, "public"))); // Serve static files
 app.use(bodyParser.json()); // Parse JSON
 app.use(express.urlencoded({ extended: true })); // Parse form data
 
+const knex = require("knex") ({ //Connect to postgres db
+    client : "pg",
+    connection : {
+        host : process.env.RDS_HOSTNAME || "localhost",
+        user : process.env.RDS_USERNAME || "postgres",
+        password : process.env.RDS_PASSWORD || "secretPassword",
+        database : process.env.RDS_DB_NAME || "turtleshelter",
+        port : process.env.RDS_PORT || 5432,
+        ssl: process.env.DB_SSL ? {rejectUnauthorized: false} : false
+    } //All of these || allow us to either use the RDS variables or default to localHost information
+      //This allows this rds to be valid on either beanstalk or your localhost
+});
+
 // OpenAI configuration
 const openai = new OpenAI({
     apiKey: process.env.OPENAI_API_KEY, // Set your OpenAI API key in the .env file
@@ -176,7 +189,7 @@ app.post('/request', (req, res) => {
     res.redirect('/requestmaintain'); // Redirect to request maintain page
 });
 
-// Vest Routes
+// Routes
 app.get('/vest', (req, res) => {
     res.render('vest');
 });
