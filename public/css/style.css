@@ -2398,40 +2398,37 @@ a:focus, a:hover {
   line-height: 1.6; /* Improves readability by adding space between lines */
 }
 
-
-.modal {
-  display: none; /* Hidden by default */
-  position: fixed; /* Stay in place */
-  z-index: 1000; /* Sit on top */
-  left: 0;
-  top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+/* Adjust the logo size */
+.navbar-brand .logo-default {
+  max-height: 50px; /* Smaller logo */
+  margin-right: 10px; /* Space between logo and text */
 }
 
-.modal-content {
-  background-color: #fff;
-  margin: 15% auto; /* 15% from the top and centered */
-  padding: 20px;
-  border: 1px solid #888;
-  width: 80%; /* Could be more or less, depending on screen size */
-  max-width: 400px;
-  border-radius: 8px;
-  text-align: center;
+/* Style the text next to the logo */
+.navbar-brand .logo-text {
+  font-family: "proxima-nova", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  font-size: 20px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #fff; /* White color */
+  margin: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  line-height: 1em;
+  white-space: nowrap; /* Prevent text wrapping */
 }
 
-.close-button {
-  color: #aaa;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
-  cursor: pointer;
+/* Align logo and text horizontally */
+.navbar-brand {
+  display: flex;
+  align-items: center;
 }
 
-.close-button:hover,
-.close-button:focus {
-  color: black;
-  text-decoration: none;
+/* Adjust text size for smaller screens */
+@media (max-width: 768px) {
+  .navbar-brand .logo-text {
+    font-size: 18px; /* Slightly smaller text for smaller screens */
+  }
 }

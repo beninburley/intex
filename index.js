@@ -124,7 +124,7 @@ app.post('/contact', (req, res) => {
 
 // FAQs Routes
 app.get('/faqs', (req, res) => {
-    res.render('FAQs');
+    res.render('faqs');
 });
 
 app.post('/faqs', (req, res) => {

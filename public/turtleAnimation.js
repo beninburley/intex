@@ -12,7 +12,15 @@ turtleImage.onload = () => {
 
         const yOffset = Math.sin(frame * 0.1) * 10;
 
-        ctx.drawImage(turtleImage, 10, 10 + yOffset, 130, 130); // Adjust size as needed
+        ctx.save(); // Save the current context state
+
+        // Flip the turtle and adjust the position
+        ctx.translate(140, 10 + yOffset); // Adjust the x translation to match image size
+        ctx.scale(-1, 1); // Invert the image horizontally
+
+        ctx.drawImage(turtleImage, 0, 0, 150, 180); // Adjust width and height as needed
+
+        ctx.restore(); // Restore the context to its original state
 
         frame++;
         requestAnimationFrame(drawTurtle);
