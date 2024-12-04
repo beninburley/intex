@@ -2398,21 +2398,48 @@ a:focus, a:hover {
 }
 
 
+/* Default logo style */
+.navigation .logo-default,
+.sticky-header .logo-default {
+  width: 100px;
+  /* Unified size for the logo */
+  height: auto;
+  transition: width 0.3s ease-in-out;
+  /* Smooth transition for size changes */
+}
+
 /* Default logo text style */
-.navigation .logo-text {
+.navigation .logo-text,
+.sticky-header .logo-text {
   font-family: "proxima-nova", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: 600;
   font-size: 20px;
+  /* Unified font size for default and sticky */
   letter-spacing: 2px;
   text-transform: uppercase;
-  color: #fff; /* White by default */
-  transition: color 0.3s ease-in-out;
-  margin-left: 10px; /* Space between logo and text */
+  margin-left: 10px;
+  transition: color 0.3s ease-in-out, font-size 0.3s ease-in-out;
 }
 
-/* When the header is sticky */
+/* Sticky header styles */
+.sticky-header {
+  box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.06);
+  background: #fff;
+}
+
+/* Sticky header link colors */
+.sticky-header .navbar-light .navbar-nav .nav-item .nav-link {
+  color: #000;
+}
+
+/* Hide the alternate logo when sticky */
+.sticky-header .logo-white {
+  display: none;
+}
+
+/* Unified logo text color change when sticky */
 .sticky-header .logo-text {
-  color: #000; /* Change to black when scrolling */
+  color: #000;
 }
 
 /* Ensure proper alignment */
@@ -2421,19 +2448,19 @@ a:focus, a:hover {
   align-items: center;
 }
 
-.sticky-header {
-  box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.06);
-  background: #fff;
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  margin-right: auto;
+  /* Push to the left */
 }
 
-.sticky-header .navbar-light .navbar-nav .nav-item .nav-link {
-  color: #000;
+.logo-container {
+  display: flex;
+  align-items: center;
 }
 
-.sticky-header .logo-white {
-  display: none;
-}
-
-.sticky-header .logo-default {
-  display: block;
+.navbar-toggler {
+  margin-left: auto;
+  /* Ensure toggler stays on the right */
 }
