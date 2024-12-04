@@ -71,65 +71,99 @@
     
     </head>
 <body>
-    <form action="/volunteermaintain" method="GET">
-        <fieldset>
-            <legend>Edit Volunteer:</legend>
-            
-            <input type="hidden" name="id" id="id" value="<%= volunteer.id %>">
-            <br><br>
-
+    <!-- Contact Form -->
+    <div class="contact-form col-md-6 mx-auto">
+        <form id="contact-form" action="/volunteeredit/<%= spec_volunteer.volunteer_id %>" method="post" role="form">
+    
             <!-- First Name -->
-            <label for="first_name">First Name:</label>
-            <input type="text" name="first_name" id="first_name" value="<%= volunteer.first_name %>" required>
-            <br><br>
-
+            <div class="form-group mb-4">
+                <label for="contactFirstName">First Name</label>
+                <input type="text" class="form-control" name="contactFirstName" id="contactFirstName"
+                value="<%= spec_volunteer.first_name %>" required >
+            </div>
+    
             <!-- Last Name -->
-            <label for="last_name">Last Name:</label>
-            <input type="text" name="last_name" id="last_name" value="<%= volunteer.last_name %>" required>
-            <br><br>
-
+            <div class="form-group mb-4">
+                <label for="contactLastName">Last Name</label>
+                <input type="text" class="form-control" name="contactLastName" id="contactLastName" value="<%= spec_volunteer.last_name %>"
+                    required>
+            </div>
+    
             <!-- Email -->
-            <label for="email">Email:</label>
-            <input type="email" name="email" id="email" value="<%= volunteer.email %>" required>
-
+            <div class="form-group mb-4">
+                <label for="contactEmail">Email</label>
+                <input type="email" class="form-control" name="contactEmail" id="contactEmail" value="<%= spec_volunteer.email %>" required>
+            </div>
+    
+            <!-- phone number -->
             <div class="form-group mb-4">
                 <label for="contactPhone">Phone Number</label>
-                <input type="tel" class="form-control" name="contactPhone" id="contactPhone" placeholder="e.g., (801) 234-5678"
-                    pattern="[0-9]+" maxlength="15" required>
+                <input type="tel" class="form-control" name="contactPhone" id="contactPhone"
+                    value="<%= spec_volunteer.phone %>" pattern="[0-9]+" maxlength="15" required>
             </div>
-            <br><br>
-
+    
+            <!-- State  -->
+            <div class="form-group mb-4">
+                <label for="city">City</label>
+                <input type="text" class="form-control" name="city" id="city" value="<%= spec_volunteer.city %>" required>
+            </div>
+            <div class="form-group mb-4">
+                <label for="state">State</label>
+                <input type="text" class="form-control" name="state" id="state" value="<%= spec_volunteer.state %>" required>
+            </div>
+    
+    
+    
             <!-- How they heard about the opportunity -->
-            <label for="referral">How did you hear about the opportunity?</label>
-            <select name="referral" id="referral" required>
-                <option value="friend" <%= volunteer.referral === 'friend' ? 'selected' : '' %>>A Friend</option>
-                <option value="social_media" <%= volunteer.referral === 'social_media' ? 'selected' : '' %>>Social Media</option>
-                <option value="website" <%= volunteer.referral === 'website' ? 'selected' : '' %>>Website</option>
-                <option value="email" <%= volunteer.referral === 'email' ? 'selected' : '' %>>Email</option>
-                <option value="other" <%= volunteer.referral === 'other' ? 'selected' : '' %>>Other</option>
-            </select>
-            <br><br>
-
+            <div class="form-group mb-4">
+                <label for="howHeard">How did you hear about the opportunity?</label>
+                <select class="form-control" name="howHeard" id="howHeard" required>
+                    <option value="friend" <%=spec_volunteer.how_heard_about_project==='FRIEND' ? 'selected' : '' %>>A Friend</option>
+                    <option value="social_media" <%=spec_volunteer.how_heard_about_project==='SOCIAL_MEDIA' ? 'selected' : '' %>>Social Media</option>
+                    <option value="email" <%=spec_volunteer.how_heard_about_project==='EMAIL' ? 'selected' : '' %>>Email</option>
+                    <option value="website" <%=spec_volunteer.how_heard_about_project==='WEBSITE' ? 'selected' : '' %>>Website</option>
+                    <option value="other" <%=spec_volunteer.how_heard_about_project==='OTHER' ? 'selected' : '' %>>Other</option>
+                </select>
+            </div>
+    
             <!-- Sewing Level -->
-            <label>Sewing Level:</label>
-            <br>
-            <input type="radio" name="sewing_level" id="beginner" value="beginner" <%= volunteer.sewing_level === 'beginner' ? 'checked' : '' %> required>
-            <label for="beginner">Beginner</label>
-            <br>
-            <input type="radio" name="sewing_level" id="intermediate" value="intermediate" <%= volunteer.sewing_level === 'intermediate' ? 'checked' : '' %>>
-            <label for="intermediate">Intermediate</label>
-            <br>
-            <input type="radio" name="sewing_level" id="experienced" value="experienced" <%= volunteer.sewing_level === 'experienced' ? 'checked' : '' %>>
-            <label for="experienced">Experienced</label>
-            <br><br>
-
-            <!-- Number of Hours -->
-            <label for="hours">Number of hours willing to volunteer per month:</label>
-            <input type="number" name="hours" id="hours" value="<%= volunteer.hours %>" required>
-            <br><br>
-
-            <button type="submit">Save</button>
-        </fieldset>
-    </form>
+            <div class="form-group mb-4">
+                <label for="sewingLevel">Sewing Level</label><br>
+                <input type="radio" id="none" name="sewingLevel" value="NONE" <%= spec_volunteer.sewing_level === 'NONE' ? 'checked' : '' %> required>
+                <label for="none">No Experience</label><br>
+                <input type="radio" id="beginner" name="sewingLevel" value="BEGINNER"<%= spec_volunteer.sewing_level === 'BEGINNER' ? 'checked' : '' %> required>
+                <label for="beginner">Beginner</label><br>
+                <input type="radio" id="intermediate" name="sewingLevel" value="INTERMEDIATE"<%= spec_volunteer.sewing_level === 'INTERMEDIATE' ? 'checked' : '' %> required>
+                <label for="intermediate">Intermediate</label><br>
+                <input type="radio" id="experienced" name="sewingLevel" value="EXPERIENCED"<%= spec_volunteer.sewing_level === 'EXPERIENCED' ? 'checked' : '' %> required>
+                <label for="experienced">Experienced</label>
+            </div>
+    
+            <div class="form-group mb-4">
+                <label>Are you willing to assist lead the event?</label><br>
+                <input type="checkbox" id="leadevent" name="leadevent" value="on" <%= spec_volunteer.willing_to_lead ? 'checked' : '' %>>
+                <label for="leadevent">Yes</label>
+            </div>
+    
+            <div class="form-group mb-4">
+                <label>Are you willing to teach sewing skills?</label><br>
+                <input type="checkbox" id="teachsewing" name="teachsewing" value="on" <%= spec_volunteer.teach_sewing ? 'checked' : '' %>>
+                <label for="teachsewing">Yes</label>
+            </div>
+    
+            <!-- Number of hours willing to volunteer per month -->
+            <div class="form-group mb-4">
+                <label for="volunteerHours">Number of hours willing to volunteer per month</label>
+                <input type="number" class="form-control" name="volunteerHours" id="volunteerHours"
+                    value="<%= spec_volunteer.hrs_available %>" required>
+            </div>
+    
+            <!-- Submit Button -->
+            <div id="cf-submit">
+                <input type="submit" id="contact-submit" class="btn btn-transparent" value="Submit">
+            </div>
+        </form>
+    </div>
+    <!-- ./End Contact Form -->
 </body>
 </html>

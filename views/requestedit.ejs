@@ -1,139 +1,220 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Add Volunteer</title>
-    
-        <!-- CSS
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Request</title>
+
+    <!-- CSS
           ================================================== -->
-        <!-- Themefisher Icon font -->
-        <link rel="stylesheet" href="plugins/themefisher-font/style.css">
-        <!-- bootstrap.min css -->
-        <link rel="stylesheet" href="plugins/bootstrap/bootstrap.min.css">
-        <!-- Lightbox.min css -->
-        <link rel="stylesheet" href="plugins/lightbox2/css/lightbox.min.css">
-        <!-- animation css -->
-        <link rel="stylesheet" href="plugins/animate/animate.css">
-        <!-- Slick Carousel -->
-        <link rel="stylesheet" href="plugins/slick/slick.css">
-        <!-- Main Stylesheet -->
-        <link rel="stylesheet" href="css/style.css">
-    
-        <!--
+    <!-- Themefisher Icon font -->
+    <link rel="stylesheet" href="plugins/themefisher-font/style.css">
+    <!-- bootstrap.min css -->
+    <link rel="stylesheet" href="plugins/bootstrap/bootstrap.min.css">
+    <!-- Lightbox.min css -->
+    <link rel="stylesheet" href="plugins/lightbox2/css/lightbox.min.css">
+    <!-- animation css -->
+    <link rel="stylesheet" href="plugins/animate/animate.css">
+    <!-- Slick Carousel -->
+    <link rel="stylesheet" href="plugins/slick/slick.css">
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <!--
               Fixed Navigation
               ==================================== -->
-        <header class="navigation fixed-top">
-            <div class="container">
-                <!-- main nav -->
-                <nav class="navbar navbar-expand-lg navbar-light px-0">
-                    <!-- logo -->
-                    <a class="navbar-brand logo" href="/">
-                        <img loading="lazy" class="logo-default" src="images/logo.png" alt="logo" />
-                        <img loading="lazy" class="logo-white" src="images/logo.png" alt="logo" />
-                    </a>
-                    <!-- /logo -->
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation"
-                        aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-        
-                    <div class="collapse navbar-collapse" id="navigation">
-                        <ul class="navbar-nav ml-auto text-center">
-                            <li class="nav-item dropdown active">
-                                <a class="nav-link dropdown-toggle" href="/" id="navbarDropdown" role="button"
-                                    aria-haspopup="true" aria-expanded="false">
-                                    Home</i>
-                                </a>
-                            <li class="nav-item ">
-                                <a class="nav-link" href="/adminmaintain">Admins</a> <!-- services.-->
-                            </li>
-                            <li class="nav-item ">
-                                <a class="nav-link" href="/volunteermaintain">Volunteers</a> <!-- services.-->
-                            </li>
-                            <li class="nav-item ">
-                                <a class="nav-link" href="/requestmaintain">Requests</a> <!-- services.-->
-                            </li>
-                            <li class="nav-item ">
-                                <a class="nav-link" href="/eventmaintain">Events</a> <!-- services.-->
-                            </li>
-                        </ul>
+    <header class="navigation fixed-top">
+        <div class="container">
+            <!-- main nav -->
+            <nav class="navbar navbar-expand-lg navbar-light px-0">
+                <!-- logo -->
+                <a class="navbar-brand logo" href="/">
+                    <img loading="lazy" class="logo-default" src="images/logo.png" alt="logo" />
+                    <img loading="lazy" class="logo-white" src="images/logo.png" alt="logo" />
+                </a>
+                <!-- /logo -->
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation"
+                    aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navigation">
+                    <ul class="navbar-nav ml-auto text-center">
+                        <li class="nav-item dropdown active">
+                            <a class="nav-link dropdown-toggle" href="/" id="navbarDropdown" role="button"
+                                aria-haspopup="true" aria-expanded="false">
+                                Home</i>
+                            </a>
+                        <li class="nav-item ">
+                            <a class="nav-link" href="/adminmaintain">Admins</a> <!-- services.-->
                         </li>
-                        </ul>
-                    </div>
-                </nav>
-                <!-- /main nav -->
-            </div>
-        </header>
-        <!--
+                        <li class="nav-item ">
+                            <a class="nav-link" href="/volunteermaintain">Volunteers</a> <!-- services.-->
+                        </li>
+                        <li class="nav-item ">
+                            <a class="nav-link" href="/requestmaintain">Requests</a> <!-- services.-->
+                        </li>
+                        <li class="nav-item ">
+                            <a class="nav-link" href="/eventmaintain">Events</a> <!-- services.-->
+                        </li>
+                    </ul>
+                    </li>
+                    </ul>
+                </div>
+            </nav>
+            <!-- /main nav -->
+        </div>
+    </header>
+    <!--
               End Fixed Navigation
               ==================================== -->
-    
-    </head>
+
+</head>
+
 <body onload="highlightCurrentDay()">
-    <form action="/eventmaintain" method="GET">
-        <fieldset>
-            <legend>Edit Event:</legend>
-            
-            <input type="hidden" name="id" id="id" value="<%= event.id %>">
-            <br><br>
+    <!-- Contact Form -->
+    <div class="contact-form col-md-6 mx-auto">
+        <form id="contact-form" action="/requestedit/<%=spec_event.event_id%>" method="post" role="form">
 
-            <!-- Number of People -->
-            <label for="people_count">How many people will be there? (Can be a rough estimate):</label>
-            <input type="number" name="people_count" id="people_count" value="<%= event.people_count %>" required>
-            <br><br>
+            <!-- How many people will be there? -->
+            <div class="form-group mb-4">
+                <label for="peopleCount">How many people will be there? (can be a rough estimate)</label>
+                <input type="number" class="form-control" name="peopleCount" id="peopleCount"
+                    value="<%= spec_event.expected_participants%>" required>
+            </div>
 
-            <!-- Type of Event -->
-            <label>Would you like to do sewing, non-sewing, or both at the event?</label>
-            <br>
-            <input type="radio" name="event_type" id="sewing" value="sewing" <%= event.event_type === 'sewing' ? 'checked' : '' %> required>
-            <label for="sewing">Sewing</label>
-            <br>
-            <input type="radio" name="event_type" id="non_sewing" value="non-sewing" <%= event.event_type === 'non-sewing' ? 'checked' : '' %>>
-            <label for="non_sewing">Non-Sewing</label>
-            <br>
-            <input type="radio" name="event_type" id="both" value="both" <%= event.event_type === 'both' ? 'checked' : '' %>>
-            <label for="both">Both</label>
-            <br><br>
+            <!-- Sewing preference -->
+            <div class="form-group mb-4">
+                <label>Would you like to do sewing, non-sewing, or both at the event?</label><br>
+                <input type="radio" id="sewing" name="sewingOption" value="SEWING"
+                    <%=spec_event.activity_type==='SEWING' ? 'checked' : '' %> required>
+                <label for="sewing">Sewing</label><br>
+                <input type="radio" id="nonSewing" name="sewingOption" value="NON-SEWING"
+                    <%=spec_event.activity_type==='NON-SEWING' ? 'checked' : '' %> required>
+                <label for="nonSewing">Non-Sewing</label><br>
+                <input type="radio" id="both" name="sewingOption" value="BOTH" <%=spec_event.activity_type==='BOTH'
+                    ? 'checked' : '' %> required>
+                <label for="both">Both</label>
+            </div>
 
-            <!-- Event Date(s) -->
-            <label for="dates">What date (or possible dates) would you like to schedule the event?</label>
-            <input type="date" name="dates" id="dates" value="<%= event.dates %>" multiple required>
-            <br><br>
-
-            <!-- Event Address -->
-            <label for="address">What’s the address of the event?</label>
-            <input type="text" name="address" id="address" value="<%= event.address %>" required>
-            <br><br>
+            <!-- Event Date -->
+            <div class="form-group mb-4">
+                <label for="eventDate">What date would you like to schedule the event? (Select a single date)</label>
+                <input type="date" class="form-control" name="eventDate" id="eventDate" required
+                    value="<%=spec_event.event_date%>">
+            </div>
 
             <!-- Event Time -->
-            <label for="start_time">What time do you want the event to start?</label>
-            <input type="time" name="start_time" id="start_time" value="<%= event.start_time %>" required>
-            <br>
-            <label for="duration">How long would you like it to go?</label>
-            <input type="text" name="duration" id="duration" value="<%= event.duration %>" placeholder="e.g., 2 hours, 1.5 hours" required>
-            <br><br>
+            <div class="form-group mb-4">
+                <label for="eventStartTime">What time do you want the event to start?</label>
+                <input type="time" class="form-control" name="eventStartTime" id="eventStartTime" required
+                    value="<%=spec_event.start_time%>">
+            </div>
 
-            <!-- Contact Information -->
-            <label for="contact_name">What is a good contact name for the event?</label>
-            <input type="text" name="contact_name" id="contact_name" value="<%= event.contact_name %>" required>
-            <br><br>
+            <!-- Event Duration -->
+            <div class="form-group mb-4">
+                <label for="eventDuration">How long would you like the event to go? (Estimated in hours)</label>
+                <input type="number" class="form-control" name="eventDuration" id="peopleCount"
+                    placeholder="Event duration" min="0" require value="<%=spec_event.duration%>">
+            </div>
 
-            <label for="contact_phone">What is a good contact phone number for the event?</label>
-            <input type="tel" name="contact_phone" id="contact_phone" pattern="[0-9]{10}" placeholder="1234567890" value="<%= event.contact_phone %>" required>
-            <br><br>
+            <!-- Address Form -->
+            <div class="form-group mb-4">
+                <label for="addressLine1">Address Line 1</label>
+                <input type="text" class="form-control" name="addressLine1" id="addressLine1"
+                    value="<%= spec_event.street_address_1%>" required>
+            </div>
+            <div class="form-group mb-4">
+                <input type="text" class="form-control" name="addressLine2" id="addressLine2"
+                    value="<%= spec_event.street_address_2%>">
+            </div>
+            <div class="form-group mb-4">
+                <label for="city">City</label>
+                <input type="text" class="form-control" name="city" id="city" value="<%= spec_event.city%>" required>
+            </div>
+            <div class="form-group mb-4">
+                <label for="state">State</label>
+                <input type="text" class="form-control" name="state" id="state" value="<%= spec_event.state%>" required>
+            </div>
 
-            <!-- Jen's Story -->
-            <label for="jen_story">Would you like Jen to share her story? (Y/N):</label>
-            <select name="jen_story" id="jen_story" required>
-                <option value="Y" <%= event.jen_story === 'Y' ? 'selected' : '' %>>Y</option>
-                <option value="N" <%= event.jen_story === 'N' ? 'selected' : '' %>>N</option>
-            </select>
-            <br><br>
+            <div class="form-group mb-4">
+                <label for="venueType">Venue Type</label>
+                <select class="form-control" name="venueType" id="venueType" required>
+                    <option value="LIVINGROOM" <%=spec_event.venue_type==='LIVINGROOM' ? 'selected' : '' %>
+                        >Living Room</option>
+                    <option value="OFFICESPACE" <%=spec_event.venue_type==='OFFICESPACE' ? 'selected' : ''
+                        %>>Office Space</option>
+                    <option value="GYM" <%=spec_event.venue_type==='GYM' ? 'selected' : '' %>>Gym</option>
+                    <option value="CHURCH" <%=spec_event.venue_type==='CHURCH' ? 'selected' : '' %>
+                        >Church/School Building</option>
+                    <option value="OTHER" <%=spec_event.venue_type==='OTHER' ? 'selected' : '' %>>Other
+                    </option>
+                </select>
+            </div>
 
-            <button type="submit">Save</button>
-        </fieldset>
-    </form>
+            <!-- Contact Name (First & Last) and Phone Email -->
+            <div class="form-group mb-4">
+                <label for="contactFirstName">First Name</label>
+                <input type="text" class="form-control" name="contactFirstName" id="contactFirstName"
+                    value="<%= spec_event.contact_first_name%>" required>
+            </div>
+            <div class="form-group mb-4">
+                <label for="contactLastName">Last Name</label>
+                <input type="text" class="form-control" name="contactLastName" id="contactLastName"
+                    value="<%= spec_event.contact_last_name%>" required>
+            </div>
+            <div class="form-group mb-4">
+                <label for="contactEmail">Email</label>
+                <input type="email" class="form-control" name="contactEmail" id="contactEmail"
+                    value="<%= spec_event.contact_email%>" required>
+            </div>
+            <div class="form-group mb-4">
+                <label for="contactPhone">Phone Number</label>
+                <input type="tel" class="form-control" name="contactPhone" id="contactPhone"
+                    value="<%= spec_event.contact_phone%>" pattern="[0-9]+" maxlength="15" required>
+            </div>
+
+
+            <!-- Share Jen's story -->
+            <div class="form-group mb-4">
+                <label>Did Jen share her story?</label><br>
+                <input type="checkbox" id="jenStory" name="jenStory" value="on" <%=spec_event.jen_story ? 'checked'
+                    : '' %>>
+                    <label for="jenStory">Yes</label>
+            </div>
+
+            <!-- Notes and/or Other Dates -->
+            <div class="form-group mb-4">
+                <label for="notes">Notes</label>
+                <input type="text" class="form-control" name="notes" id="notes"
+                    value="<%= spec_event.notes%>"></input>
+            </div>
+
+            <div class="form-group mb-4">
+                <label for="alternative_date">Other dates (Optional)</label>
+                <input type="text" class="form-control" name="alternative_date" id="alternative_date"
+                    value="<%= spec_event.alternative_date%>"></input>
+            </div>
+
+            <div class="form-group mb-4">
+                <label for="stat">Status</label>
+                <select class="form-control" name="status" id="status" required>
+                    <option value="PENDING" <%=spec_event.status==='PENDING' ? 'selected' : '' %>>Pending</option>
+                    <option value="ACCEPTED" <%=spec_event.status==='ACCEPTED' ? 'selected' : '' %>>Accepted</option>
+                    <option value="DECLINED" <%=spec_event.status==='DECLINED' ? 'selected' : '' %>>Declined</option>
+                    <option value="COMPLETED" <%=spec_event.status==='COMPLETED' ? 'selected' : '' %>>Completed</option>
+                </select>
+            </div>
+
+            <!-- Form fields -->
+            <button type="submit" class="btn btn-main">Submit</button>
+
+
+        </form>
+    </div>
+    <!-- ./End Contact Form -->
+
     <script>
         function highlightCurrentDay() {
             const calendar = document.getElementById('dates');
@@ -144,4 +225,5 @@
         }
     </script>
 </body>
+
 </html>

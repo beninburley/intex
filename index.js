@@ -287,7 +287,7 @@ app.post('/requestadd', (req, res) => {
             status: 'PENDING'
         })
         .then(() => {
-            res.redirect('/');
+            res.redirect('/requestmaintain');
         })
         .catch((error) => {
             console.error(error);
@@ -314,7 +314,7 @@ app.post('/volunteer_eventsmaintain', (req, res) => {
 
 });
 
-app.get('/volunteer_eventsedit', (req, res) => {
+app.get('/volunteer_eventsedit/:id', (req, res) => {
     res.render('volunteer_eventsedit');
 });
 
@@ -410,7 +410,7 @@ app.post("/adminadd", (req, res) => {
             password : password
         })
         .then(() => {
-            res.redirect('/');
+            res.redirect('/adminmaintain');
         })
         .catch((error) => {
             console.error(error);
@@ -468,8 +468,17 @@ app.get("/adminmaintain", (req, res) => {
 });
 
 app.post("/admindelete/:id", (req, res) => {
-    console.log(`Admin with ID ${req.params.id} deleted`);
-    res.redirect("/adminmaintain");
+    const id = req.params.id
+    knex('admin_accounts')
+        .where('admin_id', id)
+        .del() // Deletes the record with the specified ID
+        .then(() => {
+            res.redirect('/adminmaintain'); // Redirect to the volunteers list after deletion
+        })
+        .catch(error => { //Finally... the last error handlers.
+            console.error('Error deleting Admin:', error);
+            res.status(500).send('Internal Server Error');
+        });
 });
 
 // Event Routes
@@ -477,70 +486,7 @@ app.get("/eventadd", (req, res) => {
     res.render("eventadd");
 });
 
-// app.post('/eventadd', (req, res) => {
-//     // Handle request-related form submission
-//     console.log(req.body);
-//     const id = req.params.id;
-//     // Handle request event signup form submission
-//     const peopleCount = req.body.peopleCount;
-//     const sewingOption = req.body.sewingOption.toUpperCase();
-//     const eventDate = req.body.eventDate;
-//     const eventStartTime = req.body.eventStartTime;
-//     const eventDuration = req.body.eventDuration;
-//     const addressLine1 = req.body.addressLine1.toUpperCase();
-//     const addressLine2 = req.body.addressLine2.toUpperCase();
-//     const city = req.body.city.toUpperCase();
-//     const state = req.body.state.toUpperCase();
-//     const venueType = req.body.venueType.toUpperCase();
-//     const contactFirstName = req.body.contactFirstName.toUpperCase();
-//     const contactLastName = req.body.contactLastName.toUpperCase();
-//     const contactEmail = req.body.contactEmail;
-//     const contactPhone = req.body.contactPhone;
-//     const jenStory = req.body.jenStory === 'on';
-//     const notes = req.body.notes.toUpperCase();
-//     const pockets = req.body.pockets
-//     const collars = req.body.collars
-//     const envelopes = req.body.envelopes
-//     const vests = req.body.vests
-//     const completed_product = req.body.completed_product
 
-
-//     // update this into the database
-//     knex('requests_and_events')
-//         .insert({
-//             actual_participants: peopleCount,
-//             activity_type: sewingOption,
-//             event_date: eventDate,
-//             start_time: eventStartTime,
-//             duration: eventDuration,
-//             street_address_1: addressLine1,
-//             street_address_2: addressLine2,
-//             city: city,
-//             state: state,
-//             venue_type: venueType,
-//             contact_first_name: contactFirstName,
-//             contact_last_name: contactLastName,
-//             contact_email: contactEmail,
-//             contact_phone: contactPhone,
-//             jen_story: jenStory,
-//             notes: notes,
-//             status: 'COMPLETED',
-//             completed_products: completed_product
-//         })
-        
-//         .then(() => {
-//             knex('events_products')
-//             .insert({
-//                 product_type: pockets,
-//                 product_type
-//             })
-//             res.redirect('/');
-//         })
-//         .catch((error) => {
-//             console.error(error);
-//             res.status(500).json({ message: "Error adding Event Request." });
-//         });
-// });
 
 app.post('/eventadd', (req, res) => {
     // Extract and sanitize form data
@@ -621,7 +567,7 @@ app.post('/eventadd', (req, res) => {
     })
         .then(() => {
             // If all operations succeed, redirect
-            res.redirect('/');
+            res.redirect('/eventmaintain');
         })
         .catch(error => {
             // Handle errors, roll back transaction if necessary
@@ -631,16 +577,35 @@ app.post('/eventadd', (req, res) => {
 });
 
 
-app.get("/eventedit/:id", (req, res) => {
-    const eventId = req.params.id;
-    const event = { id: eventId, people_count: 10, event_type: "sewing" };
-    res.render("eventedit", { event });
+
+app.get("/eventedit/:id", async (req, res) => {
+    const id = req.params.id;
+
+    try {
+        // Fetch main event details
+        const spec_event = await knex('requests_and_events')
+            .where('event_id', id)
+            .first(); // Fetch the single event
+
+        if (!spec_event) {
+            return res.status(404).send('Event not found');
+        }
+
+        // Fetch related products for this event
+        const event_products = await knex('events_products')
+            .where('event_id', id);
+
+        console.log(spec_event);
+        // Format event_date for HTML date input
+        spec_event.event_date = spec_event.event_date.toISOString().split('T')[0];
+        // Pass both the event and the related products to the view
+        res.render('eventedit', { spec_event, event_products });
+    } catch (error) {
+        console.error('Error fetching event or related products:', error);
+        res.status(500).send('Internal Server Error');
+    }
 });
 
-app.post("/eventedit/:id", (req, res) => {
-    console.log(req.body);
-    res.redirect("/eventmaintain");
-});
 
 app.get("/eventmaintain", (req, res) => {
     knex('requests_and_events')
@@ -648,7 +613,10 @@ app.get("/eventmaintain", (req, res) => {
         .orderBy('event_date', 'desc')
         .where('status', 'COMPLETED')
         .then(event_list => {
-            // Render the maintainPlanets template and pass the data
+            // Render the eventmaintain template and pass the data
+            event_list.forEach(event => {
+                event.event_date = event.event_date.toISOString().split('T')[0];
+            });
             res.render('eventmaintain', { event_list });
         })
         .catch(error => { //I know it's only copying and pasting but my goodness so many error handlers
@@ -657,9 +625,184 @@ app.get("/eventmaintain", (req, res) => {
         });
 });
 
+app.post("/eventedit/:id", async (req, res) => {
+    const id = req.params.id;
+
+    // Extract event data
+    const {
+        peopleCount,
+        sewingOption,
+        eventDate,
+        eventStartTime,
+        eventDuration,
+        addressLine1,
+        addressLine2,
+        city,
+        state,
+        venueType,
+        contactFirstName,
+        contactLastName,
+        contactEmail,
+        contactPhone,
+        jenStory,
+        notes,
+        completed_product,
+    } = req.body;
+
+    // Extract product data
+    const products = req.body.products; // Example: { "pockets": "12", "collars": "8" }
+
+    try {
+        // Update main event data
+        await knex('requests_and_events')
+            .where('event_id', id)
+            .update({
+                actual_participants: peopleCount,
+                activity_type: sewingOption,
+                event_date: eventDate,
+                start_time: eventStartTime,
+                duration: eventDuration,
+                street_address_1: addressLine1,
+                street_address_2: addressLine2,
+                city: city,
+                state: state,
+                venue_type: venueType,
+                contact_first_name: contactFirstName,
+                contact_last_name: contactLastName,
+                contact_email: contactEmail,
+                contact_phone: contactPhone,
+                jen_story: jenStory === 'on', // Convert checkbox value
+                notes: notes,
+                completed_products: completed_product,
+            });
+
+        // Update product data
+        const updates = Object.entries(products).map(([productType, amount]) => {
+            return knex('events_products')
+                .where({ event_id: id, product_type: productType })
+                .update({ amount_produced: amount });
+        });
+
+        await Promise.all(updates);
+
+        res.redirect('/eventmaintain'); // Redirect to events list after update
+    } catch (error) {
+        console.error('Error updating event or products:', error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
+app.get("/requestedit/:id", async (req, res) => {
+    const id = req.params.id;
+
+    try {
+        // Fetch main event details
+        const spec_event = await knex('requests_and_events')
+            .where('event_id', id)
+            .first(); // Fetch the single event
+
+        if (!spec_event) {
+            return res.status(404).send('Event not found');
+        }
+
+        // // Fetch related products for this event
+        // const event_products = await knex('events_products')
+        //     .where('event_id', id);
+
+        console.log(spec_event);
+        // Format event_date for HTML date input
+        spec_event.event_date = spec_event.event_date.toISOString().split('T')[0];
+        // Pass both the event and the related products to the view
+        res.render('requestedit', { spec_event });
+    } catch (error) {
+        console.error('Error fetching request', error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
+app.post("/requestedit/:id", (req, res) => {
+    // Handle request-related form submission
+    const id = req.params.id;
+    // Handle request event signup form submission
+    const peopleCount = req.body.peopleCount;
+    const sewingOption = req.body.sewingOption.toUpperCase();
+    const eventDate = req.body.eventDate;
+    const eventStartTime = req.body.eventStartTime;
+    const eventDuration = req.body.eventDuration;
+    const addressLine1 = req.body.addressLine1.toUpperCase();
+    const addressLine2 = req.body.addressLine2.toUpperCase();
+    const city = req.body.city.toUpperCase();
+    const state = req.body.state.toUpperCase();
+    const venueType = req.body.venueType.toUpperCase();
+    const contactFirstName = req.body.contactFirstName.toUpperCase();
+    const contactLastName = req.body.contactLastName.toUpperCase();
+    const contactEmail = req.body.contactEmail;
+    const contactPhone = req.body.contactPhone;
+    const jenStory = req.body.jenStory === 'on';
+    const notes = req.body.notes.toUpperCase();
+    const status = req.body.status.toUpperCase();
+    const alternative_date = req.body.alternative_date;
+
+
+    // update this into the database
+    knex('requests_and_events')
+        .where('event_id', id)
+        .update({
+            expected_participants: peopleCount,
+            activity_type: sewingOption,
+            event_date: eventDate,
+            start_time: eventStartTime,
+            duration: eventDuration,
+            street_address_1: addressLine1,
+            street_address_2: addressLine2,
+            city: city,
+            state: state,
+            venue_type: venueType,
+            contact_first_name: contactFirstName,
+            contact_last_name: contactLastName,
+            contact_email: contactEmail,
+            contact_phone: contactPhone,
+            jen_story: jenStory,
+            notes: notes,
+            status: status,
+            alternative_date: alternative_date
+        })
+
+        .then(() => {
+            res.redirect('/requestmaintain');
+        })
+        .catch((error) => {
+            console.error(error);
+            res.status(500).json({ message: "Error adding Event Request." });
+        });
+});
+
+app.post("/requestdelete/:id", (req, res) => {
+    const id = req.params.id
+    knex('requests_and_events')
+        .where('event_id', id)
+        .del() // Deletes the record with the specified ID
+        .then(() => {
+            res.redirect('/requestmaintain'); // Redirect to the volunteers list after deletion
+        })
+        .catch(error => { //Finally... the last error handlers.
+            console.error('Error deleting request:', error);
+            res.status(500).send('Internal Server Error');
+        });
+});
+
 app.post("/eventdelete/:id", (req, res) => {
-    console.log(`Event with ID ${req.params.id} deleted`);
-    res.redirect("/eventmaintain");
+    const id = req.params.id
+    knex('requests_and_events')
+        .where('event_id', id)
+        .del() // Deletes the record with the specified ID
+        .then(() => {
+            res.redirect('/eventmaintain'); // Redirect to the volunteers list after deletion
+        })
+        .catch(error => { //Finally... the last error handlers.
+            console.error('Error deleting event:', error);
+            res.status(500).send('Internal Server Error');
+        });
 });
 
 // Volunteer Routes
@@ -697,7 +840,7 @@ app.post("/volunteeradd", (req, res) => {
             hrs_available: volunteerHours,
         })
         .then(() => {
-            res.redirect("/");
+            res.redirect("/volunteermaintain");
         })
         .catch((error) => {
             console.error(error);
@@ -706,14 +849,56 @@ app.post("/volunteeradd", (req, res) => {
 });
 
 app.get("/volunteeredit/:id", (req, res) => {
-    const volunteerId = req.params.id;
-    const volunteer = { id: volunteerId, first_name: "Jane", last_name: "Doe" };
-    res.render("volunteeredit", { volunteer });
-});
+    const id = req.params.id;
+    knex('volunteers')
+        .where('volunteer_id', id)
+        .first() //This returns only the first object, NOT an array
+        .then(spec_volunteer => {
+            if (!spec_volunteer) {
+                return res.status(404).send('Volunteer not found');
+            }
+            console.log(spec_volunteer);
+            res.render('volunteeredit', { spec_volunteer });
+        });
+    });
 
 app.post("/volunteeredit/:id", (req, res) => {
-    console.log(req.body);
-    res.redirect("/volunteermaintain");
+    const id = req.params.id;
+    // Access each value directly from req.body
+    const contactFirstName = req.body.contactFirstName;
+    const contactLastName = req.body.contactLastName;
+    const contactEmail = req.body.contactEmail;
+    const contactPhone = req.body.contactPhone;
+    const city = req.body.city;
+    const state = req.body.state;
+    const howHeard = req.body.howHeard;
+    const sewingLevel = req.body.sewingLevel;
+    const leadevent = req.body.leadevent === 'on';
+    const teachsewing = req.body.teachsewing === 'on';
+    const volunteerHours = req.body.volunteerHours;
+    // Update the Planet in the database
+    knex('volunteers')
+        .where('volunteer_id', id)
+        .update({
+            first_name: contactFirstName.toUpperCase(),
+            last_name: contactLastName.toUpperCase(),
+            email: contactEmail,
+            phone: contactPhone,
+            city: city.toUpperCase(),
+            state: state.toUpperCase(),
+            how_heard_about_project: howHeard.toUpperCase(),
+            sewing_level: sewingLevel.toUpperCase(),
+            willing_to_lead: leadevent,
+            teach_sewing: teachsewing,
+            hrs_available: volunteerHours,
+        })
+        .then(() => {
+            res.redirect('/volunteermaintain'); // Redirect to the list of Planets after saving
+        })
+        .catch(error => { //still catch errors
+            console.error('Error updating Volunteers:', error);
+            res.status(500).send('Internal Server Error');
+        });
 });
 
 app.get("/volunteermaintain", (req, res) => {
@@ -731,14 +916,36 @@ app.get("/volunteermaintain", (req, res) => {
 });
 
 app.post("/volunteerdelete/:id", (req, res) => {
-    console.log(`Volunteer with ID ${req.params.id} deleted`);
-    res.redirect("/volunteermaintain");
+    const id = req.params.id
+    knex('volunteers')
+    .where('volunteer_id', id)
+    .del() // Deletes the record with the specified ID
+    .then(() => {
+      res.redirect('/volunteermaintain'); // Redirect to the volunteers list after deletion
+    })
+    .catch(error => { //Finally... the last error handlers.
+      console.error('Error deleting Volunteer:', error);
+      res.status(500).send('Internal Server Error');
+    });
 });
 
 // Request Routes
 app.get("/requestmaintain", (req, res) => {
-    const requests = [];
-    res.render("requestmaintain", { requests });
+    knex('requests_and_events')
+        .select('event_id', 'street_address_1', 'city', 'state', 'venue_type', 'event_date', 'status')
+        .orderBy('event_date', 'desc')
+        .where('status', '!=','COMPLETED')
+        .then(event_list => {
+            // Render the eventmaintain template and pass the data
+            event_list.forEach(event => {
+                event.event_date = event.event_date.toISOString().split('T')[0];
+            });
+            res.render('requestmaintain', { event_list });
+        })
+        .catch(error => { //I know it's only copying and pasting but my goodness so many error handlers
+            console.error('Error querying database:', error);
+            res.status(500).send('Internal Server Error');
+        });
 });
 
 app.post("/requestdelete/:id", (req, res) => {
