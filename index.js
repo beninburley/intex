@@ -7,6 +7,7 @@ const path = require("path");
 const bodyParser = require("body-parser");
 const { default: OpenAI } = require("openai");
 const fs = require("fs");
+const session = require('express-session');
 require("dotenv").config();
 
 const app = express();
@@ -18,6 +19,25 @@ app.set("views", path.join(__dirname, "views")); // Define views folder
 app.use(express.static(path.join(__dirname, "public"))); // Serve static files
 app.use(bodyParser.json()); // Parse JSON
 app.use(express.urlencoded({ extended: true })); // Parse form data
+
+//For Password stuff
+app.use(
+    session({
+        secret: 'your_secret_key', // Change to a strong secret for production
+        resave: false,
+        saveUninitialized: false,
+    })
+);
+
+//Security Key Function that either allows or denies web access
+function ensureAdmin(req, res, next) {
+    if (req.session.isAdmin) {
+        next();
+    } else {
+        res.redirect('/login');
+    }
+}
+
 
 const knex = require("knex") ({ //Connect to postgres db
     client : "pg",
@@ -145,7 +165,7 @@ app.post('/', (req, res) => {
 });
 
 // Internal Landing Routes
-app.get('/internallanding', (req, res) => {
+app.get('/internallanding', ensureAdmin, (req, res) => {
     res.render('internallanding');
 });
 
@@ -174,8 +194,33 @@ app.get('/login', (req, res) => {
 app.post('/login', (req, res) => {
     // Handle login form submission
     const { username, password } = req.body;
-    console.log(`Username: ${username}, Password: ${password}`);
-    res.redirect('/internallanding'); // Redirect to internal landing after login
+
+    knex('admin_accounts')
+        .select('*')
+        .where({ username, password }) // Plaintext password check
+        .first()
+        .then(user => {
+            if (user) {
+                req.session.isAdmin = true; // Mark user as authenticated
+                req.session.username = user.username;
+                res.redirect('/internallanding');
+            } else {
+                res.status(401).send('Invalid credentials');
+            }
+        })
+        .catch(err => {
+            console.error('Error authenticating:', err);
+            res.status(500).send('Internal server error');
+        });
+});
+
+app.get('/logout', (req, res) => {
+    req.session.destroy(err => {
+        if (err) {
+            console.error('Error destroying session:', err);
+        }
+        res.redirect('/login');
+    });
 });
 
 // Request Routes
@@ -237,7 +282,7 @@ app.post('/request', (req, res) => {
         });
 });
 
-app.get('/requestadd', (req, res) => {
+app.get('/requestadd', ensureAdmin, (req, res) => {
     res.render('requestadd');
 });
 
@@ -295,13 +340,16 @@ app.post('/requestadd', (req, res) => {
         });
 });
 
-app.get('/volunteer_eventsmaintain', (req, res) => {
+app.get('/volunteer_eventsmaintain', ensureAdmin, (req, res) => {
     knex('requests_and_events')
     .select('event_id', 'street_address_1', 'city', 'state', 'venue_type', 'event_date')
     .orderBy('event_date', 'desc')
     .where('status', 'COMPLETED')
     .then(event_list => {
         // Render the maintainPlanets template and pass the data
+        event_list.forEach(event => {
+            event.event_date = event.event_date.toISOString().split('T')[0];
+        });
         res.render('volunteer_eventsmaintain', { event_list });
       })
       .catch(error => { //I know it's only copying and pasting but my goodness so many error handlers
@@ -324,7 +372,7 @@ app.post('/volunteer_eventsdelete/:id', (req, res) => {
         });
 });
 
-app.get("/volunteer_eventsedit/:id", async (req, res) => {
+app.get("/volunteer_eventsedit/:id", ensureAdmin, async (req, res) => {
     const eventId = req.params.id;
 
     try {
@@ -343,8 +391,8 @@ app.get("/volunteer_eventsedit/:id", async (req, res) => {
                 this.on('volunteers.volunteer_id', '=', 'events_volunteers.volunteer_id')
                     .andOn('events_volunteers.event_id', '=', knex.raw('?', [eventId]));
             })
-            .select('volunteers.volunteer_id', 'volunteers.first_name', 'volunteers.last_name', 'events_volunteers.event_id as attended');
-
+            .select('volunteers.volunteer_id', 'volunteers.first_name', 'volunteers.last_name', 'events_volunteers.event_id as attended')
+            .orderBy('last_name', 'asc');
         res.render("volunteer_eventsedit", { event, volunteers });
     } catch (error) {
         console.error("Error fetching data:", error);
@@ -435,23 +483,8 @@ app.post('/volunteersignup', (req, res) => {
         });
 });
 
-// Example Deletion Route
-// app.post('/:id', (req, res) => {
-//     knex('character')
-//         .where('id', req.params.id)
-//         .del()
-//         .then(() => {
-//             res.redirect('/'); // Redirect to home after deletion
-//         })
-//         .catch(err => {
-//             console.error(err);
-//             res.status(500).json({ err });
-//         });
-// });
-
-
 // Admin Routes
-app.get("/adminadd", (req, res) => {
+app.get("/adminadd", ensureAdmin, (req, res) => {
     res.render("adminadd");
 });
 
@@ -475,7 +508,7 @@ app.post("/adminadd", (req, res) => {
         
 });
 
-app.get("/adminedit/:id", (req, res) => {
+app.get("/adminedit/:id", ensureAdmin, (req, res) => {
     const id = req.params.id;
     knex('admin_accounts')
     .where('admin_id', id)
@@ -509,7 +542,7 @@ app.post("/adminedit/:id", (req, res) => {
       });
 });
 
-app.get("/adminmaintain", (req, res) => {
+app.get("/adminmaintain", ensureAdmin, (req, res) => {
     knex('admin_accounts')
         .select('username', 'admin_id')
         .orderBy('username', 'asc')
@@ -538,7 +571,7 @@ app.post("/admindelete/:id", (req, res) => {
 });
 
 // Event Routes
-app.get("/eventadd", (req, res) => {
+app.get("/eventadd", ensureAdmin, (req, res) => {
     res.render("eventadd");
 });
 
@@ -634,7 +667,7 @@ app.post('/eventadd', (req, res) => {
 
 
 
-app.get("/eventedit/:id", async (req, res) => {
+app.get("/eventedit/:id", ensureAdmin, async (req, res) => {
     const id = req.params.id;
 
     try {
@@ -663,7 +696,7 @@ app.get("/eventedit/:id", async (req, res) => {
 });
 
 
-app.get("/eventmaintain", (req, res) => {
+app.get("/eventmaintain", ensureAdmin, (req, res) => {
     knex('requests_and_events')
         .select('event_id', 'street_address_1', 'city', 'state', 'venue_type', 'event_date')
         .orderBy('event_date', 'desc')
@@ -748,7 +781,7 @@ app.post("/eventedit/:id", async (req, res) => {
     }
 });
 
-app.get("/requestedit/:id", async (req, res) => {
+app.get("/requestedit/:id", ensureAdmin, async (req, res) => {
     const id = req.params.id;
 
     try {
@@ -862,7 +895,7 @@ app.post("/eventdelete/:id", (req, res) => {
 });
 
 // Volunteer Routes
-app.get("/volunteeradd", (req, res) => {
+app.get("/volunteeradd", ensureAdmin, (req, res) => {
     res.render("volunteeradd");
 });
 
@@ -904,7 +937,7 @@ app.post("/volunteeradd", (req, res) => {
         });
 });
 
-app.get("/volunteeredit/:id", (req, res) => {
+app.get("/volunteeredit/:id", ensureAdmin, (req, res) => {
     const id = req.params.id;
     knex('volunteers')
         .where('volunteer_id', id)
@@ -957,7 +990,7 @@ app.post("/volunteeredit/:id", (req, res) => {
         });
 });
 
-app.get("/volunteermaintain", (req, res) => {
+app.get("/volunteermaintain", ensureAdmin, (req, res) => {
     knex('volunteers')
         .select('volunteer_id', 'first_name', 'last_name', 'city', 'sewing_level', 'willing_to_lead')
         .orderBy('last_name', 'asc')
@@ -986,7 +1019,7 @@ app.post("/volunteerdelete/:id", (req, res) => {
 });
 
 // Request Routes
-app.get("/requestmaintain", (req, res) => {
+app.get("/requestmaintain", ensureAdmin, (req, res) => {
     knex('requests_and_events')
         .select('event_id', 'street_address_1', 'city', 'state', 'venue_type', 'event_date', 'status')
         .orderBy('event_date', 'desc')
