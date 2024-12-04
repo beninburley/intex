@@ -1,106 +1,244 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Add Event</title>
+    
+        <!-- CSS
+          ================================================== -->
+        <!-- Themefisher Icon font -->
+        <link rel="stylesheet" href="plugins/themefisher-font/style.css">
+        <!-- bootstrap.min css -->
+        <link rel="stylesheet" href="plugins/bootstrap/bootstrap.min.css">
+        <!-- Lightbox.min css -->
+        <link rel="stylesheet" href="plugins/lightbox2/css/lightbox.min.css">
+        <!-- animation css -->
+        <link rel="stylesheet" href="plugins/animate/animate.css">
+        <!-- Slick Carousel -->
+        <link rel="stylesheet" href="plugins/slick/slick.css">
+        <!-- Main Stylesheet -->
+        <link rel="stylesheet" href="css/style.css">
+    
+        <!--
+              Fixed Navigation
+              ==================================== -->
+        <header class="navigation fixed-top">
+            <div class="container">
+                <!-- main nav -->
+                <nav class="navbar navbar-expand-lg navbar-light px-0">
+                    <!-- logo -->
+                    <a class="navbar-brand logo" href="/">
+                        <img loading="lazy" class="logo-default" src="images/logo.png" alt="logo" />
+                        <img loading="lazy" class="logo-white" src="images/logo.png" alt="logo" />
+                    </a>
+                    <!-- /logo -->
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation"
+                        aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+        
+                    <div class="collapse navbar-collapse" id="navigation">
+                        <ul class="navbar-nav ml-auto text-center">
+                            <li class="nav-item dropdown active">
+                                <a class="nav-link dropdown-toggle" href="/" id="navbarDropdown" role="button"
+                                    aria-haspopup="true" aria-expanded="false">
+                                    Home</i>
+                                </a>
+                            <li class="nav-item ">
+                                <a class="nav-link" href="/adminmaintain">Admins</a> <!-- services.-->
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link" href="/volunteermaintain">Volunteers</a> <!-- services.-->
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link" href="/requestmaintain">Requests</a> <!-- services.-->
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link" href="/eventmaintain">Events</a> <!-- services.-->
+                            </li>
+                        </ul>
+                        </li>
+                        </ul>
+                    </div>
+                </nav>
+                <!-- /main nav -->
+            </div>
+        </header>
+        <!--
+              End Fixed Navigation
+              ==================================== -->
+    
+    </head>
+      
+<body onload="highlightCurrentDay()">
 
-    <!-- Mobile Specific Metas
-      ================================================== -->
-      <meta http-equiv="X-UA-Compatible" content="IE=edge">
-      <meta name="description" content="One page parallax responsive HTML Template">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-      <meta name="author" content="Themefisher">
-      <meta name="generator" content="Themefisher Bingo HTML Template v1.0">
-      
-      <!-- Favicon -->
-      <link rel="shortcut icon" type="image/x-icon" href="/images/logo.png" />
-      
-      <!-- CSS
-        ================================================== -->
-      <!-- Themefisher Icon font -->
-      <link rel="stylesheet" href="plugins/themefisher-font/style.css">
-      <!-- bootstrap.min css -->
-      <link rel="stylesheet" href="plugins/bootstrap/bootstrap.min.css">
-      <!-- Lightbox.min css -->
-      <link rel="stylesheet" href="plugins/lightbox2/css/lightbox.min.css">
-      <!-- animation css -->
-      <link rel="stylesheet" href="plugins/animate/animate.css">
-      <!-- Slick Carousel -->
-      <link rel="stylesheet" href="plugins/slick/slick.css">
-      <!-- Main Stylesheet -->
-      <link rel="stylesheet" href="css/style.css">
-      
-  </head>
-  
-  <body>
-  
-      <!--
-        Start Preloader
-        ==================================== -->
-      <div id="preloader">
-          <div class='preloader'>
-              <span></span>
-              <span></span>
-              <span></span>
-              <span></span>
-              <span></span>
-              <span></span>
-          </div>
-      </div>
-      <!--
-        End Preloader
-        ==================================== -->
-      
-      <!--
-      Fixed Navigation
-      ==================================== -->
-      <header class="navigation fixed-top">
-          <div class="container">
-              <!-- main nav -->
-              <nav class="navbar navbar-expand-lg navbar-light px-0">
-                  <!-- logo -->
-                  <a class="navbar-brand logo" href="/">
-                      <img loading="lazy" class="logo-default" src="images/logo.png" alt="logo" />
-                      <img loading="lazy" class="logo-white" src="images/logo.png" alt="logo" />
-                  </a>
-                  <!-- /logo -->
-                  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation"
-                      aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
-                      <span class="navbar-toggler-icon"></span>
-                  </button>
-      
-                  <div class="collapse navbar-collapse" id="navigation">
-                      <ul class="navbar-nav ml-auto text-center">
-                          <li class="nav-item dropdown active">
-                              <a class="nav-link dropdown-toggle" href="/" id="navbarDropdown" role="button"
-                                  aria-haspopup="true" aria-expanded="false">
-                                  Home</i>
-                              </a>
-                          <li class="nav-item ">
-                              <a class="nav-link" href="/adminmaintain">Admins</a> <!-- services.-->
-                          </li>
-                          <li class="nav-item ">
-                              <a class="nav-link" href="/volunteermaintain">Volunteers</a> <!-- services.-->
-                          </li>
-                          <li class="nav-item ">
-                              <a class="nav-link" href="/requestmaintain">Requests</a> <!-- services.-->
-                          </li>
-                          <li class="nav-item ">
-                              <a class="nav-link" href="/eventmaintain">Events</a> <!-- services.-->
-                          </li>
-                      </ul>
-                      </li>
-                      </ul>
-                  </div>
-              </nav>
-              <!-- /main nav -->
-          </div>
-      </header>
-      <!--
-      End Fixed Navigation
-      ==================================== -->
+    <!--Start Contact Us
+    	=========================================== -->
+    <section class="contact-us" id="contact">
+        <div class="container">
+            <div class="row justify-content-center">
+                <!-- section title -->
+                <div class="col-xl-6 col-lg-8">
+                    <div class="title text-center">
+                        <h2>Admin Event Request</h2>
+    
+                        <div class="border"></div>
+                    </div>
+                </div>
+                <!-- /section title -->
+            </div>
+            <div class="row">
+    
+                <!-- Contact Form -->
+                <div class="contact-form col-md-6 mx-auto">
+                    <form id="contact-form" action="/eventadd" method="post" role="form">
+    
+                        <!-- How many people will be there? -->
+                        <div class="form-group mb-4">
+                            <label for="peopleCount">How many people participated?</label>
+                            <input type="number" class="form-control" name="peopleCount" id="peopleCount"
+                                placeholder="Total number of people" required>
+                        </div>
+    
+                        <!-- Sewing preference -->
+                        <div class="form-group mb-4">
+                            <label>What kind of event was this?</label><br>
+                            <input type="radio" id="sewing" name="sewingOption" value="sewing">
+                            <label for="sewing">Sewing</label><br>
+                            <input type="radio" id="nonSewing" name="sewingOption" value="non-sewing">
+                            <label for="nonSewing">Non-Sewing</label><br>
+                            <input type="radio" id="both" name="sewingOption" value="both">
+                            <label for="both">Both</label>
+                        </div>
+    
+                        <!-- Event Date -->
+                        <div class="form-group mb-4">
+                            <label for="eventDate">What date did the event take place?</label>
+                            <input type="date" class="form-control" name="eventDate" id="eventDate" required>
+                        </div>
+    
+                        <!-- Event Time -->
+                        <div class="form-group mb-4">
+                            <label for="eventStartTime">What time did the event start?</label>
+                            <input type="time" class="form-control" name="eventStartTime" id="eventStartTime" required>
+                        </div>
+    
+                        <!-- Event Duration -->
+                        <div class="form-group mb-4">
+                            <label for="eventDuration">How long did the event last? (e.g., hours)</label>
+                            <input type="number" class="form-control" name="eventDuration" id="peopleCount"
+                                placeholder="Event duration" min="0" required>
+                        </div>
+    
+                        <!-- Address Form -->
+                        <div class="form-group mb-4">
+                            <label for="addressLine1">Address Line 1</label>
+                            <input type="text" class="form-control" name="addressLine1" id="addressLine1"
+                                placeholder="Address Line 1" required>
+                        </div>
+                        <div class="form-group mb-4">
+                            <input type="text" class="form-control" name="addressLine2" id="addressLine2"
+                                placeholder="Address Line 2 (Optional)">
+                        </div>
+                        <div class="form-group mb-4">
+                            <label for="city">City</label>
+                            <input type="text" class="form-control" name="city" id="city" placeholder="City" required>
+                        </div>
+                        <div class="form-group mb-4">
+                            <label for="state">State</label>
+                            <input type="text" class="form-control" name="state" id="state" placeholder="State" required>
+                        </div>
+    
+                        <div class="form-group mb-4">
+                            <label for="venueType">Venue Type</label>
+                            <select class="form-control" name="venueType" id="venueType" required>
+                                <option value="livingRoom">Living Room</option>
+                                <option value="officeSpace">Office Space</option>
+                                <option value="gym">Gym</option>
+                                <option value="churchSchool">Church/School Building</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+    
+                        <!-- Contact Name (First & Last) and Phone Email -->
+                        <div class="form-group mb-4">
+                            <label for="contactFirstName">First Name</label>
+                            <input type="text" class="form-control" name="contactFirstName" id="contactFirstName"
+                                placeholder="First Name" required>
+                        </div>
+                        <div class="form-group mb-4">
+                            <label for="contactLastName">Last Name</label>
+                            <input type="text" class="form-control" name="contactLastName" id="contactLastName"
+                                placeholder="Last Name" required>
+                        </div>
+                        <div class="form-group mb-4">
+                            <label for="contactEmail">Email</label>
+                            <input type="email" class="form-control" name="contactEmail" id="contactEmail"
+                                placeholder="Email" required>
+                        </div>
+                        <div class="form-group mb-4">
+                            <label for="contactPhone">Phone Number</label>
+                            <input type="number" class="form-control" name="contactPhone" id="contactPhone"
+                                placeholder="Phone Number" required>
+                        </div>
+    
+    
+                        <!-- Share Jen's story -->
+                        <div class="form-group mb-4">
+                            <label>Did Jen share her story?</label><br>
+                            <input type="checkbox" id="jenStory" name="jenStory">
+                            <label for="jenStory">Yes</label>
+                        </div>
+    
+                        <!-- Notes and/or Other Dates -->
+                        <div class="form-group mb-4">
+                            <label for="notes">Notes</label>
+                            <textarea rows="4" class="form-control" name="notes" id="notes"
+                                placeholder="Any additional information or other potential dates"></textarea>
+                        </div>
 
-    <title>Add Event</title>
+                        <div class="form-group mb-4">
+                            <label for="pockets">Number of pockets made?</label>
+                            <input type="number" class="form-control" name="pockets" id="pockets" placeholder="0"
+                                required>
+                        </div>
+
+                        <div class="form-group mb-4">
+                            <label for="collars">Number of collars made?</label>
+                            <input type="number" class="form-control" name="collars" id="collars" placeholder="0"
+                                required>
+                        </div>
+
+                        <div class="form-group mb-4">
+                            <label for="envelopes">Number of envelopes made?</label>
+                            <input type="number" class="form-control" name="envelopes" id="envelopes" placeholder="0"
+                                required>
+                        </div>
+
+                        <div class="form-group mb-4">
+                            <label for="vests">Number of vests made?</label>
+                            <input type="number" class="form-control" name="vests" id="vests" placeholder="0" required>
+                        </div>
+
+                        <div class="form-group mb-4">
+                            <label for="completed_product">Number of completed products?</label>
+                            <input type="number" class="form-control" name="completed_product" id="completed_product" placeholder="0" required>
+                        </div>
+    
+    
+                        <!-- Form fields -->
+                        <button type="submit" class="btn btn-main">Submit</button>
+    
+    
+                    </form>
+                </div>
+                <!-- ./End Contact Form -->
+    
+            </div> <!-- end row -->
+        </div> <!-- end container -->
+    </section> <!-- end section -->
+
     <script>
         function highlightCurrentDay() {
             const calendar = document.getElementById('dates');
@@ -110,63 +248,6 @@
             }
         }
     </script>
-</head>
-<body onload="highlightCurrentDay()">
-    <form action="/eventmaintain" method="GET">
-        <!-- Number of People -->
-        <label for="people_count">How many people will be there? (Can be a rough estimate):</label>
-        <input type="number" name="people_count" id="people_count" required>
-        <br><br>
-
-        <!-- Type of Event -->
-        <label>Would you like to do sewing, non-sewing, or both at the event?</label>
-        <br>
-        <input type="radio" name="event_type" id="sewing" value="sewing" required>
-        <label for="sewing">Sewing</label>
-        <br>
-        <input type="radio" name="event_type" id="non_sewing" value="non-sewing">
-        <label for="non_sewing">Non-Sewing</label>
-        <br>
-        <input type="radio" name="event_type" id="both" value="both">
-        <label for="both">Both</label>
-        <br><br>
-
-        <!-- Event Date(s) -->
-        <label for="dates">What date (or possible dates) would you like to schedule the event?</label>
-        <input type="date" name="dates" id="dates" multiple required>
-        <br><br>
-
-        <!-- Event Address -->
-        <label for="address">What’s the address of the event?</label>
-        <input type="text" name="address" id="address" required>
-        <br><br>
-
-        <!-- Event Time -->
-        <label for="start_time">What time do you want the event to start?</label>
-        <input type="time" name="start_time" id="start_time" required>
-        <br>
-        <label for="duration">How long would you like it to go?</label>
-        <input type="text" name="duration" id="duration" placeholder="e.g., 2 hours, 1.5 hours" required>
-        <br><br>
-
-        <!-- Contact Information -->
-        <label for="contact_name">What is a good contact name for the event?</label>
-        <input type="text" name="contact_name" id="contact_name" required>
-        <br><br>
-
-        <label for="contact_phone">What is a good contact phone number for the event?</label>
-        <input type="tel" name="contact_phone" id="contact_phone" pattern="[0-9]{10}" placeholder="1234567890" required>
-        <br><br>
-
-        <!-- Jen's Story -->
-        <label for="jen_story">Would you like Jen to share her story? (Y/N):</label>
-        <select name="jen_story" id="jen_story" required>
-            <option value="Y">Y</option>
-            <option value="N">N</option>
-        </select>
-        <br><br>
-
-        <button type="submit">Save Event</button>
-    </form>
 </body>
+
 </html>

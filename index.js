@@ -237,6 +237,67 @@ app.post('/request', (req, res) => {
         });
 });
 
+app.get('/requestadd', (req, res) => {
+    res.render('requestadd');
+});
+
+app.post('/requestadd', (req, res) => {
+    // Handle request-related form submission
+    console.log(req.body);
+    const id = req.params.id;
+    // Handle request event signup form submission
+    const peopleCount = req.body.peopleCount;
+    const sewingOption = req.body.sewingOption.toUpperCase();
+    const eventDate = req.body.eventDate;
+    const eventStartTime = req.body.eventStartTime;
+    const eventDuration = req.body.eventDuration;
+    const addressLine1 = req.body.addressLine1.toUpperCase();
+    const addressLine2 = req.body.addressLine2.toUpperCase();
+    const city = req.body.city.toUpperCase();
+    const state = req.body.state.toUpperCase();
+    const venueType = req.body.venueType.toUpperCase();
+    const contactFirstName = req.body.contactFirstName.toUpperCase();
+    const contactLastName = req.body.contactLastName.toUpperCase();
+    const contactEmail = req.body.contactEmail;
+    const contactPhone = req.body.contactPhone;
+    const jenStory = req.body.jenStory === 'on';
+    const notes = req.body.notes.toUpperCase();
+    const dateNotes = req.body.dateNotes;
+
+    // update this into the database
+    knex('requests_and_events')
+        .insert({
+            expected_participants: peopleCount,
+            activity_type: sewingOption,
+            event_date: eventDate,
+            start_time: eventStartTime,
+            duration: eventDuration,
+            street_address_1: addressLine1,
+            street_address_2: addressLine2,
+            city: city,
+            state: state,
+            venue_type: venueType,
+            contact_first_name: contactFirstName,
+            contact_last_name: contactLastName,
+            contact_email: contactEmail,
+            contact_phone: contactPhone,
+            jen_story: jenStory,
+            notes: notes,
+            alternative_date: dateNotes,
+            status: 'PENDING'
+        })
+        .then(() => {
+            res.redirect('/');
+        })
+        .catch((error) => {
+            console.error(error);
+            res.status(500).json({ message: "Error adding Event Request." });
+        });
+});
+
+
+
+
 // Routes
 app.get('/vest', (req, res) => {
     res.render('vest');
@@ -294,18 +355,18 @@ app.post('/volunteersignup', (req, res) => {
 });
 
 // Example Deletion Route
-app.post('/:id', (req, res) => {
-    knex('character')
-        .where('id', req.params.id)
-        .del()
-        .then(() => {
-            res.redirect('/'); // Redirect to home after deletion
-        })
-        .catch(err => {
-            console.error(err);
-            res.status(500).json({ err });
-        });
-});
+// app.post('/:id', (req, res) => {
+//     knex('character')
+//         .where('id', req.params.id)
+//         .del()
+//         .then(() => {
+//             res.redirect('/'); // Redirect to home after deletion
+//         })
+//         .catch(err => {
+//             console.error(err);
+//             res.status(500).json({ err });
+//         });
+// });
 
 
 // Admin Routes
@@ -330,8 +391,7 @@ app.post("/adminedit/:id", (req, res) => {
 });
 
 app.get("/adminmaintain", (req, res) => {
-    const admins = [];
-    res.render("adminmaintain", { admins });
+    res.render("adminmaintain");
 });
 
 app.post("/admindelete/:id", (req, res) => {
@@ -344,10 +404,159 @@ app.get("/eventadd", (req, res) => {
     res.render("eventadd");
 });
 
-app.post("/eventadd", (req, res) => {
-    console.log(req.body);
-    res.redirect("/eventmaintain");
+// app.post('/eventadd', (req, res) => {
+//     // Handle request-related form submission
+//     console.log(req.body);
+//     const id = req.params.id;
+//     // Handle request event signup form submission
+//     const peopleCount = req.body.peopleCount;
+//     const sewingOption = req.body.sewingOption.toUpperCase();
+//     const eventDate = req.body.eventDate;
+//     const eventStartTime = req.body.eventStartTime;
+//     const eventDuration = req.body.eventDuration;
+//     const addressLine1 = req.body.addressLine1.toUpperCase();
+//     const addressLine2 = req.body.addressLine2.toUpperCase();
+//     const city = req.body.city.toUpperCase();
+//     const state = req.body.state.toUpperCase();
+//     const venueType = req.body.venueType.toUpperCase();
+//     const contactFirstName = req.body.contactFirstName.toUpperCase();
+//     const contactLastName = req.body.contactLastName.toUpperCase();
+//     const contactEmail = req.body.contactEmail;
+//     const contactPhone = req.body.contactPhone;
+//     const jenStory = req.body.jenStory === 'on';
+//     const notes = req.body.notes.toUpperCase();
+//     const pockets = req.body.pockets
+//     const collars = req.body.collars
+//     const envelopes = req.body.envelopes
+//     const vests = req.body.vests
+//     const completed_product = req.body.completed_product
+
+
+//     // update this into the database
+//     knex('requests_and_events')
+//         .insert({
+//             actual_participants: peopleCount,
+//             activity_type: sewingOption,
+//             event_date: eventDate,
+//             start_time: eventStartTime,
+//             duration: eventDuration,
+//             street_address_1: addressLine1,
+//             street_address_2: addressLine2,
+//             city: city,
+//             state: state,
+//             venue_type: venueType,
+//             contact_first_name: contactFirstName,
+//             contact_last_name: contactLastName,
+//             contact_email: contactEmail,
+//             contact_phone: contactPhone,
+//             jen_story: jenStory,
+//             notes: notes,
+//             status: 'COMPLETED',
+//             completed_products: completed_product
+//         })
+        
+//         .then(() => {
+//             knex('events_products')
+//             .insert({
+//                 product_type: pockets,
+//                 product_type
+//             })
+//             res.redirect('/');
+//         })
+//         .catch((error) => {
+//             console.error(error);
+//             res.status(500).json({ message: "Error adding Event Request." });
+//         });
+// });
+
+app.post('/eventadd', (req, res) => {
+    // Extract and sanitize form data
+    const {
+        peopleCount,
+        sewingOption,
+        eventDate,
+        eventStartTime,
+        eventDuration,
+        addressLine1,
+        addressLine2,
+        city,
+        state,
+        venueType,
+        contactFirstName,
+        contactLastName,
+        contactEmail,
+        contactPhone,
+        jenStory,
+        notes,
+        pockets,
+        collars,
+        envelopes,
+        vests,
+        completed_product
+    } = req.body;
+    console.log('Request Body:', req.body);
+    // Normalize data
+    const eventData = {
+        actual_participants: peopleCount,
+        activity_type: sewingOption.toUpperCase(),
+        event_date: eventDate,
+        start_time: eventStartTime,
+        duration: eventDuration,
+        street_address_1: addressLine1.toUpperCase(),
+        street_address_2: addressLine2 ? addressLine2.toUpperCase() : null,
+        city: city.toUpperCase(),
+        state: state.toUpperCase(),
+        venue_type: venueType.toUpperCase(),
+        contact_first_name: contactFirstName.toUpperCase(),
+        contact_last_name: contactLastName.toUpperCase(),
+        contact_email: contactEmail,
+        contact_phone: contactPhone,
+        jen_story: jenStory === 'on',
+        notes: notes ? notes.toUpperCase() : null,
+        status: 'COMPLETED',
+        completed_products: completed_product
+    };
+
+    // Array of products and their quantities
+    const products = [
+        { product_type: 'pockets', amount_produced: parseInt(pockets, 10) || 0 },
+        { product_type: 'collars', amount_produced: parseInt(collars, 10) || 0 },
+        { product_type: 'envelopes', amount_produced: parseInt(envelopes, 10) || 0 },
+        { product_type: 'vests', amount_produced: parseInt(vests, 10) || 0 },
+    ];
+    console.log('Products data:', products);
+    // Transaction to ensure both inserts succeed or fail together
+    knex.transaction(trx => {
+        // Insert event data into requests_and_events
+        return trx('requests_and_events')
+            .insert(eventData)
+            .returning('event_id')
+            .then(eventIds => {
+                const eventId = eventIds[0].event_id; // Get the newly inserted event ID
+
+                console.log('Event ID: ', eventId);
+                // Prepare product data for insertion into events_products
+                const productsData = products.map(product => ({
+                    event_id: parseInt(eventId),
+                    product_type: product.product_type,
+                    amount_produced: product.amount_produced
+                }));
+                console.log('Data with event ID', productsData);
+                // Insert product data into events_products
+                return trx('events_products').insert(productsData);
+            });
+    })
+        .then(() => {
+            // If all operations succeed, redirect
+            res.redirect('/');
+        })
+        .catch(error => {
+            // Handle errors, roll back transaction if necessary
+            console.error('Error adding event and products:', error);
+            res.status(500).json({ message: 'Error adding event and products.' });
+        });
 });
+
 
 app.get("/eventedit/:id", (req, res) => {
     const eventId = req.params.id;
@@ -377,7 +586,40 @@ app.get("/volunteeradd", (req, res) => {
 
 app.post("/volunteeradd", (req, res) => {
     console.log(req.body);
-    res.redirect("/volunteermaintain");
+    // Handle volunteer signup form submission
+    const contactFirstName = req.body.contactFirstName;
+    const contactLastName = req.body.contactLastName;
+    const contactEmail = req.body.contactEmail;
+    const contactPhone = req.body.contactPhone;
+    const city = req.body.city;
+    const state = req.body.state;
+    const howHeard = req.body.howHeard;
+    const sewingLevel = req.body.sewingLevel;
+    const leadevent = req.body.leadevent === 'on';
+    const teachsewing = req.body.teachsewing === 'on';
+    const volunteerHours = req.body.volunteerHours;
+
+    knex('volunteers')
+        .insert({
+            first_name: contactFirstName.toUpperCase(),
+            last_name: contactLastName.toUpperCase(),
+            email: contactEmail,
+            phone: contactPhone,
+            city: city.toUpperCase(),
+            state: state.toUpperCase(),
+            how_heard_about_project: howHeard.toUpperCase(),
+            sewing_level: sewingLevel.toUpperCase(),
+            willing_to_lead: leadevent,
+            teach_sewing: teachsewing,
+            hrs_available: volunteerHours,
+        })
+        .then(() => {
+            res.redirect("/");
+        })
+        .catch((error) => {
+            console.error(error);
+            res.status(500).json({ message: "Error adding volunteer." });
+        });
 });
 
 app.get("/volunteeredit/:id", (req, res) => {

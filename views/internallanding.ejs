@@ -1,13 +1,6 @@
 <!DOCTYPE html>
-
-<!--
- // WEBSITE: https://themefisher.com
- // TWITTER: https://twitter.com/themefisher
- // FACEBOOK: https://www.facebook.com/themefisher
- // GITHUB: https://github.com/themefisher/
--->
-
 <html lang="en">
+  
 <head>
 
 <!-- Basic Page Needs
@@ -41,71 +34,56 @@
   <!-- Main Stylesheet -->
   <link rel="stylesheet" href="css/style.css">
 
-</head>
-<body id="body">
-
   <!--
-  Start Preloader
+  Fixed Navigation
   ==================================== -->
-  <div id="preloader">
-    <div class='preloader'>
-      <span></span>
-      <span></span>
-      <span></span>
-      <span></span>
-      <span></span>
-      <span></span>
+  <header class="navigation fixed-top">
+    <div class="container">
+      <!-- main nav -->
+      <nav class="navbar navbar-expand-lg navbar-light px-0">
+        <!-- logo -->
+        <a class="navbar-brand logo" href="/">
+          <img loading="lazy" class="logo-default" src="/images/logo.png" alt="logo" />
+          <img loading="lazy" class="logo-white" src="/images/logo.png" alt="logo" />
+        </a>
+        <!-- /logo -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation"
+          aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+  
+        <div class="collapse navbar-collapse" id="navigation">
+          <ul class="navbar-nav ml-auto text-center">
+            <li class="nav-item dropdown active">
+              <a class="nav-link dropdown-toggle" href="/" id="navbarDropdown" role="button" aria-haspopup="true"
+                aria-expanded="false">
+                Home</i>
+              </a>
+            <li class="nav-item ">
+              <a class="nav-link" href="/adminmaintain">Admin</a> <!-- services.-->
+            </li>
+            <li class="nav-item ">
+              <a class="nav-link" href="/requestmaintain">Event Requests</a> <!-- services.-->
+            </li>
+            <li class="nav-item ">
+              <a class="nav-link" href="/eventmaintain">Event History</a> <!-- services.-->
+            </li>
+            <li class="nav-item ">
+              <a class="nav-link" href="/volunteermaintain">Volunteers</a> <!-- services.-->
+            </li>
+            </li>
+          </ul>
+          </li>
+          </ul>
+        </div>
+      </nav>
+      <!-- /main nav -->
     </div>
-  </div>
-  <!--
-  End Preloader
-  ==================================== -->
+  </header>
 
-<!--
-Fixed Navigation
-==================================== -->
-<header class="navigation fixed-top">
-  <div class="container">
-    <!-- main nav -->
-    <nav class="navbar navbar-expand-lg navbar-light px-0">
-      <!-- logo -->
-      <a class="navbar-brand logo" href="/">
-        <img loading="lazy" class="logo-default" src="/images/logo.png" alt="logo" />
-        <img loading="lazy" class="logo-white" src="/images/logo.png" alt="logo" />
-      </a>
-      <!-- /logo -->
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation"
-        aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+</head>
 
-      <div class="collapse navbar-collapse" id="navigation">
-        <ul class="navbar-nav ml-auto text-center">
-          <li class="nav-item dropdown active">
-            <a class="nav-link dropdown-toggle" href="/" id="navbarDropdown" role="button" aria-haspopup="true" aria-expanded="false">
-              Home</i>
-            </a>
-			<li class="nav-item ">
-				<a class="nav-link" href="/adminmaintain">Admin</a> <!-- services.-->
-			</li>
-			<li class="nav-item ">
-				<a class="nav-link" href="/requestmaintain">Event Requests</a> <!-- services.-->
-			</li>
-			<li class="nav-item ">
-				<a class="nav-link" href="/eventmaintain">Event History</a> <!-- services.-->
-			</li>
-      <li class="nav-item ">
-				<a class="nav-link" href="/volunteermaintain">Volunteers</a> <!-- services.-->
-			</li>
-          </li>
-            </ul>
-          </li>
-        </ul>
-      </div>
-    </nav>
-    <!-- /main nav -->
-  </div>
-</header>
+
 
 <body>
     <h1 class="mb-4">add dashboard here</h1>

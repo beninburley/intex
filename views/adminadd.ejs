@@ -3,145 +3,99 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Volunteer</title>
 
-<!-- Mobile Specific Metas
+    <!-- CSS
       ================================================== -->
-      <meta http-equiv="X-UA-Compatible" content="IE=edge">
-      <meta name="description" content="One page parallax responsive HTML Template">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-      <meta name="author" content="Themefisher">
-      <meta name="generator" content="Themefisher Bingo HTML Template v1.0">
-      
-      <!-- Favicon -->
-      <link rel="shortcut icon" type="image/x-icon" href="images/logo.png" />
-      
-      <!-- CSS
-        ================================================== -->
-      <!-- Themefisher Icon font -->
-      <link rel="stylesheet" href="plugins/themefisher-font/style.css">
-      <!-- bootstrap.min css -->
-      <link rel="stylesheet" href="plugins/bootstrap/bootstrap.min.css">
-      <!-- Lightbox.min css -->
-      <link rel="stylesheet" href="plugins/lightbox2/css/lightbox.min.css">
-      <!-- animation css -->
-      <link rel="stylesheet" href="plugins/animate/animate.css">
-      <!-- Slick Carousel -->
-      <link rel="stylesheet" href="plugins/slick/slick.css">
-      <!-- Main Stylesheet -->
-      <link rel="stylesheet" href="css/style.css">
-      
-  </head>
-  
-  <body>
-  
-      <!--
-        Start Preloader
-        ==================================== -->
-      <div id="preloader">
-          <div class='preloader'>
-              <span></span>
-              <span></span>
-              <span></span>
-              <span></span>
-              <span></span>
-              <span></span>
-          </div>
-      </div>
-      <!--
-        End Preloader
-        ==================================== -->
-      
-      <!--
-      Fixed Navigation
-      ==================================== -->
-      <header class="navigation fixed-top">
-          <div class="container">
-              <!-- main nav -->
-              <nav class="navbar navbar-expand-lg navbar-light px-0">
-                  <!-- logo -->
-                  <a class="navbar-brand logo" href="/">
-                      <img loading="lazy" class="logo-default" src="images/logo.png" alt="logo" />
-                      <img loading="lazy" class="logo-white" src="images/logo.png" alt="logo" />
-                  </a>
-                  <!-- /logo -->
-                  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation"
-                      aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
-                      <span class="navbar-toggler-icon"></span>
-                  </button>
-      
-                  <div class="collapse navbar-collapse" id="navigation">
-                      <ul class="navbar-nav ml-auto text-center">
-                          <li class="nav-item dropdown active">
-                              <a class="nav-link dropdown-toggle" href="/" id="navbarDropdown" role="button"
-                                  aria-haspopup="true" aria-expanded="false">
-                                  Home</i>
-                              </a>
-                          <li class="nav-item ">
-                              <a class="nav-link" href="/adminmaintain">Admins</a> <!-- services.-->
-                          </li>
-                          <li class="nav-item ">
-                              <a class="nav-link" href="/volunteermaintain">Volunteers</a> <!-- services.-->
-                          </li>
-                          <li class="nav-item ">
-                              <a class="nav-link" href="/requestmaintain">Requests</a> <!-- services.-->
-                          </li>
-                          <li class="nav-item ">
-                              <a class="nav-link" href="/eventmaintain">Events</a> <!-- services.-->
-                          </li>
-                      </ul>
-                      </li>
-                      </ul>
-                  </div>
-              </nav>
-              <!-- /main nav -->
-          </div>
-      </header>
-      <!--
-      End Fixed Navigation
-      ==================================== -->
+    <!-- Themefisher Icon font -->
+    <link rel="stylesheet" href="plugins/themefisher-font/style.css">
+    <!-- bootstrap.min css -->
+    <link rel="stylesheet" href="plugins/bootstrap/bootstrap.min.css">
+    <!-- Lightbox.min css -->
+    <link rel="stylesheet" href="plugins/lightbox2/css/lightbox.min.css">
+    <!-- animation css -->
+    <link rel="stylesheet" href="plugins/animate/animate.css">
+    <!-- Slick Carousel -->
+    <link rel="stylesheet" href="plugins/slick/slick.css">
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="css/style.css">
 
-    <title>Add Admin</title>
-    <script>
-        function syncEmailToUsername() {
-            const emailField = document.getElementById('email');
-            const usernameField = document.getElementById('username');
-            usernameField.value = emailField.value;
-        }
-    </script>
+    <!--
+          Fixed Navigation
+          ==================================== -->
+    <header class="navigation fixed-top">
+        <div class="container">
+            <!-- main nav -->
+            <nav class="navbar navbar-expand-lg navbar-light px-0">
+                <!-- logo -->
+                <a class="navbar-brand logo" href="/">
+                    <img loading="lazy" class="logo-default" src="images/logo.png" alt="logo" />
+                    <img loading="lazy" class="logo-white" src="images/logo.png" alt="logo" />
+                </a>
+                <!-- /logo -->
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation"
+                    aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navigation">
+                    <ul class="navbar-nav ml-auto text-center">
+                        <li class="nav-item dropdown active">
+                            <a class="nav-link dropdown-toggle" href="/" id="navbarDropdown" role="button"
+                                aria-haspopup="true" aria-expanded="false">
+                                Home</i>
+                            </a>
+                        <li class="nav-item ">
+                            <a class="nav-link" href="/adminmaintain">Admins</a> <!-- services.-->
+                        </li>
+                        <li class="nav-item ">
+                            <a class="nav-link" href="/volunteermaintain">Volunteers</a> <!-- services.-->
+                        </li>
+                        <li class="nav-item ">
+                            <a class="nav-link" href="/requestmaintain">Requests</a> <!-- services.-->
+                        </li>
+                        <li class="nav-item ">
+                            <a class="nav-link" href="/eventmaintain">Events</a> <!-- services.-->
+                        </li>
+                    </ul>
+                    </li>
+                    </ul>
+                </div>
+            </nav>
+            <!-- /main nav -->
+        </div>
+    </header>
+    <!--
+          End Fixed Navigation
+          ==================================== -->
+
 </head>
 <body>
-    <form action="/adminmaintain" method="GET">
-        <!-- First Name -->
-        <label for="first_name">First Name:</label>
-        <input type="text" name="first_name" id="first_name" required>
-        <br><br>
-
-        <!-- Last Name -->
-        <label for="last_name">Last Name:</label>
-        <input type="text" name="last_name" id="last_name" required>
-        <br><br>
-
-        <!-- Email -->
-        <label for="email">Email:</label>
-        <input type="email" name="email" id="email" oninput="syncEmailToUsername()" required>
-        <br><br>
-
-        <!-- Phone Number -->
-        <label for="phone">Phone Number:</label>
-        <input type="tel" name="phone" id="phone" pattern="[0-9]{10}" placeholder="1234567890" required>
-        <br><br>
-
-        <!-- Username -->
-        <label for="username">Username:</label>
-        <input type="text" name="username" id="username" required>
-        <br><br>
-
-        <!-- Password -->
-        <label for="password">Password:</label>
-        <input type="password" name="password" id="password" required>
-        <br><br>
-
-        <button type="submit">Save</button>
-    </form>
+    
 </body>
+
+<!-- 
+    Essential Scripts
+    =====================================-->
+<!-- Main jQuery -->
+<script src="plugins/jquery/jquery.min.js"></script>
+
+<!-- Bootstrap4 -->
+<script src="plugins/bootstrap/bootstrap.min.js"></script>
+<!-- Parallax -->
+<script src="plugins/parallax/jquery.parallax-1.1.3.js"></script>
+<!-- lightbox -->
+<script src="plugins/lightbox2/js/lightbox.min.js"></script>
+<!-- Owl Carousel -->
+<script src="plugins/slick/slick.min.js"></script>
+<!-- filter -->
+<script src="plugins/filterizr/jquery.filterizr.min.js"></script>
+<!-- Smooth Scroll js -->
+<script src="plugins/smooth-scroll/smooth-scroll.min.js"></script>
+<!-- Google Map -->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCcABaamniA6OL5YvYSpB3pFMNrXwXnLwU"></script>
+<script src="plugins/google-map/gmap.js"></script>
+
+<!-- Custom js -->
+<script src="js/script.js"></script>
 </html>
