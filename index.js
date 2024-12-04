@@ -310,17 +310,73 @@ app.get('/volunteer_eventsmaintain', (req, res) => {
       });
 });
 
-app.post('/volunteer_eventsmaintain', (req, res) => {
-
+app.post('/volunteer_eventsdelete/:id', (req, res) => {
+    const id = req.params.id
+    knex('events_volunteers')
+        .where('event_id', id)
+        .del() // Deletes the record with the specified ID
+        .then(() => {
+            res.redirect('/volunteer_eventsmaintain'); // Redirect to the volunteers list after deletion
+        })
+        .catch(error => { //Finally... the last error handlers.
+            console.error('Error deleting Event Attendance:', error);
+            res.status(500).send('Internal Server Error');
+        });
 });
 
-app.get('/volunteer_eventsedit/:id', (req, res) => {
-    res.render('volunteer_eventsedit');
+app.get("/volunteer_eventsedit/:id", async (req, res) => {
+    const eventId = req.params.id;
+
+    try {
+        // Fetch event details
+        const event = await knex('requests_and_events')
+            .where('event_id', eventId)
+            .first();
+
+        if (!event) {
+            return res.status(404).send("Event not found");
+        }
+
+        // Fetch all volunteers and their attendance status for the event
+        const volunteers = await knex('volunteers')
+            .leftJoin('events_volunteers', function () {
+                this.on('volunteers.volunteer_id', '=', 'events_volunteers.volunteer_id')
+                    .andOn('events_volunteers.event_id', '=', knex.raw('?', [eventId]));
+            })
+            .select('volunteers.volunteer_id', 'volunteers.first_name', 'volunteers.last_name', 'events_volunteers.event_id as attended');
+
+        res.render("volunteer_eventsedit", { event, volunteers });
+    } catch (error) {
+        console.error("Error fetching data:", error);
+        res.status(500).send("Internal Server Error");
+    }
 });
 
-app.post('/volunteer_eventsedit', (req, res) => {
 
+app.post("/volunteer_eventsedit/:id", async (req, res) => {
+    const eventId = req.params.id;
+    const selectedVolunteers = req.body.volunteers || []; // Array of volunteer IDs (from checkboxes)
+
+    try {
+        // Delete existing records for the event
+        await knex('events_volunteers').where('event_id', eventId).del();
+
+        // Insert updated records
+        if (selectedVolunteers.length > 0) {
+            const newEntries = selectedVolunteers.map(volunteerId => ({
+                event_id: eventId,
+                volunteer_id: volunteerId,
+            }));
+            await knex('events_volunteers').insert(newEntries);
+        }
+
+        res.redirect("/volunteer_eventsmaintain");
+    } catch (error) {
+        console.error("Error saving data:", error);
+        res.status(500).send("Internal Server Error");
+    }
 });
+
 
 
 // Routes

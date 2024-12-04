@@ -6,6 +6,40 @@
     <title>Document</title>
 </head>
 <body>
+    <br><br><br><br>
+    <br><br><br><br>
+    <br><br><br><br>
+    <br><br><br><br>
+    <br><br><br><br>
+    <form action="/volunteer_eventsedit/<%= event.event_id %>" method="POST">
+        <!-- Event Details -->
+        <h2>Edit Event: <%= event.event_id %></h2>
+        <p>
+            <strong>Address:</strong> <%= event.street_address_1 %>, <%= event.city %>, <%= event.state %><br>
+            <strong>Venue Type:</strong> <%= event.venue_type %><br>
+            <strong>Event Date:</strong> <%= new Date(event.event_date).toISOString().split('T')[0] %>
+        </p>
+    
+        <!-- Volunteer Attendance -->
+        <h3>Volunteers</h3>
+        <ul>
+            <% volunteers.forEach(volunteer => { %>
+                <li>
+                    <input 
+                        type="checkbox" 
+                        id="volunteer_<%= volunteer.volunteer_id %>" 
+                        name="volunteers[]" 
+                        value="<%= volunteer.volunteer_id %>" 
+                        <%= volunteer.attended ? 'checked' : '' %>
+                    >
+                    <label for="volunteer_<%= volunteer.volunteer_id %>"><%= volunteer.first_name %> <%= volunteer.last_name %></label>
+                </li>
+            <% }) %>
+        </ul>
+    
+        <!-- Save Button -->
+        <button type="submit">Save</button>
+    </form>
     
 </body>
 </html>
