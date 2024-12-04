@@ -71,6 +71,50 @@
     
     </head>
 <body>
-    
+        
+    <br><br><br>
+    <br><br><br>
+    <br><br><br>
+    <br><br><br>
+    <br><br><br>
+    <br><br><br>
+    <table>
+        <thead>
+          <tr>
+            <th>Event ID</th>
+            <th>Address</th>
+            <th>City</th>
+            <th>State</th>
+            <th>Venue Type</th>
+            <th>Event Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% if (event_list.length > 0) { %>
+            <% event_list.forEach(row => { %>
+              <tr>
+                <td><%= row.event_id %></td>
+                <td><%= row.street_address_1 %></td>
+                <td><%= row.city %></td>
+                <td><%= row.state %></td>
+                <td><%= row.venue_type %></td>
+                <td><%= row.event_date %></td>
+                <td>
+                  <form action="/volunteer_eventsedit/<%= row.event_id %>" method="GET" style="display:inline;">
+                    <button type="submit">Edit</button>
+                  </form>
+                </td>
+              </tr>
+            <% }) %>
+          <% } else { %>
+            <tr>
+              <td colspan="7">No data available</td>
+            </tr>
+          <% } %>
+        </tbody>
+    </table>
+    <form action="/" method="GET">
+    <button type="submit">Return Home</button>
+    </form>
 </body>
 </html>

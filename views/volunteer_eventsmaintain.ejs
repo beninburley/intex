@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Add Volunteer</title>
+        <title>Edit Volunteers at Events</title>
     
         <!-- CSS
           ================================================== -->
@@ -37,7 +37,7 @@
                         aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
-        
+    
                     <div class="collapse navbar-collapse" id="navigation">
                         <ul class="navbar-nav ml-auto text-center">
                             <li class="nav-item dropdown active">
@@ -71,72 +71,72 @@
     
     </head>
 <body>
-    <label><b>Event Info:</b></label>
-    <br>
-        <br><br><br>
-        <br><br><br>
-        <br><br><br>
-        <br><br><br>
-        <br><br><br>
-        <br><br><br>
-        <table>
-            <thead>
-                <tr>
-                    <th>Event ID</th>
-                    <th>Address</th>
-                    <th>City</th>
-                    <th>State</th>
-                    <th>Venue Type</th>
-                    <th>Event Date</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <% if (event_list.length> 0) { %>
-                    <% event_list.forEach(row=> { %>
-                        <tr>
-                            <td>
-                                <%= row.event_id %>
-                            </td>
-                            <td>
-                                <%= row.street_address_1 %>
-                            </td>
-                            <td>
-                                <%= row.city %>
-                            </td>
-                            <td>
-                                <%= row.state %>
-                            </td>
-                            <td>
-                                <%= row.venue_type %>
-                            </td>
-                            <td>
-                                <%= row.event_date %>
-                            </td>
-                            <td>
-                                <form action="/eventedit/<%= row.event_id %>" method="GET" style="display:inline;">
-                                    <button type="submit">Edit</button>
-                                </form>
-                                <form action="/eventdelete/<%= row.event_id %>" method="POST" style="display:inline;">
-                                    <button type="submit">Delete</button>
-                                </form>
-                            </td>
-                        </tr>
-                        <% }) %>
-                            <% } else { %>
-                                <tr>
-                                    <td colspan="7">No data available</td>
-                                </tr>
-                                <% } %>
-            </tbody>
-        </table>
-        <form action="/" method="GET">
-            <button type="submit">Return Home</button>
-        </form>
-    <br><br>
-    <!-- Add event -->
-    <form action="/eventadd" method="GET">
-        <button type="submit">Add Event</button>
+    
+    <br><br><br>
+    <br><br><br>
+    <br><br><br>
+    <br><br><br>
+    <br><br><br>
+    <br><br><br>
+    <table>
+        <thead>
+          <tr>
+            <th>Event ID</th>
+            <th>Address</th>
+            <th>City</th>
+            <th>State</th>
+            <th>Venue Type</th>
+            <th>Event Date</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% if (event_list.length > 0) { %>
+            <% event_list.forEach(row => { %>
+              <tr>
+                <td><%= row.event_id %></td>
+                <td><%= row.street_address_1 %></td>
+                <td><%= row.city %></td>
+                <td><%= row.state %></td>
+                <td><%= row.venue_type %></td>
+                <td><%= row.event_date %></td>
+                <td>
+                  <form action="/volunteer_eventsedit/<%= row.event_id %>" method="GET" style="display:inline;">
+                    <button type="submit">Edit</button>
+                  </form>
+                </td>
+              </tr>
+            <% }) %>
+          <% } else { %>
+            <tr>
+              <td colspan="7">No data available</td>
+            </tr>
+          <% } %>
+        </tbody>
+    </table>
+    <form action="/" method="GET">
+    <button type="submit">Return Home</button>
     </form>
+    <!-- Main jQuery -->
+<script src="plugins/jquery/jquery.min.js"></script>
+
+<!-- Bootstrap4 -->
+<script src="plugins/bootstrap/bootstrap.min.js"></script>
+<!-- Parallax -->
+<script src="plugins/parallax/jquery.parallax-1.1.3.js"></script>
+<!-- lightbox -->
+<script src="plugins/lightbox2/js/lightbox.min.js"></script>
+<!-- Owl Carousel -->
+<script src="plugins/slick/slick.min.js"></script>
+<!-- filter -->
+<script src="plugins/filterizr/jquery.filterizr.min.js"></script>
+<!-- Smooth Scroll js -->
+<script src="plugins/smooth-scroll/smooth-scroll.min.js"></script>
+<!-- Google Map -->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCcABaamniA6OL5YvYSpB3pFMNrXwXnLwU"></script>
+<script src="plugins/google-map/gmap.js"></script>
+
+<!-- Custom js -->
+<script src="js/script.js"></script>
 </body>
 </html>

@@ -295,7 +295,32 @@ app.post('/requestadd', (req, res) => {
         });
 });
 
+app.get('/volunteer_eventsmaintain', (req, res) => {
+    knex('requests_and_events')
+    .select('event_id', 'street_address_1', 'city', 'state', 'venue_type', 'event_date')
+    .orderBy('event_date', 'desc')
+    .where('status', 'COMPLETED')
+    .then(event_list => {
+        // Render the maintainPlanets template and pass the data
+        res.render('volunteer_eventsmaintain', { event_list });
+      })
+      .catch(error => { //I know it's only copying and pasting but my goodness so many error handlers
+        console.error('Error querying database:', error);
+        res.status(500).send('Internal Server Error');
+      });
+});
 
+app.post('/volunteer_eventsmaintain', (req, res) => {
+
+});
+
+app.get('/volunteer_eventsedit', (req, res) => {
+    res.render('volunteer_eventsedit');
+});
+
+app.post('/volunteer_eventsedit', (req, res) => {
+
+});
 
 
 // Routes
@@ -375,23 +400,71 @@ app.get("/adminadd", (req, res) => {
 });
 
 app.post("/adminadd", (req, res) => {
-    console.log(req.body);
-    res.redirect("/adminmaintain");
+    const id = req.params.id;
+    const username = req.body.username;
+    const password = req.body.password;
+
+    knex('admin_accounts')
+        .insert({
+            username : username,
+            password : password
+        })
+        .then(() => {
+            res.redirect('/');
+        })
+        .catch((error) => {
+            console.error(error);
+            res.status(500).json({ message: "Error adding admin." });
+        });
+        
 });
 
 app.get("/adminedit/:id", (req, res) => {
-    const adminId = req.params.id;
-    const admin = { id: adminId, first_name: "John", last_name: "Doe", email: "john@example.com" };
-    res.render("adminedit", { admin });
+    const id = req.params.id;
+    knex('admin_accounts')
+    .where('admin_id', id)
+    .first() //This returns only the first object, NOT an array
+    .then(spec_admin => {
+      if (!spec_admin) {
+        return res.status(404).send('Admin not found');
+      }
+      res.render('adminedit', {spec_admin});
+    });
 });
 
 app.post("/adminedit/:id", (req, res) => {
-    console.log(req.body);
-    res.redirect("/adminmaintain");
+    const id = req.params.id;
+    // Access each value directly from req.body
+    const password = req.body.password;
+    const username = req.body.usernmae;
+    // Update the Planet in the database
+    knex('admin_accounts')
+      .where('admin_id', id)
+      .update({
+        password: password,
+        username: username
+      })
+      .then(() => {
+        res.redirect('/adminmaintain'); // Redirect to the list of Planets after saving
+      })
+      .catch(error => { //still catch errors
+        console.error('Error updating Admins:', error);
+        res.status(500).send('Internal Server Error');
+      });
 });
 
 app.get("/adminmaintain", (req, res) => {
-    res.render("adminmaintain");
+    knex('admin_accounts')
+        .select('username', 'admin_id')
+        .orderBy('username', 'asc')
+        .then(admin_list => {
+            // Render the adminmaintain template and pass the data
+            res.render('adminmaintain', { admin_list });
+        })
+        .catch(error => { //I know it's only copying and pasting but my goodness so many error handlers
+            console.error('Error querying database:', error);
+            res.status(500).send('Internal Server Error');
+        });
 });
 
 app.post("/admindelete/:id", (req, res) => {
@@ -570,8 +643,18 @@ app.post("/eventedit/:id", (req, res) => {
 });
 
 app.get("/eventmaintain", (req, res) => {
-    const events = [];
-    res.render("eventmaintain", { events });
+    knex('requests_and_events')
+        .select('event_id', 'street_address_1', 'city', 'state', 'venue_type', 'event_date')
+        .orderBy('event_date', 'desc')
+        .where('status', 'COMPLETED')
+        .then(event_list => {
+            // Render the maintainPlanets template and pass the data
+            res.render('eventmaintain', { event_list });
+        })
+        .catch(error => { //I know it's only copying and pasting but my goodness so many error handlers
+            console.error('Error querying database:', error);
+            res.status(500).send('Internal Server Error');
+        });
 });
 
 app.post("/eventdelete/:id", (req, res) => {
@@ -634,8 +717,17 @@ app.post("/volunteeredit/:id", (req, res) => {
 });
 
 app.get("/volunteermaintain", (req, res) => {
-    const volunteers = [];
-    res.render("volunteermaintain", { volunteers });
+    knex('volunteers')
+        .select('volunteer_id', 'first_name', 'last_name', 'city', 'sewing_level', 'willing_to_lead')
+        .orderBy('last_name', 'asc')
+        .then(volunteer_list => {
+            // Render the maintainPlanets template and pass the data
+            res.render('volunteermaintain', { volunteer_list });
+        })
+        .catch(error => { //I know it's only copying and pasting but my goodness so many error handlers
+            console.error('Error querying database:', error);
+            res.status(500).send('Internal Server Error');
+        });
 });
 
 app.post("/volunteerdelete/:id", (req, res) => {
