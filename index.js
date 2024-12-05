@@ -39,17 +39,17 @@ function ensureAdmin(req, res, next) {
 }
 
 
-const knex = require("knex") ({ //Connect to postgres db
-    client : "pg",
-    connection : {
-        host : process.env.RDS_HOSTNAME || "localhost",
-        user : process.env.RDS_USERNAME || "postgres",
-        password : process.env.RDS_PASSWORD || "Turtl310%",
-        database : process.env.RDS_DB_NAME || "turtleshelter",
-        port : process.env.RDS_PORT || 5432,
-        ssl: process.env.DB_SSL ? {rejectUnauthorized: false} : false
+const knex = require("knex")({ //Connect to postgres db
+    client: "pg",
+    connection: {
+        host: process.env.RDS_HOSTNAME || "localhost",
+        user: process.env.RDS_USERNAME || "postgres",
+        password: process.env.RDS_PASSWORD || "Turtl310%",
+        database: process.env.RDS_DB_NAME || "turtleshelter",
+        port: process.env.RDS_PORT || 5432,
+        ssl: process.env.DB_SSL ? { rejectUnauthorized: false } : false
     } //All of these || allow us to either use the RDS variables or default to localHost information
-      //This allows this rds to be valid on either beanstalk or your localhost
+    //This allows this rds to be valid on either beanstalk or your localhost
 });
 
 // OpenAI configuration
@@ -254,24 +254,24 @@ app.post('/request', (req, res) => {
     // update this into the database
     knex('requests_and_events')
         .insert({
-           expected_participants : peopleCount,
-           activity_type : sewingOption,
-           event_date : eventDate,
-           start_time : eventStartTime,
-           duration : eventDuration,
-           street_address_1 : addressLine1,
-           street_address_2 : addressLine2,
-           city : city,
-           state : state,
-           venue_type : venueType,
-           contact_first_name : contactFirstName,
-           contact_last_name : contactLastName,
-           contact_email : contactEmail,
-           contact_phone : contactPhone,
-           jen_story : jenStory,
-           notes : notes,
-           alternative_date : dateNotes,
-           status : 'PENDING'
+            expected_participants: peopleCount,
+            activity_type: sewingOption,
+            event_date: eventDate,
+            start_time: eventStartTime,
+            duration: eventDuration,
+            street_address_1: addressLine1,
+            street_address_2: addressLine2,
+            city: city,
+            state: state,
+            venue_type: venueType,
+            contact_first_name: contactFirstName,
+            contact_last_name: contactLastName,
+            contact_email: contactEmail,
+            contact_phone: contactPhone,
+            jen_story: jenStory,
+            notes: notes,
+            alternative_date: dateNotes,
+            status: 'PENDING'
         })
         .then(() => {
             res.status(200).json({ message: "Event requested successfully!" });
@@ -342,20 +342,20 @@ app.post('/requestadd', (req, res) => {
 
 app.get('/volunteer_eventsmaintain', ensureAdmin, (req, res) => {
     knex('requests_and_events')
-    .select('event_id', 'street_address_1', 'city', 'state', 'venue_type', 'event_date')
-    .orderBy('event_date', 'desc')
-    .where('status', 'COMPLETED')
-    .then(event_list => {
-        // Render the maintainPlanets template and pass the data
-        event_list.forEach(event => {
-            event.event_date = event.event_date.toISOString().split('T')[0];
+        .select('event_id', 'street_address_1', 'city', 'state', 'venue_type', 'event_date')
+        .orderBy('event_date', 'desc')
+        .where('status', 'COMPLETED')
+        .then(event_list => {
+            // Render the maintainPlanets template and pass the data
+            event_list.forEach(event => {
+                event.event_date = event.event_date.toISOString().split('T')[0];
+            });
+            res.render('volunteer_eventsmaintain', { event_list });
+        })
+        .catch(error => { //I know it's only copying and pasting but my goodness so many error handlers
+            console.error('Error querying database:', error);
+            res.status(500).send('Internal Server Error');
         });
-        res.render('volunteer_eventsmaintain', { event_list });
-      })
-      .catch(error => { //I know it's only copying and pasting but my goodness so many error handlers
-        console.error('Error querying database:', error);
-        res.status(500).send('Internal Server Error');
-      });
 });
 
 app.post('/volunteer_eventsdelete/:id', (req, res) => {
@@ -462,17 +462,17 @@ app.post('/volunteersignup', (req, res) => {
     // update this into the database
     knex('volunteers')
         .insert({
-        first_name : contactFirstName.toUpperCase(),
-        last_name: contactLastName.toUpperCase(),
-        email : contactEmail,
-        phone : contactPhone,
-        city : city.toUpperCase(),
-        state : state.toUpperCase(),
-        how_heard_about_project : howHeard.toUpperCase(),
-        sewing_level : sewingLevel.toUpperCase() ,
-        willing_to_lead : leadevent,
-        teach_sewing : teachsewing,
-        hrs_available : volunteerHours,
+            first_name: contactFirstName.toUpperCase(),
+            last_name: contactLastName.toUpperCase(),
+            email: contactEmail,
+            phone: contactPhone,
+            city: city.toUpperCase(),
+            state: state.toUpperCase(),
+            how_heard_about_project: howHeard.toUpperCase(),
+            sewing_level: sewingLevel.toUpperCase(),
+            willing_to_lead: leadevent,
+            teach_sewing: teachsewing,
+            hrs_available: volunteerHours,
         })
         .then(() => {
             res.status(200).json({ message: "Volunteer added successfully!" });
@@ -495,8 +495,8 @@ app.post("/adminadd", (req, res) => {
 
     knex('admin_accounts')
         .insert({
-            username : username,
-            password : password
+            username: username,
+            password: password
         })
         .then(() => {
             res.redirect('/adminmaintain');
@@ -505,41 +505,41 @@ app.post("/adminadd", (req, res) => {
             console.error(error);
             res.status(500).json({ message: "Error adding admin." });
         });
-        
+
 });
 
 app.get("/adminedit/:id", ensureAdmin, (req, res) => {
     const id = req.params.id;
     knex('admin_accounts')
-    .where('admin_id', id)
-    .first() //This returns only the first object, NOT an array
-    .then(spec_admin => {
-      if (!spec_admin) {
-        return res.status(404).send('Admin not found');
-      }
-      res.render('adminedit', {spec_admin});
-    });
+        .where('admin_id', id)
+        .first() //This returns only the first object, NOT an array
+        .then(spec_admin => {
+            if (!spec_admin) {
+                return res.status(404).send('Admin not found');
+            }
+            res.render('adminedit', { spec_admin });
+        });
 });
 
 app.post("/adminedit/:id", (req, res) => {
     const id = req.params.id;
     // Access each value directly from req.body
     const password = req.body.password;
-    const username = req.body.usernmae;
+    const username = req.body.username;
     // Update the Planet in the database
     knex('admin_accounts')
-      .where('admin_id', id)
-      .update({
-        password: password,
-        username: username
-      })
-      .then(() => {
-        res.redirect('/adminmaintain'); // Redirect to the list of Planets after saving
-      })
-      .catch(error => { //still catch errors
-        console.error('Error updating Admins:', error);
-        res.status(500).send('Internal Server Error');
-      });
+        .where('admin_id', id)
+        .update({
+            password: password,
+            username: username
+        })
+        .then(() => {
+            res.redirect('/adminmaintain'); // Redirect to the list of Planets after saving
+        })
+        .catch(error => { //still catch errors
+            console.error('Error updating Admins:', error);
+            res.status(500).send('Internal Server Error');
+        });
 });
 
 app.get("/adminmaintain", ensureAdmin, (req, res) => {
@@ -949,7 +949,7 @@ app.get("/volunteeredit/:id", ensureAdmin, (req, res) => {
             console.log(spec_volunteer);
             res.render('volunteeredit', { spec_volunteer });
         });
-    });
+});
 
 app.post("/volunteeredit/:id", (req, res) => {
     const id = req.params.id;
@@ -1007,15 +1007,15 @@ app.get("/volunteermaintain", ensureAdmin, (req, res) => {
 app.post("/volunteerdelete/:id", (req, res) => {
     const id = req.params.id
     knex('volunteers')
-    .where('volunteer_id', id)
-    .del() // Deletes the record with the specified ID
-    .then(() => {
-      res.redirect('/volunteermaintain'); // Redirect to the volunteers list after deletion
-    })
-    .catch(error => { //Finally... the last error handlers.
-      console.error('Error deleting Volunteer:', error);
-      res.status(500).send('Internal Server Error');
-    });
+        .where('volunteer_id', id)
+        .del() // Deletes the record with the specified ID
+        .then(() => {
+            res.redirect('/volunteermaintain'); // Redirect to the volunteers list after deletion
+        })
+        .catch(error => { //Finally... the last error handlers.
+            console.error('Error deleting Volunteer:', error);
+            res.status(500).send('Internal Server Error');
+        });
 });
 
 // Request Routes
@@ -1023,7 +1023,7 @@ app.get("/requestmaintain", ensureAdmin, (req, res) => {
     knex('requests_and_events')
         .select('event_id', 'street_address_1', 'city', 'state', 'venue_type', 'event_date', 'status')
         .orderBy('event_date', 'desc')
-        .where('status', '!=','COMPLETED')
+        .where('status', '!=', 'COMPLETED')
         .then(event_list => {
             // Render the eventmaintain template and pass the data
             event_list.forEach(event => {
