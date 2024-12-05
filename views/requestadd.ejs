@@ -1,229 +1,190 @@
+<!--DONE & COPIED OVER
+no header though-->
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Add Event Request</title>
-    
-        <!-- CSS
-          ================================================== -->
-        <!-- Themefisher Icon font -->
-        <link rel="stylesheet" href="plugins/themefisher-font/style.css">
-        <!-- bootstrap.min css -->
-        <link rel="stylesheet" href="plugins/bootstrap/bootstrap.min.css">
-        <!-- Lightbox.min css -->
-        <link rel="stylesheet" href="plugins/lightbox2/css/lightbox.min.css">
-        <!-- animation css -->
-        <link rel="stylesheet" href="plugins/animate/animate.css">
-        <!-- Slick Carousel -->
-        <link rel="stylesheet" href="plugins/slick/slick.css">
-        <!-- Main Stylesheet -->
-        <link rel="stylesheet" href="css/style.css">
-    
-        <!--
-              Fixed Navigation
-              ==================================== -->
-        <header class="navigation fixed-top">
-            <div class="container">
-                <!-- main nav -->
-                <nav class="navbar navbar-expand-lg navbar-light px-0">
-                    <!-- logo -->
-                    <a class="navbar-brand logo" href="/">
-                        <img loading="lazy" class="logo-default" src="images/logo.png" alt="logo" />
-                        <img loading="lazy" class="logo-white" src="images/logo.png" alt="logo" />
-                    </a>
-                    <!-- /logo -->
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation"
-                        aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-        
-                    <div class="collapse navbar-collapse" id="navigation">
-                        <ul class="navbar-nav ml-auto text-center">
-                            <li class="nav-item dropdown active">
-                                <a class="nav-link dropdown-toggle" href="/" id="navbarDropdown" role="button"
-                                    aria-haspopup="true" aria-expanded="false">
-                                    Home</i>
-                                </a>
-                            <li class="nav-item ">
-                                <a class="nav-link" href="/adminmaintain">Admins</a> <!-- services.-->
-                            </li>
-                            <li class="nav-item ">
-                                <a class="nav-link" href="/volunteermaintain">Volunteers</a> <!-- services.-->
-                            </li>
-                            <li class="nav-item ">
-                                <a class="nav-link" href="/requestmaintain">Requests</a> <!-- services.-->
-                            </li>
-                            <li class="nav-item ">
-                                <a class="nav-link" href="/eventmaintain">Events</a> <!-- services.-->
-                            </li>
-                        </ul>
-                        </li>
-                        </ul>
-                    </div>
-                </nav>
-                <!-- /main nav -->
-            </div>
-        </header>
-        <!--
-              End Fixed Navigation
-              ==================================== -->
-    
-    </head>
-      
-<body onload="highlightCurrentDay()">
 
-    <!--Start Contact Us
-    	=========================================== -->
-    <section class="contact-us" id="contact">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Event Request</title>
+
+    <!-- CSS
+          ================================================== -->
+    <!-- Themefisher Icon font -->
+    <link rel="stylesheet" href="plugins/themefisher-font/style.css">
+    <!-- bootstrap.min css -->
+    <link rel="stylesheet" href="plugins/bootstrap/bootstrap.min.css">
+    <!-- Lightbox.min css -->
+    <link rel="stylesheet" href="plugins/lightbox2/css/lightbox.min.css">
+    <!-- animation css -->
+    <link rel="stylesheet" href="plugins/animate/animate.css">
+    <!-- Slick Carousel -->
+    <link rel="stylesheet" href="plugins/slick/slick.css">
+    <!-- Turtle Table CSS -->
+    <link rel="stylesheet" href="css/turtle-table.css">
+
+</head>
+
+<body onload="highlightCurrentDay()">
+    <header class="navigation fixed-top">
         <div class="container">
-            <div class="row justify-content-center">
-                <!-- section title -->
-                <div class="col-xl-6 col-lg-8">
-                    <div class="title text-center">
-                        <h2>Admin Event Request</h2>
-    
-                        <div class="border"></div>
-                    </div>
+            <nav class="navbar navbar-expand-lg navbar-light px-0">
+                <a class="navbar-brand logo" href="/">
+                    <img loading="lazy" class="logo-default" src="images/logo.png" alt="logo" />
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navigation">
+                    <ul class="navbar-nav ml-auto text-center">
+                        <li class="nav-item"><a class="nav-link" href="/internallanding">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/adminmaintain">Admins</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/volunteermaintain">Volunteers</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/requestmaintain">Requests</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/eventmaintain">Events</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/volunteer_eventsmaintain">Manage Volunteers</a>
+                        </li>
+                    </ul>
                 </div>
-                <!-- /section title -->
-            </div>
-            <div class="row">
-    
-                <!-- Contact Form -->
-                <div class="contact-form col-md-6 mx-auto">
-                    <form id="contact-form" action="/requestadd" method="post" role="form">
-    
-                        <!-- How many people will be there? -->
-                        <div class="form-group mb-4">
-                            <label for="peopleCount">How many people will be there? (can be a rough estimate)</label>
-                            <input type="number" class="form-control" name="peopleCount" id="peopleCount"
-                                placeholder="Estimated number of people" required>
-                        </div>
-    
-                        <!-- Sewing preference -->
-                        <div class="form-group mb-4">
-                            <label>Would you like to do sewing, non-sewing, or both at the event?</label><br>
-                            <input type="radio" id="sewing" name="sewingOption" value="sewing">
-                            <label for="sewing">Sewing</label><br>
-                            <input type="radio" id="nonSewing" name="sewingOption" value="non-sewing">
-                            <label for="nonSewing">Non-Sewing</label><br>
-                            <input type="radio" id="both" name="sewingOption" value="both">
-                            <label for="both">Both</label>
-                        </div>
-    
-                        <!-- Event Date -->
-                        <div class="form-group mb-4">
-                            <label for="eventDate">What date would you like to schedule the event? (Select a single
-                                date)</label>
-                            <input type="date" class="form-control" name="eventDate" id="eventDate" required>
-                        </div>
-    
-                        <script>
-                            // Set the minimum date to today
-                            const eventDateInput = document.getElementById('eventDate');
-                            const today = new Date().toISOString().split('T')[0]; // Get today's date in YYYY-MM-DD format
-                            eventDateInput.min = today; // Set the min attribute to today's date
-                        </script>
-    
-                        <!-- Event Time -->
-                        <div class="form-group mb-4">
-                            <label for="eventStartTime">What time do you want the event to start?</label>
-                            <input type="time" class="form-control" name="eventStartTime" id="eventStartTime" required>
-                        </div>
-    
-                        <!-- Event Duration -->
-                        <div class="form-group mb-4">
-                            <label for="eventDuration">How long would you like the event to go? (Estimated in hours)</label>
-                            <input type="number" class="form-control" name="eventDuration" id="peopleCount"
-                                placeholder="Estimated duration" min="0" required>
-                        </div>
-    
-                        <!-- Address Form -->
-                        <div class="form-group mb-4">
-                            <label for="addressLine1">Address Line 1</label>
-                            <input type="text" class="form-control" name="addressLine1" id="addressLine1"
-                                placeholder="Address Line 1" required>
-                        </div>
-                        <div class="form-group mb-4">
-                            <input type="text" class="form-control" name="addressLine2" id="addressLine2"
-                                placeholder="Address Line 2 (Optional)">
-                        </div>
-                        <div class="form-group mb-4">
-                            <label for="city">City</label>
-                            <input type="text" class="form-control" name="city" id="city" placeholder="City" required>
-                        </div>
-                        <div class="form-group mb-4">
-                            <label for="state">State</label>
-                            <input type="text" class="form-control" name="state" id="state" placeholder="State" required>
-                        </div>
-    
-                        <div class="form-group mb-4">
-                            <label for="venueType">Venue Type</label>
-                            <select class="form-control" name="venueType" id="venueType" required>
-                                <option value="livingRoom">Living Room</option>
-                                <option value="officeSpace">Office Space</option>
-                                <option value="gym">Gym</option>
-                                <option value="churchSchool">Church/School Building</option>
-                                <option value="other">Other</option>
-                            </select>
-                        </div>
-    
-                        <!-- Contact Name (First & Last) and Phone Email -->
-                        <div class="form-group mb-4">
-                            <label for="contactFirstName">First Name</label>
-                            <input type="text" class="form-control" name="contactFirstName" id="contactFirstName"
-                                placeholder="First Name" required>
-                        </div>
-                        <div class="form-group mb-4">
-                            <label for="contactLastName">Last Name</label>
-                            <input type="text" class="form-control" name="contactLastName" id="contactLastName"
-                                placeholder="Last Name" required>
-                        </div>
-                        <div class="form-group mb-4">
-                            <label for="contactEmail">Email</label>
-                            <input type="email" class="form-control" name="contactEmail" id="contactEmail"
-                                placeholder="Email" required>
-                        </div>
-                        <div class="form-group mb-4">
-                            <label for="contactPhone">Phone Number</label>
-                            <input type="tel" class="form-control" name="contactPhone" id="contactPhone" placeholder="e.g., (801) 234-5678"
-                                pattern="[0-9]+" maxlength="15" required>
-                        </div>
-    
-    
-                        <!-- Share Jen's story -->
-                        <div class="form-group mb-4">
-                            <label>Would you like Jen to share her story?</label><br>
-                            <input type="checkbox" id="jenStory" name="jenStory">
-                            <label for="jenStory">Yes</label>
-                        </div>
-    
-                        <!-- Notes and/or Other Dates -->
-                        <div class="form-group mb-4">
-                            <label for="notes">Notes</label>
-                            <textarea rows="4" class="form-control" name="notes" id="notes"
-                                placeholder="Any additional information"></textarea>
-                        </div>
-    
-                        <div class="form-group mb-4">
-                            <label for="dateNotes">Other dates (Optional)</label>
-                            <textarea rows="4" class="form-control" name="dateNotes" id="dateNotes"
-                                placeholder="Any other potential dates (e.g., 12/01/2024)"></textarea>
-                        </div>
-    
-    
-                        <!-- Form fields -->
-                        <button type="submit" class="btn btn-main">Submit</button>
-    
-    
-                    </form>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Start Add Event Request Form
+         =========================================== -->
+    <div class="turtle-container">
+        <!-- Contact Form Wrapper -->
+        <div class="turtle-table-wrapper">
+            <h2 style="text-align: center; color: #28ABE3;">Admin Event Request</h2>
+            <form id="contact-form" action="/requestadd" method="post" role="form">
+
+                <!-- How many people will be there? -->
+                <div class="form-group mb-4">
+                    <label for="peopleCount">How many people will be there? (can be a rough estimate)</label>
+                    <input type="number" class="form-control" name="peopleCount" id="peopleCount"
+                        placeholder="Estimated number of people" required>
                 </div>
-                <!-- ./End Contact Form -->
-    
-            </div> <!-- end row -->
-        </div> <!-- end container -->
-    </section> <!-- end section -->
+
+                <!-- Sewing preference -->
+                <div class="form-group mb-4">
+                    <label>Would you like to do sewing, non-sewing, or both at the event?</label><br>
+                    <input type="radio" id="sewing" name="sewingOption" value="sewing">
+                    <label for="sewing">Sewing</label><br>
+                    <input type="radio" id="nonSewing" name="sewingOption" value="non-sewing">
+                    <label for="nonSewing">Non-Sewing</label><br>
+                    <input type="radio" id="both" name="sewingOption" value="both">
+                    <label for="both">Both</label>
+                </div>
+
+                <!-- Event Date -->
+                <div class="form-group mb-4">
+                    <label for="eventDate">What date would you like to schedule the event? (Select a single
+                        date)</label>
+                    <input type="date" class="form-control" name="eventDate" id="eventDate" required>
+                </div>
+
+                <script>
+                    // Set the minimum date to today
+                    const eventDateInput = document.getElementById('eventDate');
+                    const today = new Date().toISOString().split('T')[0]; // Get today's date in YYYY-MM-DD format
+                    eventDateInput.min = today; // Set the min attribute to today's date
+                </script>
+
+                <!-- Event Time -->
+                <div class="form-group mb-4">
+                    <label for="eventStartTime">What time do you want the event to start?</label>
+                    <input type="time" class="form-control" name="eventStartTime" id="eventStartTime" required>
+                </div>
+
+                <!-- Event Duration -->
+                <div class="form-group mb-4">
+                    <label for="eventDuration">How long would you like the event to go? (Estimated in hours)</label>
+                    <input type="number" class="form-control" name="eventDuration" id="peopleCount"
+                        placeholder="Estimated duration" min="0" required>
+                </div>
+
+                <!-- Address Form -->
+                <div class="form-group mb-4">
+                    <label for="addressLine1">Address Line 1</label>
+                    <input type="text" class="form-control" name="addressLine1" id="addressLine1"
+                        placeholder="Address Line 1" required>
+                </div>
+                <div class="form-group mb-4">
+                    <input type="text" class="form-control" name="addressLine2" id="addressLine2"
+                        placeholder="Address Line 2 (Optional)">
+                </div>
+                <div class="form-group mb-4">
+                    <label for="city">City</label>
+                    <input type="text" class="form-control" name="city" id="city" placeholder="City" required>
+                </div>
+                <div class="form-group mb-4">
+                    <label for="state">State</label>
+                    <input type="text" class="form-control" name="state" id="state" placeholder="State" required>
+                </div>
+
+                <div class="form-group mb-4">
+                    <label for="venueType">Venue Type</label>
+                    <select class="form-control" name="venueType" id="venueType" required>
+                        <option value="livingRoom">Living Room</option>
+                        <option value="officeSpace">Office Space</option>
+                        <option value="gym">Gym</option>
+                        <option value="church or School">Church/School Building</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+
+                <!-- Contact Name (First & Last) and Phone Email -->
+                <div class="form-group mb-4">
+                    <label for="contactFirstName">First Name</label>
+                    <input type="text" class="form-control" name="contactFirstName" id="contactFirstName"
+                        placeholder="First Name" required>
+                </div>
+                <div class="form-group mb-4">
+                    <label for="contactLastName">Last Name</label>
+                    <input type="text" class="form-control" name="contactLastName" id="contactLastName"
+                        placeholder="Last Name" required>
+                </div>
+                <div class="form-group mb-4">
+                    <label for="contactEmail">Email</label>
+                    <input type="email" class="form-control" name="contactEmail" id="contactEmail" placeholder="Email"
+                        required>
+                </div>
+                <div class="form-group mb-4">
+                    <label for="contactPhone">Phone Number</label>
+                    <input type="tel" class="form-control" name="contactPhone" id="contactPhone"
+                        placeholder="e.g., (801) 234-5678" pattern="[0-9]+" maxlength="15" required>
+                </div>
+
+                <!-- Share Jen's story -->
+                <div class="form-group mb-4">
+                    <label>Would you like Jen to share her story?</label><br>
+                    <input type="checkbox" id="jenStory" name="jenStory">
+                    <label for="jenStory">Yes</label>
+                </div>
+
+                <!-- Notes and/or Other Dates -->
+                <div class="form-group mb-4">
+                    <label for="notes">Notes</label>
+                    <textarea rows="4" class="form-control" name="notes" id="notes"
+                        placeholder="Any additional information"></textarea>
+                </div>
+
+                <div class="form-group mb-4">
+                    <label for="dateNotes">Other dates (Optional)</label>
+                    <textarea rows="4" class="form-control" name="dateNotes" id="dateNotes"
+                        placeholder="Any other potential dates (e.g., 12/01/2024)"></textarea>
+                </div>
+
+                <!-- Submit Button -->
+                <div style="text-align: center;">
+
+                    <button type="submit" class="btn turtle-btn">Submit</button>
+                </div>
+            </form>
+        </div>
+        <!-- End Contact Form Wrapper -->
+    </div>
+    <!-- End Add Event Request Form -->
 
     <script>
         function highlightCurrentDay() {

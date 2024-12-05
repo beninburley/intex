@@ -1,0 +1,162 @@
+/* Turtle-specific styles */
+
+/* Center container */
+.turtle-container {
+    margin-top: 120px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 150px);
+    /* Account for header height */
+    background-color: #f8f8f8;
+}
+
+/* Rectangle around table */
+.turtle-table-wrapper {
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-width: 1200px;
+}
+
+/* Table styles */
+.turtle-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 16px;
+    text-align: left;
+}
+
+.turtle-table thead {
+    background-color: #28ABE3;
+    color: #ffffff;
+    border-radius: 5px;
+}
+
+.turtle-table thead th {
+    padding: 12px 15px;
+}
+
+.turtle-table tbody tr {
+    transition: box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+.turtle-table tbody tr:hover {
+    background-color: #f0faff;
+    box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.15);
+}
+
+.turtle-table tbody td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #ddd;
+}
+
+.turtle-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* No data styling */
+.turtle-no-data {
+    text-align: center;
+    font-style: italic;
+    color: #777;
+    padding: 20px 0;
+}
+
+/* Buttons */
+.turtle-btn {
+    padding: 8px 15px;
+    background-color: #28ABE3;
+    border: none;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.turtle-btn:hover {
+    background-color: #1a86b0;
+    transform: translateY(-2px);
+}
+
+/* Header logo adjustments */
+.logo img {
+    max-height: 100px;
+    margin-right: 10px;
+}
+
+/* Ensure form fields inside turtle-table-wrapper match the table's width */
+.turtle-table-wrapper .form-group {
+    margin-bottom: 1.5rem;
+    /* Consistent spacing between fields */
+}
+
+.turtle-table-wrapper .form-control {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: none;
+}
+
+.turtle-table-wrapper .form-control:focus {
+    border-color: #28ABE3;
+    box-shadow: 0 0 5px rgba(40, 171, 227, 0.5);
+}
+
+/* Ensure table-style form fields look identical to rows */
+.turtle-table-wrapper table tbody tr th {
+    text-align: left;
+    font-weight: bold;
+    padding: 12px;
+    background-color: #f8f9fa;
+    color: #333;
+    border: 1px solid #ddd;
+}
+
+.turtle-table-wrapper table tbody tr td {
+    padding: 12px;
+    border: 1px solid #ddd;
+}
+
+.turtle-table-wrapper table input.form-control {
+    width: 100%;
+    border: 1px solid #ddd;
+    padding: 8px;
+    border-radius: 5px;
+}
+
+.turtle-table-wrapper table input.form-control:focus {
+    border-color: #28ABE3;
+    box-shadow: 0 0 5px rgba(40, 171, 227, 0.5);
+}
+
+/* White Navbar Customizations */
+.navigation {
+    background-color: #ffffff;
+    /* Ensures white background */
+    border-bottom: 1px solid #ddd;
+    /* Optional: Thin border for separation */
+}
+
+.navigation .navbar-brand img {
+    max-height:100px;
+    /* Resizes the logo */
+}
+
+.navigation .nav-link {
+    color: #333;
+    /* Ensures readable text color on white */
+    font-weight: 500;
+    margin: 0 10px;
+    transition: color 0.3s ease;
+}
+
+.navigation .nav-link:hover {
+    color: #28ABE3;
+    /* Highlight links on hover */
+}

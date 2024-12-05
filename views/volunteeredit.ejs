@@ -1,169 +1,189 @@
+<!--copied from jakes and done-->
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Add Volunteer</title>
-    
-        <!-- CSS
-          ================================================== -->
-        <!-- Themefisher Icon font -->
-        <link rel="stylesheet" href="plugins/themefisher-font/style.css">
-        <!-- bootstrap.min css -->
-        <link rel="stylesheet" href="plugins/bootstrap/bootstrap.min.css">
-        <!-- Lightbox.min css -->
-        <link rel="stylesheet" href="plugins/lightbox2/css/lightbox.min.css">
-        <!-- animation css -->
-        <link rel="stylesheet" href="plugins/animate/animate.css">
-        <!-- Slick Carousel -->
-        <link rel="stylesheet" href="plugins/slick/slick.css">
-        <!-- Main Stylesheet -->
-        <link rel="stylesheet" href="css/style.css">
-    
-        <!--
-              Fixed Navigation
-              ==================================== -->
-        <header class="navigation fixed-top">
-            <div class="container">
-                <!-- main nav -->
-                <nav class="navbar navbar-expand-lg navbar-light px-0">
-                    <!-- logo -->
-                    <a class="navbar-brand logo" href="/">
-                        <img loading="lazy" class="logo-default" src="images/logo.png" alt="logo" />
-                        <img loading="lazy" class="logo-white" src="images/logo.png" alt="logo" />
-                    </a>
-                    <!-- /logo -->
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation"
-                        aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-        
-                    <div class="collapse navbar-collapse" id="navigation">
-                        <ul class="navbar-nav ml-auto text-center">
-                            <li class="nav-item dropdown active">
-                                <a class="nav-link dropdown-toggle" href="/" id="navbarDropdown" role="button"
-                                    aria-haspopup="true" aria-expanded="false">
-                                    Home</i>
-                                </a>
-                            <li class="nav-item ">
-                                <a class="nav-link" href="/adminmaintain">Admins</a> <!-- services.-->
-                            </li>
-                            <li class="nav-item ">
-                                <a class="nav-link" href="/volunteermaintain">Volunteers</a> <!-- services.-->
-                            </li>
-                            <li class="nav-item ">
-                                <a class="nav-link" href="/requestmaintain">Requests</a> <!-- services.-->
-                            </li>
-                            <li class="nav-item ">
-                                <a class="nav-link" href="/eventmaintain">Events</a> <!-- services.-->
-                            </li>
-                        </ul>
-                        </li>
-                        </ul>
-                    </div>
-                </nav>
-                <!-- /main nav -->
-            </div>
-        </header>
-        <!--
-              End Fixed Navigation
-              ==================================== -->
-    
-    </head>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Volunteer</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="plugins/bootstrap/bootstrap.min.css">
+
+    <!-- Inline CSS -->
+    <style>
+        /* Turtle-specific styles */
+        .turtle-container {
+            margin-top: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f8f8f8;
+        }
+
+        .turtle-table-wrapper {
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 800px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: none;
+        }
+
+        .form-control:focus {
+            border-color: #28ABE3;
+            box-shadow: 0 0 5px rgba(40, 171, 227, 0.5);
+        }
+
+        .btn-main {
+            padding: 10px 20px;
+            background-color: #28ABE3;
+            border: none;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .btn-main:hover {
+            background-color: #1a86b0;
+            transform: translateY(-2px);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+    </style>
+</head>
+
 <body>
-    <!-- Contact Form -->
-    <div class="contact-form col-md-6 mx-auto">
-        <form id="contact-form" action="/volunteeredit/<%= spec_volunteer.volunteer_id %>" method="post" role="form">
-    
-            <!-- First Name -->
-            <div class="form-group mb-4">
-                <label for="contactFirstName">First Name</label>
-                <input type="text" class="form-control" name="contactFirstName" id="contactFirstName"
-                value="<%= spec_volunteer.first_name %>" required >
-            </div>
-    
-            <!-- Last Name -->
-            <div class="form-group mb-4">
-                <label for="contactLastName">Last Name</label>
-                <input type="text" class="form-control" name="contactLastName" id="contactLastName" value="<%= spec_volunteer.last_name %>"
-                    required>
-            </div>
-    
-            <!-- Email -->
-            <div class="form-group mb-4">
-                <label for="contactEmail">Email</label>
-                <input type="email" class="form-control" name="contactEmail" id="contactEmail" value="<%= spec_volunteer.email %>" required>
-            </div>
-    
-            <!-- phone number -->
-            <div class="form-group mb-4">
-                <label for="contactPhone">Phone Number</label>
-                <input type="tel" class="form-control" name="contactPhone" id="contactPhone"
-                    value="<%= spec_volunteer.phone %>" pattern="[0-9]+" maxlength="15" required>
-            </div>
-    
-            <!-- State  -->
-            <div class="form-group mb-4">
-                <label for="city">City</label>
-                <input type="text" class="form-control" name="city" id="city" value="<%= spec_volunteer.city %>" required>
-            </div>
-            <div class="form-group mb-4">
-                <label for="state">State</label>
-                <input type="text" class="form-control" name="state" id="state" value="<%= spec_volunteer.state %>" required>
-            </div>
-    
-    
-    
-            <!-- How they heard about the opportunity -->
-            <div class="form-group mb-4">
-                <label for="howHeard">How did you hear about the opportunity?</label>
-                <select class="form-control" name="howHeard" id="howHeard" required>
-                    <option value="friend" <%=spec_volunteer.how_heard_about_project==='FRIEND' ? 'selected' : '' %>>A Friend</option>
-                    <option value="social_media" <%=spec_volunteer.how_heard_about_project==='SOCIAL_MEDIA' ? 'selected' : '' %>>Social Media</option>
-                    <option value="email" <%=spec_volunteer.how_heard_about_project==='EMAIL' ? 'selected' : '' %>>Email</option>
-                    <option value="website" <%=spec_volunteer.how_heard_about_project==='WEBSITE' ? 'selected' : '' %>>Website</option>
-                    <option value="other" <%=spec_volunteer.how_heard_about_project==='OTHER' ? 'selected' : '' %>>Other</option>
-                </select>
-            </div>
-    
-            <!-- Sewing Level -->
-            <div class="form-group mb-4">
-                <label for="sewingLevel">Sewing Level</label><br>
-                <input type="radio" id="none" name="sewingLevel" value="NONE" <%= spec_volunteer.sewing_level === 'NONE' ? 'checked' : '' %> required>
-                <label for="none">No Experience</label><br>
-                <input type="radio" id="beginner" name="sewingLevel" value="BEGINNER"<%= spec_volunteer.sewing_level === 'BEGINNER' ? 'checked' : '' %> required>
-                <label for="beginner">Beginner</label><br>
-                <input type="radio" id="intermediate" name="sewingLevel" value="INTERMEDIATE"<%= spec_volunteer.sewing_level === 'INTERMEDIATE' ? 'checked' : '' %> required>
-                <label for="intermediate">Intermediate</label><br>
-                <input type="radio" id="experienced" name="sewingLevel" value="EXPERIENCED"<%= spec_volunteer.sewing_level === 'EXPERIENCED' ? 'checked' : '' %> required>
-                <label for="experienced">Experienced</label>
-            </div>
-    
-            <div class="form-group mb-4">
-                <label>Are you willing to assist lead the event?</label><br>
-                <input type="checkbox" id="leadevent" name="leadevent" value="on" <%= spec_volunteer.willing_to_lead ? 'checked' : '' %>>
-                <label for="leadevent">Yes</label>
-            </div>
-    
-            <div class="form-group mb-4">
-                <label>Are you willing to teach sewing skills?</label><br>
-                <input type="checkbox" id="teachsewing" name="teachsewing" value="on" <%= spec_volunteer.teach_sewing ? 'checked' : '' %>>
-                <label for="teachsewing">Yes</label>
-            </div>
-    
-            <!-- Number of hours willing to volunteer per month -->
-            <div class="form-group mb-4">
-                <label for="volunteerHours">Number of hours willing to volunteer per month</label>
-                <input type="number" class="form-control" name="volunteerHours" id="volunteerHours"
-                    value="<%= spec_volunteer.hrs_available %>" required>
-            </div>
-    
-            <!-- Submit Button -->
-            <div id="cf-submit">
-                <input type="submit" id="contact-submit" class="btn btn-transparent" value="Submit">
-            </div>
-        </form>
+
+    <!-- Main Content -->
+    <div class="turtle-container">
+        <div class="turtle-table-wrapper">
+            <h2 style="text-align: center; color: #28ABE3;">Edit Volunteer</h2>
+            <form id="contact-form" action="/volunteeredit/<%= spec_volunteer.volunteer_id %>" method="post"
+                role="form">
+
+                <!-- First Name -->
+                <div class="form-group">
+                    <label for="contactFirstName">First Name</label>
+                    <input type="text" class="form-control" name="contactFirstName" id="contactFirstName"
+                        value="<%= spec_volunteer.first_name %>" required>
+                </div>
+
+                <!-- Last Name -->
+                <div class="form-group">
+                    <label for="contactLastName">Last Name</label>
+                    <input type="text" class="form-control" name="contactLastName" id="contactLastName"
+                        value="<%= spec_volunteer.last_name %>" required>
+                </div>
+
+                <!-- Email -->
+                <div class="form-group">
+                    <label for="contactEmail">Email</label>
+                    <input type="email" class="form-control" name="contactEmail" id="contactEmail"
+                        value="<%= spec_volunteer.email %>" required>
+                </div>
+
+                <!-- Phone Number -->
+                <div class="form-group">
+                    <label for="contactPhone">Phone Number</label>
+                    <input type="tel" class="form-control" name="contactPhone" id="contactPhone"
+                        value="<%= spec_volunteer.phone %>" pattern="[0-9]+" maxlength="15" required>
+                </div>
+
+                <!-- City -->
+                <div class="form-group">
+                    <label for="city">City</label>
+                    <input type="text" class="form-control" name="city" id="city" value="<%= spec_volunteer.city %>"
+                        required>
+                </div>
+
+                <!-- State -->
+                <div class="form-group">
+                    <label for="state">State</label>
+                    <input type="text" class="form-control" name="state" id="state" value="<%= spec_volunteer.state %>"
+                        required>
+                </div>
+
+                <!-- How They Heard -->
+                <div class="form-group">
+                    <label for="howHeard">How did you hear about the opportunity?</label>
+                    <select class="form-control" name="howHeard" id="howHeard" required>
+                        <option value="FRIEND" <%=spec_volunteer.how_heard_about_project==='FRIEND' ? 'selected' : '' %>
+                            >Friend</option>
+                        <option value="SOCIAL_MEDIA" <%=spec_volunteer.how_heard_about_project==='SOCIAL_MEDIA'
+                            ? 'selected' : '' %>>Social Media</option>
+                        <option value="EMAIL" <%=spec_volunteer.how_heard_about_project==='EMAIL' ? 'selected' : '' %>
+                            >Email</option>
+                        <option value="WEBSITE" <%=spec_volunteer.how_heard_about_project==='WEBSITE' ? 'selected' : ''
+                            %>>Website</option>
+                        <option value="OTHER" <%=spec_volunteer.how_heard_about_project==='OTHER' ? 'selected' : '' %>
+                            >Other</option>
+                    </select>
+                </div>
+
+                <!-- Sewing Level -->
+                <div class="form-group">
+                    <label>Sewing Level</label><br>
+                    <input type="radio" id="none" name="sewingLevel" value="NONE"
+                        <%=spec_volunteer.sewing_level==='NONE' ? 'checked' : '' %>>
+                    <label for="none">None</label><br>
+                    <input type="radio" id="beginner" name="sewingLevel" value="BEGINNER"
+                        <%=spec_volunteer.sewing_level==='BEGINNER' ? 'checked' : '' %>>
+                    <label for="beginner">Beginner</label><br>
+                    <input type="radio" id="intermediate" name="sewingLevel" value="INTERMEDIATE"
+                        <%=spec_volunteer.sewing_level==='INTERMEDIATE' ? 'checked' : '' %>>
+                    <label for="intermediate">Intermediate</label><br>
+                    <input type="radio" id="experienced" name="sewingLevel" value="EXPERIENCED"
+                        <%=spec_volunteer.sewing_level==='EXPERIENCED' ? 'checked' : '' %>>
+                    <label for="experienced">Experienced</label>
+                </div>
+
+                <!-- Willing to Lead -->
+                <div class="form-group">
+                    <label for="leadevent">Willing to Lead</label>
+                    <input type="checkbox" id="leadevent" name="leadevent" value="on" <%=spec_volunteer.willing_to_lead
+                        ? 'checked' : '' %>>
+                </div>
+
+                <div class="form-group">
+                    <label for="leadevent">Willing to Teach Sewing</label>
+                    <input type="checkbox" id="teachsewing" name="teachsewing" value="on" <%=spec_volunteer.teach_sewing ? 'checked' : ''
+                        %>>
+                </div>
+
+
+                <!-- Volunteer Hours -->
+                <div class="form-group">
+                    <label for="volunteerHours">Hours Willing to Volunteer Per Month</label>
+                    <input type="number" class="form-control" name="volunteerHours" id="volunteerHours"
+                        value="<%= spec_volunteer.hrs_available %>" required>
+                </div>
+
+                <!-- Submit -->
+                <div style="text-align: center;">
+                    <button type="submit" class="btn-main">Save Changes</button>
+                </div>
+            </form>
+        </div>
     </div>
-    <!-- ./End Contact Form -->
+
+    <!-- Essential Scripts -->
+    <script src="plugins/jquery/jquery.min.js"></script>
+    <script src="plugins/bootstrap/bootstrap.min.js"></script>
 </body>
+
 </html>

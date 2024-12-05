@@ -1,45 +1,119 @@
+<!--DONE and copied from jakes-->
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Edit Volunteers for Event</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="plugins/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="plugins/themefisher-font/style.css">
+
+    <!-- Inline CSS -->
+    <style>
+        .turtle-container {
+            margin-top: 120px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: calc(100vh - 150px);
+            background-color: #f8f8f8;
+        }
+
+        .turtle-table-wrapper {
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 600px;
+        }
+
+        .turtle-table-wrapper h2 {
+            text-align: center;
+            color: #28ABE3;
+            margin-bottom: 20px;
+        }
+
+        .turtle-table-wrapper p {
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        .volunteer-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .volunteer-list li {
+            margin-bottom: 10px;
+        }
+
+        .turtle-btn {
+            padding: 10px 20px;
+            background-color: #28ABE3;
+            border: none;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .turtle-btn:hover {
+            background-color: #1a86b0;
+            transform: translateY(-2px);
+        }
+    </style>
 </head>
+
 <body>
-    <br><br><br><br>
-    <br><br><br><br>
-    <br><br><br><br>
-    <br><br><br><br>
-    <br><br><br><br>
-    <form action="/volunteer_eventsedit/<%= event.event_id %>" method="POST">
-        <!-- Event Details -->
-        <h2>Edit Event: <%= event.event_id %></h2>
-        <p>
-            <strong>Address:</strong> <%= event.street_address_1 %>, <%= event.city %>, <%= event.state %><br>
-            <strong>Venue Type:</strong> <%= event.venue_type %><br>
-            <strong>Event Date:</strong> <%= new Date(event.event_date).toISOString().split('T')[0] %>
-        </p>
-    
-        <!-- Volunteer Attendance -->
-        <h3>Volunteers</h3>
-        <ul>
-            <% volunteers.forEach(volunteer => { %>
-                <li>
-                    <input 
-                        type="checkbox" 
-                        id="volunteer_<%= volunteer.volunteer_id %>" 
-                        name="volunteers[]" 
-                        value="<%= volunteer.volunteer_id %>" 
-                        <%= volunteer.attended ? 'checked' : '' %>
-                    >
-                    <label for="volunteer_<%= volunteer.volunteer_id %>"><%= volunteer.first_name %> <%= volunteer.last_name %></label>
-                </li>
-            <% }) %>
-        </ul>
-    
-        <!-- Save Button -->
-        <button type="submit">Save</button>
-    </form>
-    
+    <!-- Main Content -->
+    <div class="turtle-container">
+        <div class="turtle-table-wrapper">
+            <!-- Event Details -->
+            <h2>Edit Event: <%= event.event_id %>
+            </h2>
+            <p>
+                <strong>Address:</strong>
+                <%= event.street_address_1 %>, <%= event.city %>, <%= event.state %><br>
+                            <strong>Venue Type:</strong>
+                            <%= event.venue_type %><br>
+                                <strong>Event Date:</strong>
+                                <%= new Date(event.event_date).toISOString().split('T')[0] %>
+            </p>
+
+            <!-- Volunteer Attendance -->
+            <h3 style="color: #28ABE3;">Volunteers</h3>
+            <form action="/volunteer_eventsedit/<%= event.event_id %>" method="POST">
+                <ul class="volunteer-list">
+                    <% volunteers.forEach(volunteer=> { %>
+                        <li>
+                            <input type="checkbox" id="volunteer_<%= volunteer.volunteer_id %>" name="volunteers[]"
+                                value="<%= volunteer.volunteer_id %>" <%=volunteer.attended ? 'checked' : '' %>
+                            >
+                            <label for="volunteer_<%= volunteer.volunteer_id %>">
+                                <%= volunteer.first_name %>
+                                    <%= volunteer.last_name %>
+                            </label>
+                        </li>
+                        <% }) %>
+                </ul>
+
+                <!-- Save Button -->
+                <div style="text-align: center; margin-top: 20px;">
+                    <button type="submit" class="turtle-btn">Save Changes</button>
+
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="plugins/jquery/jquery.min.js"></script>
+    <script src="plugins/bootstrap/bootstrap.min.js"></script>
 </body>
+
 </html>

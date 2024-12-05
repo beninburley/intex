@@ -1,229 +1,209 @@
+<!-- DONE & COPIED OVER-->
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Request</title>
+    <title>Edit Request</title>
 
-    <!-- CSS
-          ================================================== -->
-    <!-- Themefisher Icon font -->
-    <link rel="stylesheet" href="plugins/themefisher-font/style.css">
-    <!-- bootstrap.min css -->
+    <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="plugins/bootstrap/bootstrap.min.css">
-    <!-- Lightbox.min css -->
-    <link rel="stylesheet" href="plugins/lightbox2/css/lightbox.min.css">
-    <!-- animation css -->
-    <link rel="stylesheet" href="plugins/animate/animate.css">
-    <!-- Slick Carousel -->
-    <link rel="stylesheet" href="plugins/slick/slick.css">
-    <!-- Main Stylesheet -->
-    <link rel="stylesheet" href="css/style.css">
 
-    <!--
-              Fixed Navigation
-              ==================================== -->
-    <header class="navigation fixed-top">
-        <div class="container">
-            <!-- main nav -->
-            <nav class="navbar navbar-expand-lg navbar-light px-0">
-                <!-- logo -->
-                <a class="navbar-brand logo" href="/">
-                    <img loading="lazy" class="logo-default" src="images/logo.png" alt="logo" />
-                    <img loading="lazy" class="logo-white" src="images/logo.png" alt="logo" />
-                </a>
-                <!-- /logo -->
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation"
-                    aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+    <!-- Inline CSS -->
+    <style>
+        /* Turtle-specific styles */
+        .turtle-container {
+            margin-top: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f8f8f8;
+        }
 
-                <div class="collapse navbar-collapse" id="navigation">
-                    <ul class="navbar-nav ml-auto text-center">
-                        <li class="nav-item dropdown active">
-                            <a class="nav-link dropdown-toggle" href="/" id="navbarDropdown" role="button"
-                                aria-haspopup="true" aria-expanded="false">
-                                Home</i>
-                            </a>
-                        <li class="nav-item ">
-                            <a class="nav-link" href="/adminmaintain">Admins</a> <!-- services.-->
-                        </li>
-                        <li class="nav-item ">
-                            <a class="nav-link" href="/volunteermaintain">Volunteers</a> <!-- services.-->
-                        </li>
-                        <li class="nav-item ">
-                            <a class="nav-link" href="/requestmaintain">Requests</a> <!-- services.-->
-                        </li>
-                        <li class="nav-item ">
-                            <a class="nav-link" href="/eventmaintain">Events</a> <!-- services.-->
-                        </li>
-                    </ul>
-                    </li>
-                    </ul>
-                </div>
-            </nav>
-            <!-- /main nav -->
-        </div>
-    </header>
-    <!--
-              End Fixed Navigation
-              ==================================== -->
+        .turtle-table-wrapper {
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 800px;
+        }
 
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: none;
+        }
+
+        .form-control:focus {
+            border-color: #28ABE3;
+            box-shadow: 0 0 5px rgba(40, 171, 227, 0.5);
+        }
+
+        .btn-main {
+            padding: 10px 20px;
+            background-color: #28ABE3;
+            border: none;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .btn-main:hover {
+            background-color: #1a86b0;
+            transform: translateY(-2px);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+    </style>
 </head>
 
-<body onload="highlightCurrentDay()">
-    <!-- Contact Form -->
-    <div class="contact-form col-md-6 mx-auto">
-        <form id="contact-form" action="/requestedit/<%=spec_event.event_id%>" method="post" role="form">
+<body>
 
-            <!-- How many people will be there? -->
-            <div class="form-group mb-4">
-                <label for="peopleCount">How many people will be there? (can be a rough estimate)</label>
-                <input type="number" class="form-control" name="peopleCount" id="peopleCount"
-                    value="<%= spec_event.expected_participants%>" required>
-            </div>
+    <!-- Main Content -->
+    <div class="turtle-container">
+        <div class="turtle-table-wrapper">
+            <h2 style="text-align: center; color: #28ABE3;">Edit Request</h2>
+            <form id="contact-form" action="/requestedit/<%= spec_event.event_id %>" method="post" role="form">
+                <!-- Number of People -->
+                <div class="form-group">
+                    <label for="peopleCount">How many people will be there? (estimate)</label>
+                    <input type="number" class="form-control" name="peopleCount" id="peopleCount"
+                        value="<%= spec_event.expected_participants %>" required>
+                </div>
 
-            <!-- Sewing preference -->
-            <div class="form-group mb-4">
-                <label>Would you like to do sewing, non-sewing, or both at the event?</label><br>
-                <input type="radio" id="sewing" name="sewingOption" value="SEWING"
-                    <%=spec_event.activity_type==='SEWING' ? 'checked' : '' %> required>
-                <label for="sewing">Sewing</label><br>
-                <input type="radio" id="nonSewing" name="sewingOption" value="NON-SEWING"
-                    <%=spec_event.activity_type==='NON-SEWING' ? 'checked' : '' %> required>
-                <label for="nonSewing">Non-Sewing</label><br>
-                <input type="radio" id="both" name="sewingOption" value="BOTH" <%=spec_event.activity_type==='BOTH'
-                    ? 'checked' : '' %> required>
-                <label for="both">Both</label>
-            </div>
+                <!-- Activity Type -->
+                <div class="form-group">
+                    <label>Event Type</label><br>
+                    <input type="radio" id="sewing" name="sewingOption" value="SEWING"
+                        <%=spec_event.activity_type==='SEWING' ? 'checked' : '' %> required>
+                    <label for="sewing">Sewing</label><br>
+                    <input type="radio" id="nonSewing" name="sewingOption" value="NON-SEWING"
+                        <%=spec_event.activity_type==='NON-SEWING' ? 'checked' : '' %> required>
+                    <label for="nonSewing">Non-Sewing</label><br>
+                    <input type="radio" id="both" name="sewingOption" value="BOTH" <%=spec_event.activity_type==='BOTH'
+                        ? 'checked' : '' %> required>
+                    <label for="both">Both</label>
+                </div>
 
-            <!-- Event Date -->
-            <div class="form-group mb-4">
-                <label for="eventDate">What date would you like to schedule the event? (Select a single date)</label>
-                <input type="date" class="form-control" name="eventDate" id="eventDate" required
-                    value="<%=spec_event.event_date%>">
-            </div>
+                <!-- Event Date -->
+                <div class="form-group">
+                    <label for="eventDate">Event Date</label>
+                    <input type="date" class="form-control" name="eventDate" id="eventDate" required
+                        value="<%= spec_event.event_date %>">
+                </div>
 
-            <!-- Event Time -->
-            <div class="form-group mb-4">
-                <label for="eventStartTime">What time do you want the event to start?</label>
-                <input type="time" class="form-control" name="eventStartTime" id="eventStartTime" required
-                    value="<%=spec_event.start_time%>">
-            </div>
+                <!-- Event Time -->
+                <div class="form-group">
+                    <label for="eventStartTime">Event Start Time</label>
+                    <input type="time" class="form-control" name="eventStartTime" id="eventStartTime" required
+                        value="<%= spec_event.start_time %>">
+                </div>
 
-            <!-- Event Duration -->
-            <div class="form-group mb-4">
-                <label for="eventDuration">How long would you like the event to go? (Estimated in hours)</label>
-                <input type="number" class="form-control" name="eventDuration" id="peopleCount"
-                    placeholder="Event duration" min="0" require value="<%=spec_event.duration%>">
-            </div>
+                <!-- Event Duration -->
+                <div class="form-group">
+                    <label for="eventDuration">Event Duration (hours)</label>
+                    <input type="number" class="form-control" name="eventDuration" id="eventDuration"
+                        value="<%= spec_event.duration %>" required>
+                </div>
 
-            <!-- Address Form -->
-            <div class="form-group mb-4">
-                <label for="addressLine1">Address Line 1</label>
-                <input type="text" class="form-control" name="addressLine1" id="addressLine1"
-                    value="<%= spec_event.street_address_1%>" required>
-            </div>
-            <div class="form-group mb-4">
-                <input type="text" class="form-control" name="addressLine2" id="addressLine2"
-                    value="<%= spec_event.street_address_2%>">
-            </div>
-            <div class="form-group mb-4">
-                <label for="city">City</label>
-                <input type="text" class="form-control" name="city" id="city" value="<%= spec_event.city%>" required>
-            </div>
-            <div class="form-group mb-4">
-                <label for="state">State</label>
-                <input type="text" class="form-control" name="state" id="state" value="<%= spec_event.state%>" required>
-            </div>
+                <!-- Address -->
+                <div class="form-group">
+                    <label for="addressLine1">Address Line 1</label>
+                    <input type="text" class="form-control" name="addressLine1" id="addressLine1"
+                        value="<%= spec_event.street_address_1 %>" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" name="addressLine2" id="addressLine2"
+                        value="<%= spec_event.street_address_2 %>">
+                </div>
+                <div class="form-group">
+                    <label for="city">City</label>
+                    <input type="text" class="form-control" name="city" id="city" value="<%= spec_event.city %>"
+                        required>
+                </div>
+                <div class="form-group">
+                    <label for="state">State</label>
+                    <input type="text" class="form-control" name="state" id="state" value="<%= spec_event.state %>"
+                        required>
+                </div>
 
-            <div class="form-group mb-4">
-                <label for="venueType">Venue Type</label>
-                <select class="form-control" name="venueType" id="venueType" required>
-                    <option value="LIVINGROOM" <%=spec_event.venue_type==='LIVINGROOM' ? 'selected' : '' %>
-                        >Living Room</option>
-                    <option value="OFFICESPACE" <%=spec_event.venue_type==='OFFICESPACE' ? 'selected' : ''
-                        %>>Office Space</option>
-                    <option value="GYM" <%=spec_event.venue_type==='GYM' ? 'selected' : '' %>>Gym</option>
-                    <option value="CHURCH" <%=spec_event.venue_type==='CHURCH' ? 'selected' : '' %>
-                        >Church/School Building</option>
-                    <option value="OTHER" <%=spec_event.venue_type==='OTHER' ? 'selected' : '' %>>Other
-                    </option>
-                </select>
-            </div>
+                <!-- Venue Type -->
+                <div class="form-group">
+                    <label for="venueType">Venue Type</label>
+                    <select class="form-control" name="venueType" id="venueType" required>
+                        <option value="LIVINGROOM" <%=spec_event.venue_type==='LIVINGROOM' ? 'selected' : '' %>>
+                            Living Room</option>
+                        <option value="OFFICESPACE" <%=spec_event.venue_type==='OFFICESPACE' ? 'selected' : '' %>>
+                            Office Space</option>
+                        <option value="GYM" <%=spec_event.venue_type==='GYM' ? 'selected' : '' %>>Gym</option>
+                        <option value="CHURCH OR SCHOOL" <%=spec_event.venue_type==='CHURCH' ? 'selected' : '' %>>
+                            Church/School Building</option>
+                        <option value="OTHER" <%=spec_event.venue_type==='OTHER' ? 'selected' : '' %>>Other</option>
+                    </select>
+                </div>
 
-            <!-- Contact Name (First & Last) and Phone Email -->
-            <div class="form-group mb-4">
-                <label for="contactFirstName">First Name</label>
-                <input type="text" class="form-control" name="contactFirstName" id="contactFirstName"
-                    value="<%= spec_event.contact_first_name%>" required>
-            </div>
-            <div class="form-group mb-4">
-                <label for="contactLastName">Last Name</label>
-                <input type="text" class="form-control" name="contactLastName" id="contactLastName"
-                    value="<%= spec_event.contact_last_name%>" required>
-            </div>
-            <div class="form-group mb-4">
-                <label for="contactEmail">Email</label>
-                <input type="email" class="form-control" name="contactEmail" id="contactEmail"
-                    value="<%= spec_event.contact_email%>" required>
-            </div>
-            <div class="form-group mb-4">
-                <label for="contactPhone">Phone Number</label>
-                <input type="tel" class="form-control" name="contactPhone" id="contactPhone"
-                    value="<%= spec_event.contact_phone%>" pattern="[0-9]+" maxlength="15" required>
-            </div>
+                <!-- Contact Information -->
+                <div class="form-group">
+                    <label for="contactFirstName">Contact First Name</label>
+                    <input type="text" class="form-control" name="contactFirstName" id="contactFirstName"
+                        value="<%= spec_event.contact_first_name %>" required>
+                </div>
+                <div class="form-group">
+                    <label for="contactLastName">Contact Last Name</label>
+                    <input type="text" class="form-control" name="contactLastName" id="contactLastName"
+                        value="<%= spec_event.contact_last_name %>" required>
+                </div>
+                <div class="form-group">
+                    <label for="contactEmail">Contact Email</label>
+                    <input type="email" class="form-control" name="contactEmail" id="contactEmail"
+                        value="<%= spec_event.contact_email %>" required>
+                </div>
+                <div class="form-group">
+                    <label for="contactPhone">Contact Phone</label>
+                    <input type="tel" class="form-control" name="contactPhone" id="contactPhone"
+                        value="<%= spec_event.contact_phone %>" required>
+                </div>
 
+                <!-- Notes -->
+                <div class="form-group">
+                    <label for="notes">Additional Notes</label>
+                    <textarea class="form-control" name="notes" id="notes"><%= spec_event.notes %></textarea>
+                </div>
 
-            <!-- Share Jen's story -->
-            <div class="form-group mb-4">
-                <label>Did Jen share her story?</label><br>
-                <input type="checkbox" id="jenStory" name="jenStory" value="on" <%=spec_event.jen_story ? 'checked'
-                    : '' %>>
-                    <label for="jenStory">Yes</label>
-            </div>
+                <div class="form-group">
+                    <label for="stat">Status</label>
+                    <select class="form-control" name="status" id="status" required>
+                        <option value="PENDING" <%=spec_event.status==='PENDING' ? 'selected' : '' %>>Pending</option>
+                        <option value="ACCEPTED" <%=spec_event.status==='ACCEPTED' ? 'selected' : '' %>>Accepted
+                        </option>
+                        <option value="DECLINED" <%=spec_event.status==='DECLINED' ? 'selected' : '' %>>Declined
+                        </option>
+                        <option value="COMPLETED" <%=spec_event.status==='COMPLETED' ? 'selected' : '' %>>Completed
+                        </option>
+                    </select>
+                </div>
 
-            <!-- Notes and/or Other Dates -->
-            <div class="form-group mb-4">
-                <label for="notes">Notes</label>
-                <input type="text" class="form-control" name="notes" id="notes"
-                    value="<%= spec_event.notes%>"></input>
-            </div>
-
-            <div class="form-group mb-4">
-                <label for="alternative_date">Other dates (Optional)</label>
-                <input type="text" class="form-control" name="alternative_date" id="alternative_date"
-                    value="<%= spec_event.alternative_date%>"></input>
-            </div>
-
-            <div class="form-group mb-4">
-                <label for="stat">Status</label>
-                <select class="form-control" name="status" id="status" required>
-                    <option value="PENDING" <%=spec_event.status==='PENDING' ? 'selected' : '' %>>Pending</option>
-                    <option value="ACCEPTED" <%=spec_event.status==='ACCEPTED' ? 'selected' : '' %>>Accepted</option>
-                    <option value="DECLINED" <%=spec_event.status==='DECLINED' ? 'selected' : '' %>>Declined</option>
-                    <option value="COMPLETED" <%=spec_event.status==='COMPLETED' ? 'selected' : '' %>>Completed</option>
-                </select>
-            </div>
-
-            <!-- Form fields -->
-            <button type="submit" class="btn btn-main">Submit</button>
-
-
-        </form>
+                <!-- Submit -->
+                <div style="text-align: center;">
+                    <button type="submit" class="btn-main">Save Changes</button>
+                </div>
+            </form>
+        </div>
     </div>
-    <!-- ./End Contact Form -->
 
-    <script>
-        function highlightCurrentDay() {
-            const calendar = document.getElementById('dates');
-            const today = new Date().toISOString().split('T')[0];
-            if (!calendar.value) {
-                calendar.value = today;
-            }
-        }
-    </script>
+    <!-- Essential Scripts -->
+    <script src="plugins/jquery/jquery.min.js"></script>
+    <script src="plugins/bootstrap/bootstrap.min.js"></script>
 </body>
 
 </html>
