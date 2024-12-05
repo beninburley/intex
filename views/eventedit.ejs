@@ -181,20 +181,30 @@
                 </div>
 
                 <div class="form-group">
-                    <% event_products.forEach(product=> { %>
-                        <div>
-                            <label for="<%= product.product_type %>">
-                                <%= product.product_type %>:
-                            </label>
-                            <input type="number" class="form-control" id="<%= product.product_type %>"
-                                name="products[<%= product.product_type %>]" value="<%= product.amount_produced %>"
-                                min="0">
-                        </div>
-                        <% }); %>
+                    <% 
+                    // Define all possible products
+                    const possible_products = ['pockets', 'vests', 'collars', 'envelopes'];
+                
+                    // Create a set of all products (existing + possible)
+                    const all_products = possible_products.map(product => {
+                        const existing = event_products.find(ep => ep.product_type === product);
+                        return existing || { product_type: product, amount_produced: 0 };
+                    });
+                
+                    // Render each product type exactly once
+                    all_products.forEach(product => { 
+                    %>
+                    <div>
+                        <label for="<%= product.product_type %>">
+                            <%= product.product_type %>:
+                        </label>
+                        <input type="number" class="form-control" id="<%= product.product_type %>"
+                            name="products[<%= product.product_type %>]" value="<%= product.amount_produced %>" min="0">
+                    </div>
+                    <% }); %>
                 </div>
-
-
-
+                
+                
 
                 <!-- Completed Products -->
                 <div class="form-group">

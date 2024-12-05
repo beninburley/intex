@@ -1,4 +1,4 @@
-<!--DONE and copied from jake-->
+<!--DONE AND COPIED-->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -44,6 +44,7 @@
   <div class="turtle-container">
     <div class="turtle-table-wrapper">
       <h2 style="text-align:center; color: #28ABE3;">Volunteer Info</h2>
+      <!-- Volunteer data table -->
       <table class="turtle-table">
         <thead>
           <tr>
@@ -56,6 +57,7 @@
           </tr>
         </thead>
         <tbody>
+          <!-- Render volunteer data dynamically -->
           <% if (volunteer_list.length> 0) { %>
             <% volunteer_list.forEach(row=> { %>
               <tr>
@@ -75,6 +77,7 @@
                   <%= row.willing_to_lead ? "Yes" : "No" %>
                 </td>
                 <td>
+                  <!-- Edit and Delete buttons for volunteer records -->
                   <form action="/volunteeredit/<%= row.volunteer_id %>" method="GET" style="display:inline;">
                     <button class="turtle-btn" type="submit">Edit</button>
                   </form>
@@ -86,6 +89,7 @@
               </tr>
               <% }) %>
                 <% } else { %>
+                  <!-- Message if no volunteers are available -->
                   <tr>
                     <td colspan="6" class="turtle-no-data">No data available</td>
                   </tr>
@@ -93,6 +97,7 @@
         </tbody>
       </table>
 
+      <!-- Action buttons for navigation -->
       <div style="text-align:center; margin-top: 20px;">
         <form action="/internallanding" method="GET" style="display:inline;">
           <button class="turtle-btn" type="submit">Return Home</button>

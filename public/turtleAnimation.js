@@ -10,17 +10,20 @@ turtleImage.onload = () => {
     const drawTurtle = () => {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+        // Wave effect
         const yOffset = Math.sin(frame * 0.1) * 10;
 
-        ctx.save(); // Save the current context state
+        ctx.save();
 
-        // Flip the turtle and adjust the position
-        ctx.translate(140, 10 + yOffset); // Adjust the x translation to match image size
-        ctx.scale(-1, 1); // Invert the image horizontally
+        // Move to the turtle's center and apply transformations
+        ctx.translate(150, 150 + yOffset);
+        ctx.scale(-1, 1); // Flip horizontally
+        ctx.rotate(Math.sin(frame * 0.05) * 0.2); // Rotate dynamically
 
-        ctx.drawImage(turtleImage, 0, 0, 150, 180); // Adjust width and height as needed
+        // Draw the turtle
+        ctx.drawImage(turtleImage, -75, -90, 150, 180);
 
-        ctx.restore(); // Restore the context to its original state
+        ctx.restore();
 
         frame++;
         requestAnimationFrame(drawTurtle);

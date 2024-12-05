@@ -41,6 +41,8 @@ was about us page
   <link rel="stylesheet" href="plugins/slick/slick.css">
   <!-- Main Stylesheet -->
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="public/css/header.css">
+
 
 </head>
 <body id="body">
@@ -64,37 +66,33 @@ was about us page
 <!--
 Fixed Navigation
 ==================================== -->
-<header class="navigation fixed-top">
+<header class="homeless-navigation fixed-top" style="position: fixed; top: 0; left: 0; width: 100%; z-index: 1000; background-color: #ffffff; border-bottom: 1px solid #ddd; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); padding: 3px 0;">
   <div class="container">
     <nav class="navbar navbar-expand-lg navbar-light px-0">
-      <a class="navbar-brand logo d-flex align-items-center" href="/">
-        <img loading="lazy" class="logo-default" src="/images/logo.png" alt="logo" />
-        <img loading="lazy" class="logo-white" src="/images/logo-white.png" alt="logo" />
-        <span class="logo-text">Turtle Shelter Project</span>
+      <a class="navbar-brand homeless-logo" href="/" style="display: flex; align-items: center;">
+        <img loading="lazy" class="homeless-logo-default" src="images/logo.png" alt="logo" style="max-height: 100px; margin-right: 10px;">
+        <span class="homeless-logo-text" style="color: #333; font-weight: 600; font-size: 25px; transition: color 0.3s ease;">Turtle Shelter Project</span>
       </a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation"
-        aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#homeless-navigation">
+        <span class="navbar-toggler-icon" style="background-color: #333;"></span>
       </button>
-      <div class="collapse navbar-collapse" id="navigation">
-        <ul class="navbar-nav ml-auto text-center">
-          <li class="nav-item dropdown active">
-            <a class="nav-link dropdown-toggle" href="/" id="navbarDropdown" role="button" aria-haspopup="true" aria-expanded="false">
-              Home
-            </a>
+      <div class="collapse navbar-collapse" id="homeless-navigation" style="justify-content: flex-end;">
+        <ul class="navbar-nav ml-auto text-center" style="list-style: none; padding: 0;">
+          <li class="nav-item" style="display: inline-block; margin: 0 10px;">
+            <a class="nav-link" href="/" style="color: #333; font-weight: 500; transition: color 0.3s ease;">Home</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/jenstory">Jen's Story</a>
+          <li class="nav-item" style="display: inline-block; margin: 0 10px;">
+            <a class="nav-link" href="/jenstory" style="color: #333; font-weight: 500; transition: color 0.3s ease;">Jen's Story</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/request">Event Request</a>
+          <li class="nav-item" style="display: inline-block; margin: 0 10px;">
+            <a class="nav-link" href="/request" style="color: #333; font-weight: 500; transition: color 0.3s ease;">Request an Event</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/volunteersignup">Volunteer Sign Up</a>
+          <li class="nav-item" style="display: inline-block; margin: 0 10px;">
+            <a class="nav-link" href="/volunteersignup" style="color: #333; font-weight: 500; transition: color 0.3s ease;">Volunteer Sign Up</a>
           </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="/faqs" id="navbarDropdown02" role="button" data-toggle="dropdown"
-              aria-haspopup="true" aria-expanded="false">
+          <!-- Dropdown for About -->
+          <li class="nav-item dropdown" style="display: inline-block; margin: 0 10px;">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown02" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: #333; font-weight: 500; transition: color 0.3s ease;">
               About
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown02">
@@ -106,21 +104,12 @@ Fixed Navigation
         </ul>
       </div>
     </nav>
-    <!-- /main nav -->
   </div>
 </header>
   <!--
   End Fixed Navigation
   ==================================== -->
-
-<section class="single-page-header">
-	<div class="container">
-		<div class="row">
-			<div class="col-md-12">
-			</div>
-		</div>
-	</div>
-</section>
+  <br><br><br><br><br>
 
 <section class="about-shot-info section-sm">
     <div class="container">
@@ -144,7 +133,7 @@ Fixed Navigation
 				<div class="row justify-content-center">
 					<div class="col-xl-6 col-lg-8 text-center">
 		
-						<a href="/volunteersignup" class="btn btn-main">learn how you can help</a>
+						<a href="/volunteersignup" class="btn btn-main">join our team</a>
 					</div>
 				</div> <!-- End row -->
 			</div> <!-- End container -->
@@ -171,6 +160,7 @@ Fixed Navigation
             </li>
             <li><a href="https://www.facebook.com/turtleshelterproject/">Facebook</a></li>
             <li><a href="https://www.instagram.com/turtleshelterproject/">Instagram</a></li>
+            <li><a href="https://www.linkedin.com/in/turtle-shelter-project-6aa0aa1a4/">Linkedin</a></li>
           </ul>
         </div>
 
@@ -211,8 +201,7 @@ Fixed Navigation
 <!-- Custom js -->
 <script src="js/script.js"></script>
 
-<!-- turtle chat -->
-
+<!-- Chatbot Section -->
 <div id="turtleSection">
   <canvas id="turtleCanvas" title="Ask me anything!"></canvas>
   <div id="questionInput">
@@ -229,42 +218,34 @@ Fixed Navigation
 </div>
 
 <script src="/turtleAnimation.js"></script>
-<script>
-  const askButton = document.getElementById("askButton");
-  const userInput = document.getElementById("userInput");
-  const responseModal = document.getElementById("responseModal");
-  const responseText = document.getElementById("responseText");
-  const closeButton = document.querySelector(".close-button");
+<script src="/chatbot.js"></script>
 
-  askButton.addEventListener("click", async () => {
-    const userMessage = userInput.value.trim();
-    if (!userMessage) return;
+<style>
+  #turtleCanvas {
+    /* position: absolute; */
+    /* Allow precise positioning */
+    /* top: 0px; */
+    /* Move the turtle up */
+    bottom: -204px;
+    right: -91px;
+    /* Move the turtle to the left */
+    z-index: 1;
+    /* Ensure the turtle stays above or below other elements as needed */
+    width: 150px;
+    /* Adjust the width if necessary */
+    height: 150px;
+    /* Adjust the height if necessary */
+  }
 
-    try {
-      const response = await fetch("/chat", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: userMessage }),
-      });
-
-      const data = await response.json();
-      responseText.innerText = data.response;
-      responseModal.style.display = "block";
-    } catch (error) {
-      console.error("Error:", error);
-    }
-  });
-
-  closeButton.addEventListener("click", () => {
-    responseModal.style.display = "none";
-  });
-
-  window.addEventListener("click", (event) => {
-    if (event.target === responseModal) {
-      responseModal.style.display = "none";
-    }
-  });
-</script>
+  #questionInput {
+    position: relative;
+    /* Keeps the input box positioned correctly */
+    margin-top: 200px;
+    /* Add margin to avoid overlapping with the turtle */
+    z-index: 2;
+    /* Keep the input box above the canvas */
+  }
+</style>
 
 </body>
 

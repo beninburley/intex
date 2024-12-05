@@ -88,11 +88,15 @@
 
     <!-- Main Content -->
     <div class="turtle-container">
+         <!-- Wrapper for the "Edit Admin" form -->
         <div class="turtle-table-wrapper">
             <h2 style="text-align: center; color: #28ABE3;">Edit Admin</h2>
+             <!-- Form for editing admin data -->
             <form action="/adminedit/<%= spec_admin.admin_id %>" method="POST">
+                <!-- Table for input fields -->
                 <table class="turtle-table">
                     <tbody>
+                        <!-- Row for editing the username -->
                         <tr>
                             <th>Username</th>
                             <td>
@@ -100,6 +104,7 @@
                                     value="<%= spec_admin.username %>" required>
                             </td>
                         </tr>
+                        <!-- Row for editing the password -->
                         <tr>
                             <th>Password</th>
                             <td>
@@ -107,6 +112,7 @@
                                     value="<%= spec_admin.password %>" required>
                             </td>
                         </tr>
+                         <!-- Row for the "Save Changes" button -->
                         <tr>
                             <td colspan="2" style="text-align: center;">
                                 <button type="submit" class="turtle-btn">Save Changes</button>

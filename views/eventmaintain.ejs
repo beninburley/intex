@@ -45,6 +45,7 @@
     <div class="turtle-container">
         <div class="turtle-table-wrapper">
             <h2 style="text-align:center; color: #28ABE3;">Event Info</h2>
+            <!-- Table to display event details -->
             <table class="turtle-table">
                 <thead>
                     <tr>
@@ -58,6 +59,7 @@
                     </tr>
                 </thead>
                 <tbody>
+                     <!-- Dynamically populate table rows with event data -->
                     <% if (event_list.length> 0) { %>
                         <% event_list.forEach(row=> { %>
                             <tr>
@@ -80,18 +82,23 @@
                                     <%= row.event_date %>
                                 </td>
                                 <td>
+                                    <!-- Edit button redirects to the event editing page -->
                                     <form action="/eventedit/<%= row.event_id %>" method="GET" style="display:inline;">
                                         <button class="turtle-btn" type="submit">Edit</button>
                                     </form>
-                                    <form action="/eventdelete/<%= row.event_id %>" method="POST"
-                                        style="display:inline;">
-                                        <button class="turtle-btn" type="submit"
-                                            onclick="return confirm('Are you sure you want to delete this record?');">Delete</button>
+                                    <!-- Delete button triggers the delete functionality -->
+                                    <form id="deleteForm-<%= row.event_id %>" style="display:inline;">
+                                        <button class="turtle-btn" type="button" 
+                                            onclick="handleDelete('<%= row.event_id %>');">
+                                            Delete
+                                        </button>
                                     </form>
+                                    
                                 </td>
                             </tr>
                             <% }) %>
                                 <% } else { %>
+                                    <!-- Message displayed when there are no events -->
                                     <tr>
                                         <td colspan="7" class="turtle-no-data">No data available</td>
                                     </tr>
@@ -99,6 +106,7 @@
                 </tbody>
             </table>
 
+            <!-- Buttons for navigation: Add Event and Return Home -->
             <div style="text-align:center; margin-top: 20px;">
                 <form action="/internallanding" method="GET" style="display:inline;">
                     <button class="turtle-btn" type="submit">Return Home</button>
@@ -110,9 +118,30 @@
         </div>
     </div>
 
-    <!-- Scripts -->
+    <!-- Scripts for dynamic functionality-->
     <script src="plugins/jquery/jquery.min.js"></script>
     <script src="plugins/bootstrap/bootstrap.min.js"></script>
+    <script>
+        // Handles event deletion after user confirmation
+        async function handleDelete(eventId) {
+            const confirmDelete = confirm('Are you sure you want to delete this record?');
+            if (!confirmDelete) return;
+    
+            try {
+                const response = await fetch(`/eventdelete/${eventId}`, { method: 'POST' });
+    
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.message);
+                }
+    
+                alert('Event deleted successfully!');
+                location.reload(); // Refresh the page to reflect changes
+            } catch (err) {
+                alert(`Error: ${err.message}`);
+            }
+        }
+    </script>
 </body>
 
 </html>

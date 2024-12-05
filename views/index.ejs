@@ -42,6 +42,9 @@
   <!-- Main Stylesheet -->
   <link rel="stylesheet" href="css/style.css">
 
+  <link rel="stylesheet" href="public/css/header.css">
+
+
 </head>
 <body id="body">
 
@@ -65,40 +68,33 @@
 <!--
 Fixed Navigation
 ==================================== -->
-<header class="navigation fixed-top">
+<header class="homeless-navigation fixed-top" style="position: fixed; top: 0; left: 0; width: 100%; z-index: 1000; background-color: #ffffff; border-bottom: 1px solid #ddd; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); padding: 3px 0;">
   <div class="container">
     <nav class="navbar navbar-expand-lg navbar-light px-0">
-      <a class="navbar-brand logo d-flex align-items-center" href="/">
-        <div class="logo-container">
-          <img loading="lazy" class="logo-default" src="/images/logo.png" alt="logo" />
-          <img loading="lazy" class="logo-white" src="/images/logo-white.png" alt="logo" />
-          <span class="logo-text">Turtle Shelter Project</span>
-        </div>
+      <a class="navbar-brand homeless-logo" href="/" style="display: flex; align-items: center;">
+        <img loading="lazy" class="homeless-logo-default" src="images/logo.png" alt="logo" style="max-height: 100px; margin-right: 10px;">
+        <span class="homeless-logo-text" style="color: #333; font-weight: 600; font-size: 25px; transition: color 0.3s ease;">Turtle Shelter Project</span>
       </a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation"
-        aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#homeless-navigation">
+        <span class="navbar-toggler-icon" style="background-color: #333;"></span>
       </button>
-      <div class="collapse navbar-collapse" id="navigation">
-        <ul class="navbar-nav ml-auto text-center">
-          <li class="nav-item dropdown active">
-            <a class="nav-link dropdown-toggle" href="/" id="navbarDropdown" role="button" aria-haspopup="true"
-              aria-expanded="false">
-              Home
-            </a>
+      <div class="collapse navbar-collapse" id="homeless-navigation" style="justify-content: flex-end;">
+        <ul class="navbar-nav ml-auto text-center" style="list-style: none; padding: 0;">
+          <li class="nav-item" style="display: inline-block; margin: 0 10px;">
+            <a class="nav-link" href="/" style="color: #333; font-weight: 500; transition: color 0.3s ease;">Home</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/jenstory">Jen's Story</a>
+          <li class="nav-item" style="display: inline-block; margin: 0 10px;">
+            <a class="nav-link" href="/jenstory" style="color: #333; font-weight: 500; transition: color 0.3s ease;">Jen's Story</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/request">Event Request</a>
+          <li class="nav-item" style="display: inline-block; margin: 0 10px;">
+            <a class="nav-link" href="/request" style="color: #333; font-weight: 500; transition: color 0.3s ease;">Request an Event</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/volunteersignup">Volunteer Sign Up</a>
+          <li class="nav-item" style="display: inline-block; margin: 0 10px;">
+            <a class="nav-link" href="/volunteersignup" style="color: #333; font-weight: 500; transition: color 0.3s ease;">Volunteer Sign Up</a>
           </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="/faqs" id="navbarDropdown02" role="button" data-toggle="dropdown"
-              aria-haspopup="true" aria-expanded="false">
+          <!-- Dropdown for About -->
+          <li class="nav-item dropdown" style="display: inline-block; margin: 0 10px;">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown02" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: #333; font-weight: 500; transition: color 0.3s ease;">
               About
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown02">
@@ -110,23 +106,29 @@ Fixed Navigation
         </ul>
       </div>
     </nav>
-    <!-- /main nav -->
   </div>
 </header>
+
+
+
+
+
+
 
 
 <!--
 End Fixed Navigation
 ==================================== -->
-
+<br><br><br><br><br>
 
 	<div class="slider-item th-fullpage hero-area" style="background-image: url(images/mainimage.jpg);">
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12 text-center">
-					<h1 data-duration-in=".3" data-animation-in="fadeInUp" data-delay-in=".1">STARTS WITH YOU</h1>
+					
 					<p data-duration-in=".3" data-animation-in="fadeInUp" data-delay-in=".5">Helping to save lives of people experiencing homelessness</p>
-					<a data-duration-in=".3" data-animation-in="fadeInUp" data-delay-in=".8" class="btn btn-main"
+					<h1 data-duration-in=".3" data-animation-in="fadeInUp" data-delay-in=".1">STARTS WITH YOU</h1>
+          <a data-duration-in=".3" data-animation-in="fadeInUp" data-delay-in=".8" class="btn btn-main"
 						href="/jenstory">Learn more</a>
 				</div>
 			</div>
@@ -171,8 +173,8 @@ Start About Section
           <div class="col-md-6 col-sm-6">
             <a href="/volunteersignup">
             <div class="service-item">
-              <h4>Take action</h4>
-              <p>Ready to take the next step? You can, volunteer, donate, or organize an event.</p>
+              <h4>Volunteer Now</h4>
+              <p>WE NEED YOU! You can make a difference by donating your time and resources! Every person can serve!</p>
             </div>
           </a>
           </div><!-- END COL -->
@@ -240,6 +242,16 @@ Start About Section
             </li>
             <li><a href="https://www.facebook.com/turtleshelterproject/">Facebook</a></li>
             <li><a href="https://www.instagram.com/turtleshelterproject/">Instagram</a></li>
+            <li><a href="https://www.linkedin.com/in/turtle-shelter-project-6aa0aa1a4/">Linkedin</a></li>
+          </ul>
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+          <ul>
+            <li>
+              <h3>Admin Login</h3>
+            </li>
+            <li><a href="/login">Login</a></li>
           </ul>
         </div>
 
@@ -264,151 +276,62 @@ Start About Section
 <!-- lightbox -->
 <script src="plugins/lightbox2/js/lightbox.min.js"></script>
 <!-- Owl Carousel -->
-<script src="plugins/slick/slick.min.js"></script>
+<!-- <script src="plugins/slick/slick.min.js"></script> -->
 <!-- filter -->
 <script src="plugins/filterizr/jquery.filterizr.min.js"></script>
 <!-- Smooth Scroll js -->
-<script src="plugins/smooth-scroll/smooth-scroll.min.js"></script>
-<!-- Google Map -->
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCcABaamniA6OL5YvYSpB3pFMNrXwXnLwU"></script>
-<script src="plugins/google-map/gmap.js"></script>
+<!-- <script src="plugins/smooth-scroll/smooth-scroll.min.js"></script> -->
+
 
 <!-- Custom js -->
 <script src="js/script.js"></script>
 
-<!-- Turtle Chat -->
+<!-- Chatbot Section -->
 <div id="turtleSection">
   <canvas id="turtleCanvas" title="Ask me anything!"></canvas>
-  <div id="chatWindow" class="hidden">
-    <div id="responseArea"></div>
-    <div id="questionInput">
-      <input id="userInput" type="text" placeholder="Type your question here..." />
-      <button id="askButton">Ask</button>
-    </div>
+  <div id="questionInput">
+    <input id="userInput" type="text" placeholder="Type your question here..." />
+    <button id="askButton">Ask</button>
   </div>
 </div>
 
-<script>
-  const canvas = document.getElementById("turtleCanvas");
-  const chatWindow = document.getElementById("chatWindow");
-  const responseArea = document.getElementById("responseArea");
-  const userInput = document.getElementById("userInput");
-  const askButton = document.getElementById("askButton");
+<div id="responseModal" class="modal">
+  <div class="modal-content">
+    <span class="close-button">&times;</span>
+    <p id="responseText"></p>
+  </div>
+</div>
 
-  // Position and click behavior for the turtle
-  canvas.addEventListener("click", () => {
-    chatWindow.classList.toggle("hidden");
-    chatWindow.classList.toggle("slide-in");
-  });
+<script src="/turtleAnimation.js"></script>
+<script src="/chatbot.js"></script>
 
-  // Send user query and display response
-  askButton.addEventListener("click", async () => {
-    const userMessage = userInput.value.trim();
-    if (!userMessage) return;
-
-    try {
-      const response = await fetch("/chat", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: userMessage }),
-      });
-
-      const data = await response.json();
-
-      // Add response to the response area
-      const responseElement = document.createElement("div");
-      responseElement.classList.add("response");
-      responseElement.textContent = data.response;
-
-      responseArea.appendChild(responseElement);
-      responseArea.scrollTop = responseArea.scrollHeight; // Scroll to the bottom
-      userInput.value = "";
-    } catch (error) {
-      console.error("Error:", error);
-    }
-  });
-</script>
+  
+  
 
 <style>
-  /* Positioning turtle in bottom-right */
   #turtleCanvas {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    cursor: pointer;
-  }
-
-  /* Chat window styles */
-  #chatWindow {
-    position: fixed;
-    bottom: 100px;
-    right: 20px;
-    width: 300px;
-    background: #ffffff;
-    border: 1px solid #ccc;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    border-radius: 8px;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    transition: transform 0.3s ease-in-out;
-  }
-
-  /* Hidden by default */
-  .hidden {
-    display: none;
-  }
-
-  /* Slide-in animation */
-  .slide-in {
-    display: block;
-    transform: translateX(0);
-  }
-
-  /* Response area styles */
-  #responseArea {
+    /* position: absolute; */
+    /* Allow precise positioning */
+    /* top: 0px; */
+    /* Move the turtle up */
+    bottom: -204px;
+    right: -91px;
+    /* Move the turtle to the left */
+    z-index: 1;
+    /* Ensure the turtle stays above or below other elements as needed */
+    width: 150px;
+    /* Adjust the width if necessary */
     height: 150px;
-    overflow-y: auto;
-    padding: 10px;
-    background: #f9f9f9;
-    border-bottom: 1px solid #ccc;
+    /* Adjust the height if necessary */
   }
 
-  .response {
-    margin-bottom: 8px;
-    padding: 8px;
-    background: #e6f7ff;
-    border-radius: 4px;
-  }
-
-  /* Input and button styles */
   #questionInput {
-    display: flex;
-    padding: 10px;
-    background: #ffffff;
-  }
-
-  #userInput {
-    flex: 1;
-    padding: 8px;
-    margin-right: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
-
-  #askButton {
-    padding: 8px 16px;
-    background: #28ABE3;
-    /* Updated to your theme color */
-    color: #ffffff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-
-  #askButton:hover {
-    background: #1B89B8;
-    /* Slightly darker shade for hover effect */
+    position: relative;
+    /* Keeps the input box positioned correctly */
+    margin-top: 200px;
+    /* Add margin to avoid overlapping with the turtle */
+    z-index: 2;
+    /* Keep the input box above the canvas */
   }
 </style>
 

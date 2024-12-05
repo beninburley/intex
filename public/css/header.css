@@ -1,0 +1,71 @@
+/* Homeless Navigation Header - Fixed at top */
+.homeless-navigation {
+    position: fixed; /* Keeps the header at the top */
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    background-color: #ffffff; /* White background for the header */
+    border-bottom: 1px solid #ddd; /* Thin border under the header */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for the header */
+    padding: 10px 0; /* Vertical padding for the header */
+  }
+  
+  /* Homeless Logo and Text */
+  .homeless-logo {
+    display: flex;
+    align-items: center;
+  }
+  
+  .homeless-logo img {
+    max-height: 100px; /* Ensures logo fits well */
+    margin-right: 10px;
+  }
+  
+  .homeless-logo-text {
+    color: #333; /* Dark text color for the project name */
+    font-weight: 600; /* Bold text for the logo text */
+    font-size: 20px; /* Set an appropriate font size */
+    transition: color 0.3s ease; /* Smooth transition on hover */
+  }
+  
+  /* Navbar Links Styling */
+  .homeless-navigation .navbar-nav .nav-link {
+    color: #333; /* Dark color for the text */
+    font-weight: 500; /* Slightly bold text for navigation links */
+    margin: 0 10px; /* Spacing between links */
+    transition: color 0.3s ease; /* Smooth transition effect for color change */
+  }
+  
+  .homeless-navigation .navbar-nav .nav-link:hover {
+    color: #28ABE3; /* Change color to blue on hover */
+  }
+  
+  /* Navbar Collapsing & Responsive Settings */
+  .homeless-navigation .navbar-toggler-icon {
+    background-color: #333; /* Color for the toggle icon on mobile */
+  }
+  
+  .homeless-navigation .navbar-collapse {
+    justify-content: flex-end; /* Aligns the navbar items to the right */
+  }
+/* Default color for nav links */
+.nav-link {
+  color: #333 !important;
+  font-weight: 500 !important;
+  transition: color 0.3s ease !important;
+}
+
+/* Hover effect for nav links */
+.nav-link:hover,
+.nav-link:focus {
+  color: #28ABE3 !important; /* Blue color on hover */
+  text-decoration: underline !important;
+}
+
+/* Active link color */
+.nav-link.active {
+  color: #28ABE3 !important; /* Blue color for active link */
+  font-weight: bold !important;
+}
+  

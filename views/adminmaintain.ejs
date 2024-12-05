@@ -44,8 +44,10 @@
     <div class="turtle-container">
         <div class="turtle-table-wrapper">
             <h2 style="text-align:center; color: #28ABE3;">Admin Info</h2>
+             <!-- Table to display admin information -->
             <table class="turtle-table">
                 <thead>
+                    <!-- Table headers for admin data -->
                     <tr>
                         <th>Admin ID</th>
                         <th>Username</th>
@@ -53,11 +55,15 @@
                     </tr>
                 </thead>
                 <tbody>
+                     <!-- Dynamically render admin rows if data exists -->
                     <% if (admin_list.length > 0) { %>
                         <% admin_list.forEach(row => { %>
                             <tr>
+                                <!-- Admin ID -->
                                 <td><%= row.admin_id %></td>
+                                <!-- Admin username -->
                                 <td><%= row.username %></td>
+                                 <!-- Action buttons for editing or deleting admin -->
                                 <td>
                                     <form action="/adminedit/<%= row.admin_id %>" method="GET" style="display:inline;">
                                         <button class="turtle-btn" type="submit">Edit</button>
@@ -69,6 +75,7 @@
                             </tr>
                         <% }) %>
                     <% } else { %>
+                        <!-- Message displayed if no admin data is available -->
                         <tr>
                             <td colspan="3" class="turtle-no-data">No data available</td>
                         </tr>
@@ -76,6 +83,7 @@
                 </tbody>
             </table>
 
+              <!-- Buttons for returning to the home page or adding a new admin -->
             <div style="text-align:center; margin-top: 20px;">
                 <form action="/internallanding" method="GET" style="display:inline;">
                     <button class="turtle-btn" type="submit">Return Home</button>

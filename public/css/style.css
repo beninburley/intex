@@ -2464,3 +2464,57 @@ a:focus, a:hover {
   margin-left: auto;
   /* Ensure toggler stays on the right */
 }
+
+#turtleSection {
+  text-align: center;
+  margin-top: 20px;
+}
+
+#questionInput {
+  margin-top: 20px;
+}
+
+#userInput {
+  width: 70%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+#askButton {
+  padding: 10px 20px;
+  background-color: #28ABE3;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+  position: relative;
+  background: white;
+  margin: 15% auto;
+  padding: 20px;
+  width: 60%;
+  border-radius: 10px;
+}
+
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  font-size: 20px;
+  cursor: pointer;
+}

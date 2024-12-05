@@ -1,3 +1,136 @@
+// // Benjamin Hansen, Jake Hoopes, Brooklyn Burnham, Summer Sampson
+// // This is the server-side js file
+
+// // Import libraries
+// const express = require("express");
+// const path = require("path");
+// const bodyParser = require("body-parser");
+// const { default: OpenAI } = require("openai");
+// const fs = require("fs");
+// const session = require('express-session');
+// require("dotenv").config();
+
+// const app = express();
+// const port = process.env.PORT || 3000; // Use environment port or default to 3000
+
+// // Set up application
+// app.set("view engine", "ejs"); // Set views to be EJS by default
+// app.set("views", path.join(__dirname, "views")); // Define views folder
+// app.use(express.static(path.join(__dirname, "public"))); // Serve static files
+// app.use(bodyParser.json()); // Parse JSON
+// app.use(express.urlencoded({ extended: true })); // Parse form data
+
+// //For Password stuff
+// app.use(
+//     session({
+//         secret: 'your_secret_key', // Change to a strong secret for production
+//         resave: false,
+//         saveUninitialized: false,
+//     })
+// );
+
+// //Security Key Function that either allows or denies web access
+// function ensureAdmin(req, res, next) {
+//     if (req.session.isAdmin) {
+//         next();
+//     } else {
+//         res.redirect('/login');
+//     }
+// }
+
+
+// const knex = require("knex")({ //Connect to postgres db
+//     client: "pg",
+//     connection: {
+//         host: process.env.RDS_HOSTNAME || "localhost",
+//         user: process.env.RDS_USERNAME || "postgres",
+//         password: process.env.RDS_PASSWORD || "Turtl310%",
+//         database: process.env.RDS_DB_NAME || "turtleshelter",
+//         port: process.env.RDS_PORT || 5432,
+//         ssl: process.env.DB_SSL ? { rejectUnauthorized: false } : false
+//     } //All of these || allow us to either use the RDS variables or default to localHost information
+//     //This allows this rds to be valid on either beanstalk or your localhost
+// });
+
+// // OpenAI configuration
+// const openai = new OpenAI({
+//     apiKey: process.env.OPENAI_API_KEY, // Set your OpenAI API key in the .env file
+// });
+
+// // Organization data
+// const organizationData = {
+//     email: "turtleshelterproject@gmail.com",
+//     phone: "+1 (801)-872-3190",
+//     address: "Turtle Shelter Project, PO Box 382, Kaysville, Utah, 84307",
+// };
+
+// // Load structured data for responses
+// const data = JSON.parse(fs.readFileSync("./chatbot.json", "utf8"));
+
+// // Chatbot endpoint
+// app.post("/chat", async (req, res) => {
+//     const userMessage = req.body.message.toLowerCase();
+
+//     // Custom structured responses from JSON
+//     if (userMessage.includes("email")) {
+//         return res.json({ response: `You can contact us at ${organizationData.email}.` });
+//     }
+
+//     if (userMessage.includes("phone") || userMessage.includes("number") || userMessage.includes("call")) {
+//         return res.json({ response: `Our phone number is ${organizationData.phone}.` });
+//     }
+
+//     if (userMessage.includes("address") || userMessage.includes("located") || userMessage.includes("location") || userMessage.includes("mail")) {
+//         return res.json({ response: `Our address is ${organizationData.address}.` });
+//     }
+
+//     if (userMessage.includes("vest") || userMessage.includes("materials") || userMessage.includes("tech") || userMessage.includes("technology")) {
+//         return res.json({
+//             response: data.vest.description,
+//         });
+//     }
+
+//     if (userMessage.includes("founder") || userMessage.includes("jen")) {
+//         return res.json({
+//             response: `Our founder, Jen, was inspired to create the Turtle Shelter Project after her own experiences with homelessness. ${data.founder.story}`,
+//         });
+//     }
+
+//     if (userMessage.includes("mission")) {
+//         return res.json({ response: `Our mission is: ${data.founder.mission}.` });
+//     }
+
+//     if (userMessage.includes("values")) {
+//         return res.json({ response: `Our values are: ${data.values.join(", ")}.` });
+//     }
+
+//     if (userMessage.includes("help") || userMessage.includes("donate") || userMessage.includes("organize")) {
+//         return res.json({
+//             response: `Here are ways you can help: ${data.ways_to_help.donate} ${data.ways_to_help.request} ${data.ways_to_help.organize_event}`,
+//         });
+//     }
+
+//     // Use OpenAI for general questions
+//     try {
+//         const response = await openai.chat.completions.create({
+//             model: "gpt-3.5-turbo",
+//             messages: [
+//                 {
+//                     role: "system",
+//                     content: `You are a helpful assistant for the Turtle Shelter Project, a nonprofit organization dedicated to creating foam vests to help save lives in freezing temperatures. The founder, Jen, was inspired by her experiences with homelessness. The mission is: Every life has value. Every person can serve. Values include compassion, accessibility, innovation, and community support.`,
+//                 },
+//                 { role: "user", content: req.body.message },
+//             ],
+//         });
+
+//         const botResponse = response.choices[0].message.content;
+//         res.json({ response: botResponse });
+//     } catch (error) {
+//         console.error("OpenAI API Error:", error.message);
+//         res.status(500).json({ response: "Oops! Something went wrong." });
+//     }
+// });
+
 // Benjamin Hansen, Jake Hoopes, Brooklyn Burnham, Summer Sampson
 // This is the server-side js file
 
@@ -7,7 +140,7 @@ const path = require("path");
 const bodyParser = require("body-parser");
 const { default: OpenAI } = require("openai");
 const fs = require("fs");
-const session = require('express-session');
+const session = require("express-session");
 require("dotenv").config();
 
 const app = express();
@@ -20,26 +153,26 @@ app.use(express.static(path.join(__dirname, "public"))); // Serve static files
 app.use(bodyParser.json()); // Parse JSON
 app.use(express.urlencoded({ extended: true })); // Parse form data
 
-//For Password stuff
+// For Password stuff
 app.use(
     session({
-        secret: 'your_secret_key', // Change to a strong secret for production
+        secret: "your_secret_key", // Change to a strong secret for production
         resave: false,
         saveUninitialized: false,
     })
 );
 
-//Security Key Function that either allows or denies web access
+// Security Key Function that either allows or denies web access
 function ensureAdmin(req, res, next) {
     if (req.session.isAdmin) {
         next();
     } else {
-        res.redirect('/login');
+        res.redirect("/login");
     }
 }
 
-
-const knex = require("knex")({ //Connect to postgres db
+// Connect to PostgreSQL DB
+const knex = require("knex")({
     client: "pg",
     connection: {
         host: process.env.RDS_HOSTNAME || "localhost",
@@ -47,9 +180,8 @@ const knex = require("knex")({ //Connect to postgres db
         password: process.env.RDS_PASSWORD || "Turtl310%",
         database: process.env.RDS_DB_NAME || "turtleshelter",
         port: process.env.RDS_PORT || 5432,
-        ssl: process.env.DB_SSL ? { rejectUnauthorized: false } : false
-    } //All of these || allow us to either use the RDS variables or default to localHost information
-    //This allows this rds to be valid on either beanstalk or your localhost
+        ssl: process.env.DB_SSL ? { rejectUnauthorized: false } : false,
+    },
 });
 
 // OpenAI configuration
@@ -274,7 +406,7 @@ app.post('/request', (req, res) => {
             status: 'PENDING'
         })
         .then(() => {
-            res.status(200).json({ message: "Event requested successfully!" });
+            res.status(200).json({message: "Request submitted successfully"})
         })
         .catch((error) => {
             console.error(error);
@@ -695,6 +827,120 @@ app.get("/eventedit/:id", ensureAdmin, async (req, res) => {
     }
 });
 
+// app.post("/eventedit/:id", ensureAdmin, async (req, res) => {
+//     const id = req.params.id;
+//     const { products } = req.body;
+
+//     try {
+//         // Iterate over submitted products and update or insert as needed
+//         for (const productType in products) {
+//             const amountProduced = parseInt(products[productType], 10);
+
+//             // Check if the product already exists for this event
+//             const existingProduct = await knex('events_products')
+//                 .where({ event_id: id, product_type: productType })
+//                 .first();
+
+//             if (existingProduct) {
+//                 // Update existing product
+//                 await knex('events_products')
+//                     .where({ event_id: id, product_type: productType })
+//                     .update({ amount_produced: amountProduced });
+//             } else {
+//                 // Insert new product
+//                 await knex('events_products').insert({
+//                     event_id: id,
+//                     product_type: productType,
+//                     amount_produced: amountProduced,
+//                 });
+//             }
+//         }
+
+//         res.redirect('/eventmaintain'); // Redirect after successful update
+//     } catch (error) {
+//         console.error('Error updating products:', error);
+//         res.status(500).send('Internal Server Error');
+//     }
+// });
+
+app.post("/eventedit/:id", ensureAdmin, async (req, res) => {
+    const id = req.params.id;
+    const {
+        peopleCount,
+        sewingOption,
+        eventDate,
+        eventStartTime,
+        eventDuration,
+        addressLine1,
+        addressLine2,
+        city,
+        state,
+        venueType,
+        contactFirstName,
+        contactLastName,
+        contactEmail,
+        contactPhone,
+        notes,
+        completed_product,
+        products, // Products is already being handled
+    } = req.body;
+
+    try {
+        // Update the main event details in the 'events' table
+        await knex('requests_and_events')
+            .where({ event_id: id })
+            .update({
+                actual_participants: parseInt(peopleCount, 10),
+                activity_type: sewingOption,
+                event_date: eventDate,
+                start_time: eventStartTime,
+                duration: parseFloat(eventDuration),
+                street_address_1: addressLine1,
+                street_address_2: addressLine2,
+                city: city,
+                state: state,
+                venue_type: venueType,
+                contact_first_name: contactFirstName,
+                contact_last_name: contactLastName,
+                contact_email: contactEmail,
+                contact_phone: contactPhone,
+                notes: notes || null,
+                completed_products: parseInt(completed_product, 10),
+            });
+
+        // Iterate over submitted products and update or insert as needed
+        for (const productType in products) {
+            const amountProduced = parseInt(products[productType], 10);
+
+            // Check if the product already exists for this event
+            const existingProduct = await knex('events_products')
+                .where({ event_id: id, product_type: productType })
+                .first();
+
+            if (existingProduct) {
+                // Update existing product
+                await knex('events_products')
+                    .where({ event_id: id, product_type: productType })
+                    .update({ amount_produced: amountProduced });
+            } else {
+                // Insert new product
+                await knex('events_products').insert({
+                    event_id: id,
+                    product_type: productType,
+                    amount_produced: amountProduced,
+                });
+            }
+        }
+
+        res.redirect('/eventmaintain'); // Redirect after successful update
+    } catch (error) {
+        console.error('Error updating event:', error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
+
+
 
 app.get("/eventmaintain", ensureAdmin, (req, res) => {
     knex('requests_and_events')
@@ -881,18 +1127,29 @@ app.post("/requestdelete/:id", (req, res) => {
 });
 
 app.post("/eventdelete/:id", (req, res) => {
-    const id = req.params.id
+    const id = req.params.id;
     knex('requests_and_events')
         .where('event_id', id)
         .del() // Deletes the record with the specified ID
         .then(() => {
-            res.redirect('/eventmaintain'); // Redirect to the volunteers list after deletion
+            res.status(200).json({ message: 'Event deleted successfully' });
         })
-        .catch(error => { //Finally... the last error handlers.
+        .catch(error => {
             console.error('Error deleting event:', error);
-            res.status(500).send('Internal Server Error');
+
+            // Check for foreign key constraint violation (PostgreSQL error code: 23503)
+            if (error.code === '23503') {
+                res.status(400).json({
+                    message: 'This event cannot be deleted because it is linked to other data. Please remove associated data first.',
+                });
+            } else {
+                res.status(500).json({
+                    message: 'An unexpected error occurred while deleting the event.',
+                });
+            }
         });
 });
+
 
 // Volunteer Routes
 app.get("/volunteeradd", ensureAdmin, (req, res) => {
@@ -1037,11 +1294,6 @@ app.get("/requestmaintain", ensureAdmin, (req, res) => {
         });
 });
 
-app.post("/requestdelete/:id", (req, res) => {
-    const requestId = req.params.id;
-    console.log(`Request with ID ${requestId} deleted`);
-    res.redirect("/requestmaintain");
-});
 
 // Start server
 app.listen(port, () => console.log(`Express App has started and server is listening on port ${port}!`));
